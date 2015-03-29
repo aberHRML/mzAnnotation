@@ -1,9 +1,11 @@
 Package: mzAnnotation
 Type: Package
-Title: What the package does (short line)
+Title: Signal annotation tools for FIE-HRMS metabolomics
 Version: 1.0
 Date: 2015-03-29
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: Jasen Finch
+Maintainer: Jasen Finch <jsf9@aber.ac.uk>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
+LinkingTo: Rcpp
+Depends: Hmisc

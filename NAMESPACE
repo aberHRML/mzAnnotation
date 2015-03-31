@@ -1,1 +1,3 @@
+useDynLib(mzAnnotation)
 exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)

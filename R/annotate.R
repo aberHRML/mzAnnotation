@@ -5,21 +5,17 @@ function(explan.mass,peak.mat,dat.all,mode,ppm,MZedDB,Path,lat=c(C=90,iC=1,H=180
   cat("\n","-",mode,sep=""); flush.console()
   explan <- explan.mass[[y]]
   explan.1 <- data.frame(rownames(explan),explan[,1])
-  if(mode=="P"|mode=="p"|mode=="pos"){
-    mode <- "p"
+  if(mode=="p"){
     dat <- as.matrix(dat.all[[1]])
     peak.mat.1 <- peak.mat[[1]]
     lat <- latmp
   }
-  if(mode=="N"|mode=="n"|mode=="neg"){
-    mode <- "n"
+  if(mode=="n"){
     dat <- as.matrix(dat.all[[2]])
     peak.mat.1 <- peak.mat[[2]]
     lat <- latmn
-    }
-    
-  cat("\n","Collecting MFs, Isotope Distributions and MZedDB hits","\n",sep="");flush.console()
-  info.annot <-lapply(bin.list,run_MF_iso_agg,explan=explan.1,peak.mat=peak.mat.1,mode.1=mode,ppm.1=ppm,add_pred.1=add_pred,MZedDB.1=MZedDB,lat.1=lat,srce.1=srce)  
+    } 
+   info.annot <-lapply(bin.list,run_MF_iso_agg,explan=explan.1,peak.mat=peak.mat.1,mode.1=mode,ppm.1=ppm,add_pred.1=add_pred,MZedDB.1=MZedDB,lat.1=lat,srce.1=srce)  
   names(info.annot) <- bin.list
   cat("\n",'...  done in ',FIEmspro:::timer_end(time1)$dt,sep="")
   return(info.annot)

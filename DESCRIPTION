@@ -8,4 +8,4 @@ Maintainer: Jasen Finch <jsf9@aber.ac.uk>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
 LinkingTo: Rcpp
-Depends: Hmisc
+Depends: Hmisc, plyr

@@ -5,9 +5,9 @@
 
 using namespace Rcpp;
 
-// do_calculations
-std::vector<std::vector<std::string> > do_calculations(double measured_mass, std::vector<int> max, std::vector<int> min, double tolerance, double charge, bool applygr);
-RcppExport SEXP mzAnnotation_do_calculations(SEXP measured_massSEXP, SEXP maxSEXP, SEXP minSEXP, SEXP toleranceSEXP, SEXP chargeSEXP, SEXP applygrSEXP) {
+// mfGen
+std::vector<std::vector<std::string> > mfGen(double measured_mass, std::vector<int> max, std::vector<int> min, double tolerance, double charge, bool applygr);
+RcppExport SEXP mzAnnotation_mfGen(SEXP measured_massSEXP, SEXP maxSEXP, SEXP minSEXP, SEXP toleranceSEXP, SEXP chargeSEXP, SEXP applygrSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -17,7 +17,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type tolerance(toleranceSEXP);
     Rcpp::traits::input_parameter< double >::type charge(chargeSEXP);
     Rcpp::traits::input_parameter< bool >::type applygr(applygrSEXP);
-    __result = Rcpp::wrap(do_calculations(measured_mass, max, min, tolerance, charge, applygr));
+    __result = Rcpp::wrap(mfGen(measured_mass, max, min, tolerance, charge, applygr));
     return __result;
 END_RCPP
 }

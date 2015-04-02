@@ -16,18 +16,15 @@ function(mz,mo,ppm,latmin=c(C=0,iC=0,H=0,iH=0,N=0,iN=0,O=0,iO=0,F=0,Na=0,Si=0,P=
 	}
 	mf_res <- getMF(mz,ppm,charge=char,latmin=latmin,latmax=latmax,applygr=applygr)
 	mf_res <- filterMF(mf_res)
-	if(nrow(mf_res)==0){
-			mf_res <- "No MF hits"
-	} else {
-		iso <- grep("i",mf_res[,"Clean MF"],fixed=TRUE)
-		if(length(iso)>0){
-				mf <- mf[-iso]
-			}
-			if (length(mf) > 0){
-				## get isotopic distributions
-				iso_ab <- lapply(mf,iso.distr,chrg=char)
-				iso_ab <- filter.iso(iso_ab)
-				names(iso_ab) <- mf
+	iso <- grep("i",mf_res[,"Clean MF"],fixed=TRUE)
+	if(length(iso)>0){
+		mf <- mf[-iso]
+	}
+	if (length(mf) > 0){
+		## get isotopic distributions
+		iso_ab <- lapply(mf,isoDistr,chrg=char)
+		iso_ab <- filterIso(iso_ab)
+		names(iso_ab) <- mf
 				 ## calculate measured relative isotope intensities for C13
 		}
 	}

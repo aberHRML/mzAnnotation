@@ -1,4 +1,4 @@
-mZedDB <-
+MZedDB <-
 function(rand_mz,ppm,Path){    # wrapper function for mZedDB searches of feature lists in rand_mz at specified ppm
 	for(x in 1:length(ppm)) {
 		for (i in 1:length(rand_mz)){

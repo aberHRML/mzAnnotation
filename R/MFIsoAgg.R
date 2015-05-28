@@ -27,7 +27,6 @@ function(mz,mo,ppm,latmin=c(C=0,iC=0,H=0,iH=0,N=0,iN=0,O=0,iO=0,F=0,Na=0,Si=0,P=
 		names(iso_ab) <- mf
 				 ## calculate measured relative isotope intensities for C13
 		}
-	}
 	## get mzeddb hits for accurate mass
 	cat("\n","Querying MZedDB..."); flush.console()
 	mz.hits <- mzeddb_get(as.numeric(m[1,2]),mo,ppm,MZedDB.2)	

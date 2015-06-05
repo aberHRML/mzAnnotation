@@ -20,5 +20,7 @@ function(MFs){
                                                 grepl("K",x) & grepl("Ik",x) || 
                                                 grepl("Cl",x) & grepl("ICL",x)));return(y)}))
   filtered.mfs <- MFs[which(mf==T),]
+  filtered.mfs <- matrix(filtered.mfs,ncol=6)
+  colnames(filtered.mfs) <- colnames(MFs)
 	return (filtered.mfs)
 }

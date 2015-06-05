@@ -1,4 +1,6 @@
-filter.iso <-
+
+
+filterIso<-
 function(isos){
 	for (i in 1:length(isos)){
 		curr.iso <- isos[[i]]

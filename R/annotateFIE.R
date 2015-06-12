@@ -7,19 +7,18 @@ function(explan_mass,data,peaks,mode,ppm,MZedDB,gencors=T,genmf=T,geniso=T,mzsea
     annot_all[["Correlation_Analysis"]] <- corAnalysis(data,rownames(explan_mass),mode=mode)
   }
   if(genmf==T){
-    annot_all[["Molecular_Formulas"]] <- apply(explan_mass,1,getMF,mode=mode,lat=lat,ppm=5)
+    annot_all[["Molecular_Formulas"]] <- apply(explan_mass,1,getMF,mode=mode,lat=lat,ppm=ppm)
   }
   if(geniso==T){
     if(genmf==F){
-      cat("Unable to calculate theoretical isotope distributions. Molecular FOrmulas need to be generated first! Set genmf to TRUE")
+      cat("Unable to calculate theoretical isotope distributions.Molecular FOrmulas need to be generated first! Set genmf to TRUE")
     } else {
-      annot_all["Theoretical Isotope Distributions"] <- lapply(annot_all$Molecular_Formulas,getIsoDist,mode=mode)
+      annot_all["Theoretical Isotope Distributions"] <- list(lapply(annot_all$Molecular_Formulas,getIsoDist,mode=mode))
     }
   }
   if(mzsearch==T){
-    annot_all["MZedDB Hits"] <- apply(explan_mass)
+    annot_all["Putative Ionisation Products"] <- list(lapply(explan_mass[,1],getPIP,mode=mode,ppm=ppm))
   }
-  
   names(info.annot) <- bin.list
   return(info.annot)
 }

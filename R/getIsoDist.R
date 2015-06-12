@@ -9,8 +9,8 @@ getIsoDist <- function(mf_res,mode){
 	  	charge <- -1
 	  }	
 	  iso <- grepl("i",mf_res[,"Clean MF"],fixed=TRUE)
-	  if(length(iso)>0){
-		  mf_res <- mf_res[-which(iso==T)]
+	  if(length(which(iso==T))>0){
+		  mf_res <- mf_res[-which(iso==T),]
 	  }
 	  if(nrow(mf_res)>0){
 		  iso_ab <- lapply(mf_res[,"MF"],isoDistr,chrg=charge)

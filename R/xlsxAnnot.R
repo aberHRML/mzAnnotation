@@ -1,4 +1,4 @@
-xlsx.annot <-
+xlsxAnnot <-
 function(wb,annot_all,dn,Path,DF,plots=F){
 	sheet <- createSheet(wb, sheetName = dn)
 	bins <- unique(annot_all[,1])

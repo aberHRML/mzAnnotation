@@ -15,20 +15,12 @@ function(data,varlist,mode,pval=0.05){
   cors$r[cors$P>pval] <- 0
   cors$r[cors$r==1] <- 0
   cors$r[cors$r < 0] <- 0
-  s <- apply(cors$r,2,sum)
-  cors$r <- cors$r[s>0,s>0]
-  cors.lists <- corLists(cors$r)
-  cors <- NULL
-  seq.1 <- seq(1,ncol(cors.lists))
-  col <- colnames(cors.lists) %in% varlist
-  seq.1 <- seq.1[col]
-  seq.2 <- seq.1 + 1
-  cors.lists <- cors.lists[,sort(c(seq.1,seq.2))]
-  cors.lists[cors.lists==0] <- NA
-  add_pred <- NULL
-  for(i in 1:(ncol(cors.lists)/2)){
-    add_pred[i] <- list(calcDiff(cors.lists[,(i*2-1):(i*2)],mode))    
-  }
-  names(add_pred) <- colnames(cors.lists)[seq(1,ncol(cors.lists),2)] 
-  return(add_pred)
+  cors <- cors$r
+  cors <- cors[,colnames(cors) %in% varlist]
+  s <- apply(cors,1,sum)
+  cors <- cors[s>0,]
+  cors.lists <- corLists(cors)
+  cors.lists <- lapply(cors.lists,calcDiff,mo=mode)
+  names(cors.lists) <- varlist
+  return(cors.lists)
 }

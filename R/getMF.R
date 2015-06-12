@@ -17,16 +17,16 @@ function(explan.mz,ppm,mode,MFfilter=T,lat=list(c(C=0,iC=0,H=0,iH=0,N=0,iN=0,O=0
 	resp <- mfGen(explan.mz[1],lat[[2]],lat[[1]],prec,charge,applygr)	
 	if(length(resp)>0){
 	  resp <- matrix(unlist(resp), nrow = length(resp),byrow=T)
+	  resp[,7] <- sapply(resp[,4],function(x,mass){x <- as.numeric(x);x <- (x-mass)/mass*10^6; return(round(x,5))},mass=explan.mz[[1]])
+	  resp <- cbind(rep(explan.mz[[1]],nrow(resp)),resp)
+    resp <- resp[,-c(6:7)]
+    resp <- matrix(resp,ncol=6)
 	} else {
-	  resp <- matrix(ncol=7,nrow=0)
+	  resp <- matrix(ncol=6,nrow=0)
 	}
-	resp[,7] <- sapply(resp[,4],function(x,mass){x <- as.numeric(x);x <- (x-mass)/mass*10^6; return(round(x,5))},mass=explan.mz[1])
-	resp <- cbind(rep(explan.mz[1],nrow(resp)),resp)
-  resp <- resp[,-c(6:7)]
-  resp <- matrix(resp,ncol=6)
 	colnames(resp) <- c("Measured m/z", "Clean MF", "MF", "RDB", "m/z","PPM Error")
 	if (MFfilter==T){
 	  resp <- filterMF(resp)
 	}
-	return(resp)
+	return(data.frame(resp))
 }

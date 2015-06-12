@@ -1,7 +1,6 @@
-annot_sheet.1 <-
-function(x) {
-  annot_all <- matrix(ncol=29)
-  bins <- names(x)
+makeTable <-
+  function(annot_info){
+     bins <- names(x)
   for (i in 1:length(x)){
     current.mass <- x[[i]]
     acc.mass <- current.mass[[1]]
@@ -90,5 +89,4 @@ function(x) {
   title <- c("Bin","Accurate Mass",rep("Correlations",5),rep("MFs",6),rep("Theoretical Isotope Distributions",4),rep("Measured Isotope Distirbutions",6),rep("MZedDB Hits",6))
   annot_all <- rbind(title,annot_all)
   annot_all[is.na(annot_all)] <- ""
-  return(annot_all)
-}
+  }

@@ -9,6 +9,6 @@ function(annot_all) {
   for (i in 1:bins){
     annot_info[[i]] <- makeTable(lapply(annot_all,function(x,y){return(x[[y]])},y=i))
   } 
-  annot_info <- ldply(annot_info,data.frame)
+  annot_info <- do.call(rbind,annot_info)
   return(annot_info)
 }

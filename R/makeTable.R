@@ -21,13 +21,18 @@ makeTable <-
           MF.iso.tab <- cbind(MF.tab.cur,iso.cur)
           MF.iso[[i]] <- MF.iso.tab
         }
-        MF.iso <- ldply(MF.iso,data.frame)
+        MF.iso <- ldply(MF.iso,data.frame,stringsAsFactors=F)
+        MF.iso <- apply(MF.iso,2,as.character)
         annot_info$`Molecular Formulas` <- MF.iso
         annot_info <- annot_info[-which(names(annot_info) == "Theoretical Isotope Distributions")]
       } else {
-        MF.iso <- matrix(ncol=10,nrow=1)
-        annot_info$`Molecular Formulas` <- MF.iso
-        annot_info <- annot_info[-which(names(annot_info) == "Theoretical Isotope Distributions")]
+        if (nrow(annot_info[["Molecular Formulas"]])>0){
+          MF.iso <- cbind(annot_info[["Molecular Formulas"]],matrix(ncol=4,nrow=nrow(annot_info[["Molecular Formulas"]])))
+        } else {
+          MF.iso <- matrix(ncol=10,nrow=1)
+        }
+          annot_info$`Molecular Formulas` <- MF.iso
+          annot_info <- annot_info[-which(names(annot_info) == "Theoretical Isotope Distributions")]
       }
     }
     # rename columns for each table

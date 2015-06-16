@@ -28,5 +28,5 @@ function(explan.mz,ppm,mode,MFfilter=T,lat=list(c(C=0,iC=0,H=0,iH=0,N=0,iN=0,O=0
 	if (MFfilter==T){
 	  resp <- filterMF(resp)
 	}
-	return(data.frame(resp))
+	return(data.frame(resp,stringsAsFactors =F))
 }

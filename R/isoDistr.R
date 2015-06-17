@@ -1,4 +1,10 @@
 #' Isotope Distribution Generator
+#'
+#' @param mf 
+#' @param chrg 
+#' @param limri 
+#' @param limitfin 
+#' @param rv 
 
 isoDistr <-
 function(mf, chrg=0, limri=0.00000001, limitfin=0.009, rv=10000){

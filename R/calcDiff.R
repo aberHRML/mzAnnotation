@@ -1,4 +1,7 @@
 #' Identify structural relationships based on m/z differences
+#'
+#' @param mat 
+#' @param mo 
 
 calcDiff <-
 function(mat,mo){

@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param res 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 filterPIP <- 
   function(res){
 		patterns <- c("ic acid","keto","<i>","</i>","(R)-","(S)-","-L-","L-","(+)-",

@@ -1,3 +1,14 @@
+#' Title
+#'
+#' @param mz 
+#' @param mode 
+#' @param ppm 
+#' @param add 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 getPIP <-
 function(mz,mode,ppm,add=NULL){
 	if (mode=="p" & is.null(add)){

@@ -1,5 +1,12 @@
-
-  
+#' Title
+#'
+#' @param mf_res 
+#' @param mode 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 getIsoDist <- function(mf_res,mode){
   if(nrow(mf_res)>0){
     if (mode=="p"){

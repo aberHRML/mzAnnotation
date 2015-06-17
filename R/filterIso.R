@@ -1,5 +1,11 @@
-
-
+#' Title
+#'
+#' @param isos 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 filterIso<-
 function(isos){
 	for (i in 1:length(isos)){

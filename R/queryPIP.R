@@ -1,3 +1,16 @@
+#' Title
+#'
+#' @param add 
+#' @param mass_low 
+#' @param mass_high 
+#' @param MZedDB 
+#' @param mz 
+#' @param filter 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 queryPIP <-
 function(add,mass_low,mass_high,MZedDB,mz,filter=T){
 	rules <- MZedDB$ADDUCT_FORMATION_RULES

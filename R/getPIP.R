@@ -19,6 +19,9 @@ function(mz,mode,ppm,add=NULL){
 	if (mode=="n" & is.null(add)){
 			adducts <- c("[2M+Na-2H]1-","[2M-H]1-","[M+K-2H]1-","[M+Cl]1-","[M+Na-2H]1-","[M1-.]1-","[M-H]1-","[M-2H]2-")
 	}
+  if (mode=="ne"){
+    adducts <- c("M") 
+  }
   mass_low <- mz - (mz * ppm * 10^-6)
 	mass_high <- mz + (mz * ppm * 10^-6)
 	data("MZedDB")

@@ -116,6 +116,7 @@ viewAnnotation <- function(){
         } else {
           annot.res <- loadData()
           res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]]
+          names(res)[c(4,7,8)] <- c("Accurate Mass", "m/z","PPM Error")
           return(res)
         }
       })

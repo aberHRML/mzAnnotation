@@ -32,7 +32,7 @@ viewAnnotation <- function(){
             ),
             tabPanel("PIP Structures",
                       fluidRow(uiOutput("selectPIP")),
-                     fluidRow(plotOutput('smile'))
+                      plotOutput('smile')
             )
           )
         )
@@ -98,6 +98,7 @@ viewAnnotation <- function(){
         } else {
           annot.res <- loadData()
           res <- annot.res[[input$mode]][["Molecular Formulas"]][[input$selectedmz]]
+          names(res)[c(1,2,5,6)] <- c("Measured m/z", "Clean MF", "m/z", "PPM Error")
           return(res)
         }
       })
@@ -146,7 +147,7 @@ viewAnnotation <- function(){
         temp1 <- view.image.2d(sm,500,500)
         plot(NA,NA,xlim=c(1,100),ylim=c(1,100),xaxt='n',yaxt='n',xlab='',ylab='') 
         rasterImage(temp1,1,1,100,100) # boundaries of raster: xmin, ymin, xmax, ymax. here i set them equal to plot boundaries
-      }})
+      }},width=400,height=400)
     }
   )
 }

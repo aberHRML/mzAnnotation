@@ -27,7 +27,13 @@ viewAnnotation <- function(){
                      fluidRow(tableOutput('IsoDist')),
                      fluidRow(plotOutput('isoplot'))
             ),
-            tabPanel("Putative Ionisation Products",dataTableOutput('PIP'))
+            tabPanel("Putative Ionisation Products",
+                     fluidRow(dataTableOutput('PIP'))
+            ),
+            tabPanel("PIP Structures",
+                      fluidRow(uiOutput("selectPIP")),
+                     fluidRow(plotOutput('smile'))
+            )
           )
         )
       )
@@ -49,6 +55,11 @@ viewAnnotation <- function(){
         annot.res <- loadData()
         names(annot.res[[input$mode]][["Theoretical Isotope Distributions"]][[input$selectedmz]])
       })
+      availPIP <- reactive({
+        if(is.null(loadData())) return(NULL)
+        annot.res <- loadData()
+        annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]][,2]
+      })
       output$accurate <- renderDataTable({
         if (is.null(loadData())){
           return(NULL)
@@ -64,6 +75,9 @@ viewAnnotation <- function(){
       })
       output$selectMF <- renderUI({
         selectInput('selectedMF', 'MF', availMF())
+      })
+      output$selectPIP <- renderUI({
+        selectInput('selectedPIP', 'Putative Ionisation Product', availPIP())
       })
       output$correlation <- renderDataTable({
         if (is.null(loadData())){
@@ -120,6 +134,19 @@ viewAnnotation <- function(){
           return(res)
         }
       })
+      output$smile <- renderPlot({
+        if (is.null(loadData())){
+          return(NULL)
+        } else {
+        annot.res <- loadData()
+        res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]]
+        smile <- res[which(res[,2]==input$selectedPIP),5]
+        par(mar=c(0,0,0,0))
+        sm <- parse.smiles(smile)[[1]]
+        temp1 <- view.image.2d(sm,500,500)
+        plot(NA,NA,xlim=c(1,100),ylim=c(1,100),xaxt='n',yaxt='n',xlab='',ylab='') 
+        rasterImage(temp1,1,1,100,100) # boundaries of raster: xmin, ymin, xmax, ymax. here i set them equal to plot boundaries
+      }})
     }
   )
 }

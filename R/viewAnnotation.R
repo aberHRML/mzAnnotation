@@ -6,7 +6,7 @@ viewAnnotation <- function(){
       titlePanel("viewAnnotation"),
       sidebarLayout(
         sidebarPanel(
-          fileInput('file1', 'Choose file to upload',
+          fileInput('file1', 'Upload Annotation:',
                     accept = c(
                       '.RData'
                     )
@@ -15,11 +15,16 @@ viewAnnotation <- function(){
           radioButtons('mode', 'Mode',
                        c(Positive='Positive_Mode',
                          Negative='Negative_Mode')),
-          uiOutput("mz")
+          uiOutput("mz"),
+          tags$hr(),
+          textInput("boxplots","Box Plot Folder Path:"),
+          textInput("binplots","Bin Plots Folder Path:")
         ),
         mainPanel( 
           tabsetPanel(
             tabPanel("Accurate m/z", dataTableOutput('accurate')),
+            tabPanel("Box Plots", imageOutput('boxplot')),
+            tabPanel("Bin Plots", imageOutput('binplot')),
             tabPanel("Correlation Analysis", dataTableOutput('correlation')),
             tabPanel("Molecular Formulas",dataTableOutput('MF')),
             tabPanel("Theoretical Isotope Distributions",
@@ -60,6 +65,15 @@ viewAnnotation <- function(){
         annot.res <- loadData()
         annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]][,2]
       })
+      output$mz <- renderUI({
+        selectInput('selectedmz', 'm/z', availmz())
+      })
+      output$selectMF <- renderUI({
+        selectInput('selectedMF', 'MF', availMF())
+      })
+      output$selectPIP <- renderUI({
+        selectInput('selectedPIP', 'Putative Ionisation Product', availPIP())
+      })
       output$accurate <- renderDataTable({
         if (is.null(loadData())){
           return(NULL)
@@ -70,15 +84,28 @@ viewAnnotation <- function(){
           return(res)
         }
       })
-      output$mz <- renderUI({
-        selectInput('selectedmz', 'm/z', availmz())
-      })
-      output$selectMF <- renderUI({
-        selectInput('selectedMF', 'MF', availMF())
-      })
-      output$selectPIP <- renderUI({
-        selectInput('selectedPIP', 'Putative Ionisation Product', availPIP())
-      })
+      output$boxplot <- renderImage({
+          files <- list.files(input$boxplots)
+          print(files)
+          file <- grep(input$selectedmz,files)
+          print(file)
+          if(length(file)>0){
+            path <- paste(input$boxplots,files[file],sep="/")
+          } else {
+            path <- ""
+          }
+          list(src=path)
+      },deleteFile = FALSE)
+      output$binplot <- renderImage({
+        files <- list.files(input$binplots)
+        file <- grep(input$selectedmz,files)
+        if(length(file)>0){
+          path <- paste(input$binplots,files[file],sep="/")
+        } else {
+          path <- ""
+        }
+        list(src=path)
+      },deleteFile = FALSE)
       output$correlation <- renderDataTable({
         if (is.null(loadData())){
           return(NULL)
@@ -141,12 +168,14 @@ viewAnnotation <- function(){
         } else {
         annot.res <- loadData()
         res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]]
-        smile <- res[which(res[,2]==input$selectedPIP),5]
-        par(mar=c(0,0,0,0))
-        sm <- parse.smiles(smile)[[1]]
-        temp1 <- view.image.2d(sm,500,500)
-        plot(NA,NA,xlim=c(1,100),ylim=c(1,100),xaxt='n',yaxt='n',xlab='',ylab='') 
-        rasterImage(temp1,1,1,100,100) # boundaries of raster: xmin, ymin, xmax, ymax. here i set them equal to plot boundaries
+        if(nrow(res)>0){
+          smile <- res[which(res[,2]==input$selectedPIP),5]
+          par(mar=c(0,0,0,0))
+          sm <- parse.smiles(smile)[[1]]
+          temp1 <- view.image.2d(sm,500,500)
+          plot(NA,NA,xlim=c(1,100),ylim=c(1,100),xaxt='n',yaxt='n',xlab='',ylab='') 
+          rasterImage(temp1,1,1,100,100) # boundaries of raster: xmin, ymin, xmax, ymax. here i set them equal to plot boundaries
+        }
       }},width=400,height=400)
     }
   )

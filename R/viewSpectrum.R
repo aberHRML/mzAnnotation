@@ -17,8 +17,9 @@ viewSpectrum <- function(){
                        c(`Base Peak`='basePeak',
                          `Total Ion Count`='totIonCurrent')),
           radioButtons('chromX', '',
-                       c(`Retention Time`='retentionTime',
-                         `Scan Number`='scanNum')),
+                       c(`Scan Number`='scanNum',
+                         `Retention Time`='retentionTime')
+                         ),
           uiOutput("selectChromRange"),
           tags$hr(),
           tags$b("Spectrum"),
@@ -109,6 +110,7 @@ viewSpectrum <- function(){
           return(NULL)
         }
         fluidRow(
+          tags$b("m/z Range"),
           numericInput("rangeSpecLow","From:",range$min),
           numericInput("rangeSpecHigh","To:",range$max)
         )

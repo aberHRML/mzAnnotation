@@ -86,9 +86,7 @@ viewAnnotation <- function(){
       })
       output$boxplot <- renderImage({
           files <- list.files(input$boxplots)
-          print(files)
           file <- grep(input$selectedmz,files)
-          print(file)
           if(length(file)>0){
             path <- paste(input$boxplots,files[file],sep="/")
           } else {

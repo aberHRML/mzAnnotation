@@ -18,7 +18,7 @@ viewAnnotation <- function(){
           uiOutput("mz"),
           tags$hr(),
           textInput("boxplots","Box Plot Folder Path:"),
-          textInput("binplots","Bin Plots Folder Path:")
+          textInput("binplots","Bin Plot Folder Path:")
         ),
         mainPanel( 
           tabsetPanel(
@@ -63,7 +63,9 @@ viewAnnotation <- function(){
       availPIP <- reactive({
         if(is.null(loadData())) return(NULL)
         annot.res <- loadData()
-        annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]][,2]
+        annot.res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]][,2]
+        annot.res <- gsub('"','',annot.res)
+        annot.res
       })
       output$mz <- renderUI({
         selectInput('selectedmz', 'm/z', availmz())
@@ -81,6 +83,8 @@ viewAnnotation <- function(){
           annot.res <- loadData()
           res <- annot.res[[input$mode]][["Accurate m/z"]]
           rownames(res) <- NULL
+          res <- data.frame(res)
+          res[,2:3] <- apply(res[,2:3],2,as.numeric)
           return(res)
         }
       })
@@ -167,6 +171,7 @@ viewAnnotation <- function(){
         annot.res <- loadData()
         res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]]
         if(nrow(res)>0){
+          res[,2] <- gsub('"','',res[,2])
           smile <- res[which(res[,2]==input$selectedPIP),5]
           par(mar=c(0,0,0,0))
           sm <- parse.smiles(smile)[[1]]

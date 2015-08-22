@@ -18,7 +18,7 @@ viewAnnotation <- function(){
           uiOutput("mz"),
           tags$hr(),
           textInput("boxplots","Box Plot Folder Path:"),
-          textInput("binplots","Bin Plots Folder Path:")
+          textInput("binplots","Bin Plot Folder Path:")
         ),
         mainPanel( 
           tabsetPanel(
@@ -63,7 +63,9 @@ viewAnnotation <- function(){
       availPIP <- reactive({
         if(is.null(loadData())) return(NULL)
         annot.res <- loadData()
-        annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]][,2]
+        annot.res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]][,2]
+        annot.res <- gsub('"','',annot.res)
+        annot.res
       })
       output$mz <- renderUI({
         selectInput('selectedmz', 'm/z', availmz())
@@ -81,6 +83,8 @@ viewAnnotation <- function(){
           annot.res <- loadData()
           res <- annot.res[[input$mode]][["Accurate m/z"]]
           rownames(res) <- NULL
+          res <- data.frame(res)
+          res[,2:3] <- apply(res[,2:3],2,as.numeric)
           return(res)
         }
       })
@@ -113,6 +117,7 @@ viewAnnotation <- function(){
           names(res)[c(1,4,5)] <- c("Bin","Relation To","Relation From")
           if(nrow(res)>0){
             res[,4:5] <- apply(res[,4:5],2,function(x){x[which(x=="NA")] <- "";return(x)})
+            res[,2] <- signif(res[,2],3)
           }
           return(res)
         }
@@ -124,6 +129,8 @@ viewAnnotation <- function(){
           annot.res <- loadData()
           res <- annot.res[[input$mode]][["Molecular Formulas"]][[input$selectedmz]]
           names(res)[c(1,2,5,6)] <- c("Measured m/z", "Clean MF", "m/z", "PPM Error")
+          res[,5] <- round(as.numeric(res[,5]),5)
+          res[,6] <- round(as.numeric(res[,6]),3)
           return(res)
         }
       })
@@ -157,6 +164,9 @@ viewAnnotation <- function(){
           annot.res <- loadData()
           res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]]
           names(res)[c(4,7,8)] <- c("Accurate Mass", "m/z","PPM Error")
+          res[,4] <- round(res[,4],5)
+          res[,7] <- round(res[,7],5)
+          res[,8] <- round(res[,8],3)
           return(res)
         }
       })
@@ -167,6 +177,7 @@ viewAnnotation <- function(){
         annot.res <- loadData()
         res <- annot.res[[input$mode]][["Putative Ionisation Products"]][[input$selectedmz]]
         if(nrow(res)>0){
+          res[,2] <- gsub('"','',res[,2])
           smile <- res[which(res[,2]==input$selectedPIP),5]
           par(mar=c(0,0,0,0))
           sm <- parse.smiles(smile)[[1]]

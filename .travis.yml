@@ -1,25 +1,19 @@
-# Sample .travis.yml for R projects.
-#
-# See README.md for instructions, or for more configuration options,
-# see the wiki:
-#   https://github.com/craigcitro/r-travis/wiki
-
-language: c
+language: r
 sudo: required
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
-  - sudo apt-get install default-jre
-  - sudo apt-get install default-jdk
-install:
-  - ./travis-tool.sh install_deps
-script: ./travis-tool.sh run_tests
+bioc_required: true
 
-after_failure:
-  - ./travis-tool.sh dump_logs
+apt_packages:
+  - default-jre
+  - default-jdk
 
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+r_binary_packages:
+ - RUnit
+ - testthat
+
+bioc_packages:
+ - mzR
+
+# Install the bleeding edge version of a package from github (eg to pick
+# up a not-yet-released bugfix)
+r_github_packages:
+ - jasenfinch/mzAnnotation

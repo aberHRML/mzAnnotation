@@ -6,6 +6,11 @@
 \usage{
 calcDiff(mat, mo)
 }
+\arguments{
+\item{mat}{}
+
+\item{mo}{}
+}
 \description{
 Identify structural relationships based on m/z differences
 }

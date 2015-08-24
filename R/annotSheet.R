@@ -1,11 +1,4 @@
-#' Title
-#'
-#' @param annot_all 
-#'
-#' @return
-#' @export
-#'
-#' @examples
+
 annotSheet <-
 function(annot_all) {
   # put accurate m/z into list

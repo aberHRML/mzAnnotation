@@ -6,6 +6,17 @@
 \usage{
 isoDistr(mf, chrg = 0, limri = 1e-08, limitfin = 0.009, rv = 10000)
 }
+\arguments{
+\item{mf}{}
+
+\item{chrg}{}
+
+\item{limri}{}
+
+\item{limitfin}{}
+
+\item{rv}{}
+}
 \description{
 Isotope Distribution Generator
 }

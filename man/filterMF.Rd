@@ -6,6 +6,9 @@
 \usage{
 filterMF(MFs)
 }
+\arguments{
+\item{MFs}{}
+}
 \description{
 Filter MFs that have more than one adduct or more than one isotope.
 }

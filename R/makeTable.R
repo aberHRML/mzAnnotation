@@ -1,11 +1,4 @@
-#' Title
-#'
-#' @param annot_info 
-#'
-#' @return
-#' @export
-#'
-#' @examples
+
 makeTable <-
   function(annot_info){
     # combine iso and mf tables if present

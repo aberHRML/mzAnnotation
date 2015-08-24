@@ -6,6 +6,9 @@
 \usage{
 corLists(x)
 }
+\arguments{
+\item{x}{}
+}
 \description{
 Aggregate significant correlations into lists for each variable
 }

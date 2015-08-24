@@ -11,6 +11,25 @@ annotateFIE(explan_mass, data, peaks, mode, ppm, gencors = T, genmf = T,
   F = 0, Na = 1, Si = 0, P = 6, S = 5, Cl = 0, iCl = 0, Br = 0, iBr = 0, K = 1,
   iK = 1, iO = 1)))
 }
+\arguments{
+\item{explan_mass}{}
+
+\item{data}{}
+
+\item{peaks}{}
+
+\item{mode}{}
+
+\item{ppm}{}
+
+\item{gencors}{}
+
+\item{genmf}{}
+
+\item{genpip}{}
+
+\item{lat}{}
+}
 \description{
 Annotation of FIE-HRMS m/z
 }

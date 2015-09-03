@@ -9,7 +9,7 @@ init:
         Import-Module '..\appveyor-tool.ps1'
 install:
   ps: Bootstrap
-   
+  - cmd: SET PATH=%JAVA_HOME%\bin;%PATH% 
 # Adapt as necessary starting from here
 
 build_script:

@@ -1,3 +1,10 @@
+#' View annotation output
+#' @name viewAnnotation
+#' @description A shiny app to view the RData output of the annotateFIE function
+#' @author Jasen Finch
+#' @export
+#' @examples viewAnnotation()
+#' 
 viewAnnotation <- function(){
   options(shiny.maxRequestSize = 20*1024^2)
   options(digits=10)

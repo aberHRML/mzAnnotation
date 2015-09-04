@@ -1,12 +1,9 @@
 ### mzAnnotation
-==========
 
 [![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg)](https://travis-ci.org/jasenfinch/mzAnnotation)
-
-[![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/master?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/b8wgaej0u690ls20/branch/master?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/master)
 
 An R package for explanatory FIE-HRMS m/z annotation
-
 
 #### Installation
 

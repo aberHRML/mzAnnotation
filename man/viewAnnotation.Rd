@@ -9,9 +9,6 @@ viewAnnotation()
 \description{
 A shiny app to view the RData output of the annotateFIE function
 }
-\examples{
-viewAnnotation()
-}
 \author{
 Jasen Finch
 }

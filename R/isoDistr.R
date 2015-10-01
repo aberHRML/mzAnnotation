@@ -351,11 +351,14 @@ if (1==1) {
   if (limitfin>limri) res <- res[-which(as.numeric(res[,3])<max(limri,limitfin)),]
   # apply charge:
   tmp <- which(mzv[,2]=="e")
-  if (chrg>0) {
-    res[,1] <- (as.numeric(res[,1]))/chrg - as.numeric(mzv[tmp,5])
-  } else {
-    res[,1] <- (as.numeric(res[,1]))/abs(chrg) + as.numeric(mzv[tmp,5])
+  if(chrg!=0){
+     if (chrg>0) {
+      res[,1] <- (as.numeric(res[,1]))/chrg - as.numeric(mzv[tmp,5])
+    } else {
+      res[,1] <- (as.numeric(res[,1]))/abs(chrg) + as.numeric(mzv[tmp,5])
+    }
   }
+
 } # if 
 ## -------------------------------------------------------------------------
 #View(res)

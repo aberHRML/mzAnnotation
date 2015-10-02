@@ -66,6 +66,22 @@ shinyMZedDB <- function(){
                              mainPanel(
                                plotOutput(outputId = "structure"),width=5
                              )
+                    ),
+                    tabPanel("MZedDB",
+                             fluidRow(
+                               dataTableOutput(outputId="MZDB")
+                             ) 
+                    ),
+                    tabPanel("Adduct Calculator",
+                              fluidRow(
+                               column(3, textInput("id","Database ID:","D29160"))
+                             ),
+                             fluidRow(
+                               dataTableOutput(outputId="entry")
+                             ),
+                             fluidRow(
+                               tableOutput("adduct")
+                             ) 
                     )
     ),
     server = function(input, output) {
@@ -122,6 +138,60 @@ shinyMZedDB <- function(){
         temp1 <- view.image.2d(sm,500,500)
         plot(NA,NA,xlim=c(1,100),ylim=c(1,100),xaxt='n',yaxt='n',xlab='',ylab='') 
         rasterImage(temp1,1,1,100,100) # boundaries of raster: xmin, ymin, xmax, ymax. here i set them equal to plot boundaries
+      })
+      
+      output$MZDB <- renderDataTable({
+        data('MZedDB') 
+        res <- MZedDB$MZedDB_ALL
+        res <- res[,-c(3,6,7,8,10)]
+        names(res)[4:5] <- c('Accurate Mass', 'SMILE')
+        res
+      })
+      
+      output$entry <- renderDataTable({
+        data('MZedDB') 
+        res <- MZedDB$MZedDB_ALL
+        res <- res[,-c(3,6,7,8,10)]
+        names(res)[4:5] <- c('Accurate Mass', 'SMILE')
+        res <- res[which(res$ID==input$id),]
+        res
+      })
+      
+      output$adduct <- renderTable({
+        data('MZedDB') 
+        id <- MZedDB$MZedDB_ALL
+        id <- id[,-c(3,6,7,8,10)]
+        names(id)[4:5] <- c('Accurate Mass', 'SMILE')
+        id <- id[which(id$ID==input$id),]
+        
+        metrules <- MZedDB$MZedDB_METRULES
+        metrules <- metrules[which(metrules$ID==id$ID),]
+
+        rules <- MZedDB$ADDUCT_FORMATION_RULES
+        res <- apply(rules,1,function(rule,id,metrules){
+          Nch <- metrules$Nch
+          Nacc <- metrules$Nacc
+          Ndon <- metrules$Ndon
+          Nnhh <- metrules$Nnhh
+          Noh <-  metrules$Noh
+          Ncooh <- metrules$Ncooh
+          Ncoo <-  metrules$Ncoo
+          if(eval(parse(text=as.character(rule[6])))){
+            mz <- id$`Accurate Mass`*as.numeric(rule[3])
+            if (as.numeric(rule[2]) != 0){
+              mz <- mz/as.numeric(rule[2])
+            }
+            mz <- mz + as.numeric(rule[4])
+            mz <- round(mz,5)
+          } else {
+            mz <- 'Not Possible'
+          }
+          return(mz)
+        },id=id,metrules=metrules)
+        res <- cbind(rules$Name,res)
+        colnames(res) <- c('Adduct','m/z')
+        #res <- data.frame(Adduct=rules$Name, `m/z`=res)
+        res
       })
     }
     )

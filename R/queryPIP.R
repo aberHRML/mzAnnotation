@@ -1,12 +1,21 @@
 
 queryPIP <-
-function(add,mass_low,mass_high,MZedDB,mz,filter=T){
-	rules <- MZedDB$ADDUCT_FORMATION_RULES
+function(add,mass_low,mass_high,MZedDB,mz,filter=T,iso=NULL,bio=NULL){
+  add_rules <- MZedDB$ADDUCT_FORMATION_RULES
   all <- MZedDB$MZedDB_ALL
   metrules <- MZedDB$MZedDB_METRULES
-  add <- rules[which(rules[,1]==add),]
+  add <- add_rules[which(add_rules[,1]==add),]
+  iso <- iso_rules[which(iso_rules[,1]==iso),]
+  bio <- bio_rules[which(bio_rules[,1]==bio),]
   mass_low <- ((mass_low-add[1,"Add"])*add[1,"Charge"])/add[1,"xM"]
   mass_high <- ((mass_high-add[1,"Add"])*add[1,"Charge"])/add[1,"xM"]
+  if(!is.null(bio)){
+    bio_rules <- MZedDB$BIOTRANSFORMATION_RULES
+    
+  }
+  if(!is.null(iso)){
+    iso_rules <- MZedDB$ISOTOPE_RULES
+  }
   rows <- which(all["Accurate.Mass"]>mass_low & all["Accurate.Mass"] <mass_high)
   metrules.1 <- metrules[rows,]
   Nch <- metrules.1[,"Nch"]

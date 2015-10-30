@@ -6,10 +6,7 @@ viewSpectrum <- function(){
       titlePanel("viewSpectrum"),
       sidebarLayout(
         sidebarPanel(
-          fileInput('file1', 'Upload Annotation:',
-                    accept = c(
-                      '.mzXML'
-                    )
+          fileInput('file1', 'Upload Annotation:',accept = c('.mzXML')
           ),
           tags$hr(),
           tags$b("Chromatogram"),
@@ -23,7 +20,7 @@ viewSpectrum <- function(){
           uiOutput("selectChromRange"),
           tags$hr(),
           tags$b("Spectrum"),
-          numericInput("dp","Decimal Places:",5),
+          numericInput("dp","Decimal Places:",0),
           uiOutput("selectScan"),
           uiOutput("selectSpecRange")
         ),

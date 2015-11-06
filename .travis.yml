@@ -1,4 +1,8 @@
 language: r
+
+services:
+ - docker
+
 sudo: required
 bioc_required: true
 
@@ -21,3 +25,14 @@ bioc_packages:
 r_github_packages:
  - jasenfinch/OrbiFIEproc
  - jasenfinch/mzAnnotation
+ 
+after_success:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - git clone https://github.com/jasenfinch/HRM-docker.git
+  - docker build -t jasenfinch/hrm-docker ./HRM-docker
+  - docker push jasenfinch/hrm-docker
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change

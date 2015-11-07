@@ -194,5 +194,5 @@ shinyMZedDB <- function(host='127.0.0.1',port='7042'){
         res
       })
     }
-    ,options = list(host=host,port=port))
+    ,options = list(host=host,port=port,launch.browser=F))
 }

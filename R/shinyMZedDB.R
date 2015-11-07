@@ -1,5 +1,5 @@
 shinyMZedDB <- function(){
-  options(shiny.port='7041')
+  #options(shiny.port='7042')
   shinyApp(
     ui = navbarPage("Shiny-MZedDB",
                     tabPanel("Putative Ionisation Product",
@@ -195,5 +195,5 @@ shinyMZedDB <- function(){
         res
       })
     }
-    )
+    ,options = list(host='localhost',port=7042))
 }

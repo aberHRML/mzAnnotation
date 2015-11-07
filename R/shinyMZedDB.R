@@ -1,4 +1,5 @@
 shinyMZedDB <- function(){
+  options(shiny.port='7041')
   shinyApp(
     ui = navbarPage("Shiny-MZedDB",
                     tabPanel("Putative Ionisation Product",

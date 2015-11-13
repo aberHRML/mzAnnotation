@@ -1,4 +1,4 @@
-shinyMZedDB <- function(host='127.0.0.1',port='7042'){
+shinyMZedDB <- function(host='127.0.0.1',port='3838'){
   shinyApp(
     ui = navbarPage("Shiny-MZedDB",
                     tabPanel("Putative Ionisation Product",

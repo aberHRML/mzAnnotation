@@ -1,5 +1,5 @@
 
-annotateLC <- function(features,xset,mode){
+annotateLC <- function(features,xset,mode,ppm){
   data("CAMERArules")
   peakTab <- peakTable(xset)
   mz.id <- round(peakTab$mz, digits=2)
@@ -8,7 +8,7 @@ annotateLC <- function(features,xset,mode){
   feat.ind <- which(f.id %in% features)
   featTab <- data.frame(ID=f.id[feat.ind],peakTab[feat.ind,])
   cat('\nRunning PIP searches\n\n')
-  featPIP <- lapply(featTab$mz,getPIP,mode=mode,ppm=5)
+  featPIP <- lapply(featTab$mz,getPIP,mode=mode,ppm=ppm)
   names(featPIP) <- features
   xsa <- xsAnnotate(xset)
   anF <- groupFWHM(xsa, perfwhm = 0.6)

@@ -23,7 +23,7 @@ viewSpectrum <- function(){
           uiOutput("selectChromRange"),
           tags$hr(),
           tags$b("Spectrum"),
-          numericInput("dp","Decimal Places:",5),
+          numericInput("dp","Decimal Places:",0),
           uiOutput("selectScan"),
           uiOutput("selectSpecRange")
         ),
@@ -42,45 +42,58 @@ viewSpectrum <- function(){
           return(NULL)
         }
         aa <- openMSfile(input$file1$datapath)
-        head <- header(aa)
-        head$retentionTime <- round(head$retentionTime/60,2)
-        head.pos <- head[which(head$polarity==1),]
-        head.neg <- head[which(head$polarity==0),]
-        head.pos$seqNum <- seq(1,nrow(head.pos))
-        head.neg$seqNum <- seq(1,nrow(head.neg))
-        if (length(head.pos$retentionTime) > length(head.neg$retentionTime)){
-          head.neg$retentionTime <- head.pos$retentionTime[1:length(head.neg$retentionTime)]
-        } else {
-          head.pos$retentionTime <- head.neg$retentionTime[1:length(head.pos$retentionTime)]
+        headers <- header(aa)
+        headers$retentionTime <- round(headers$retentionTime/60,2)
+        head <- lapply(0:1,function(x,ms){return(ms[which(ms$polarity==x),])},ms=headers)
+        names(head) <- c('neg','pos')
+        head <- lapply(head,function(x){
+          if(nrow(x)>0){
+            x$seqNum <- seq(1,nrow(x))
+          }
+          return(x)
+          })
+        if(!(0 %in% sapply(head,nrow))){
+          if (length(head$pos$retentionTime) > length(head$neg$retentionTime)){
+            head$neg$retentionTime <- head$pos$retentionTime[1:length(head$neg$retentionTime)]
+          } else {
+            head$pos$retentionTime <- head$neg$retentionTime[1:length(head$pos$retentionTime)]
+          }
         }
         pl <- peaks(aa)
         pl <- lapply(pl,function(x){x[,1] <- round(x[,1],input$dp);x <- aggregate(x[,2],by=list(x[,1]),sum);return(x)})
         pl <- lapply(pl,function(x){x <- data.frame(x); names(x) <- c("mz","intensity");return(x)})
-        pl.pos <- pl[which(head$polarity==1)]
-        pl.neg <- pl[which(head$polarity==0)]
-        ms <- list(headerTable=list(pos=head.pos,neg=head.neg),peakList=list(pos=pl.pos,neg=pl.neg),info=runInfo(aa))
+        pl <- lapply(0:1,function(x,head,pl){return(pl[which(head$polarity==x)])},head=headers,pl=pl)
+        names(pl) <- c('neg','pos')
+        ms <- list(headerTable=head,peakList=pl,info=runInfo(aa))
         ms
       })
       chromRange <- reactive({
         aa <- loadData()
+        modes <- as.numeric(which(sapply(aa$headerTable,nrow)>0))
         if(is.null(input$file1)){
           return(NULL)
         }
         if(input$chromX=="scanNum"){
-          range <- list(min=1,max=nrow(aa$headerTable$pos))
+          range <- list(min=1,max=nrow(aa$headerTable[[modes[1]]]))
           range
         } else {
-          range <- list(min=min(aa$headerTable$pos$retentionTime),max=max(aa$headerTable$pos$retentionTime))
+          range <- list(min=min(aa$headerTable[[modes[1]]]$retentionTime),max=max(aa$headerTable[[modes[1]]]$retentionTime))
           range
         }
       })
       specRange <- reactive({
         aa <- loadData()
+        modes <- as.numeric(which(sapply(aa$headerTable,nrow)>0))
         if(is.null(input$file1)){
           return(NULL)
         }
-        low <- floor(min(c(sapply(aa$peakList$pos,function(x){min(x[,1])})),sapply(aa$peakList$neg,function(x){min(x[,1])})))
-        high <- ceiling(max(c(sapply(aa$peakList$pos,function(x){max(x[,1])})),sapply(aa$peakList$neg,function(x){max(x[,1])})))
+        if(length(modes)>1){
+          low <- floor(min(c(sapply(aa$peakList$pos,function(x){min(x[,1])})),sapply(aa$peakList$neg,function(x){min(x[,1])})))
+          high <- ceiling(max(c(sapply(aa$peakList$pos,function(x){max(x[,1])})),sapply(aa$peakList$neg,function(x){max(x[,1])})))
+        } else {
+          low <- floor(min(sapply(aa$peakList[[modes[1]]],function(x){min(x[,1])})))
+          high <- ceiling(max(sapply(aa$peakList[[modes[1]]],function(x){max(x[,1])})))
+        }
         range <- list(min=low,max=high)
         range
       })
@@ -120,6 +133,9 @@ viewSpectrum <- function(){
         if (is.null(aa)){
           return(NULL)
         }
+        if (nrow(aa$headerTable$neg)==0){
+          return(NULL)
+        }
         if(input$chromX=="retentionTime"){
           head.neg <- aa$headerTable$neg[which(aa$headerTable$neg$retentionTime >= input$rangeChrom[1] & aa$headerTable$neg$retentionTime <= input$rangeChrom[2]),]
         } else {
@@ -149,6 +165,9 @@ viewSpectrum <- function(){
       output$chromatogram.p <- renderPlot({
         aa <- loadData()
         if (is.null(aa)){
+          return(NULL)
+        }
+        if (nrow(aa$headerTable$pos)==0){
           return(NULL)
         }
         if(input$chromX=="retentionTime"){
@@ -182,6 +201,9 @@ viewSpectrum <- function(){
         if (is.null(aa)){
           return(NULL)
         }
+        if (nrow(aa$headerTable$neg)==0){
+          return(NULL)
+        }
         if(input$chromX=="retentionTime"){
           scan <- aa$peakList$neg[which(aa$headerTable$neg$retentionTime >= input$rangeScan[1] & aa$headerTable$neg$retentionTime >= input$rangeScan[2])]
         } else {
@@ -207,6 +229,9 @@ viewSpectrum <- function(){
       output$spectrum.p <- renderPlot({
         aa <- loadData()
         if (is.null(aa)){
+          return(NULL)
+        }
+        if (nrow(aa$headerTable$pos)==0){
           return(NULL)
         }
         if(input$chromX=="retentionTime"){

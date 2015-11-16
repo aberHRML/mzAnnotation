@@ -9,7 +9,7 @@ annotateLC <- function(features,xset,mode,ppm){
   featTab <- data.frame(ID=f.id[feat.ind],peakTab[feat.ind,])
   cat('\nRunning PIP searches\n\n')
   featPIP <- lapply(featTab$mz,getPIP,mode=mode,ppm=ppm)
-  names(featPIP) <- features
+  names(featPIP) <- featTab$ID
   xsa <- xsAnnotate(xset)
   anF <- groupFWHM(xsa, perfwhm = 0.6)
   cat('\n')

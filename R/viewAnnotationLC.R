@@ -21,7 +21,7 @@ viewAnnotationLC <- function(){
           tabsetPanel(
             tabPanel("Peak Table", dataTableOutput('peakTab')),
             tabPanel("Box Plots", imageOutput('boxplot')),
-            tabPanel('Adduct & Isotope Relationships',dataTableOutput('featRel')),
+            tabPanel('Correlation Analysis',dataTableOutput('corAnalysis')),
             tabPanel("Putative Ionisation Products",
                      fluidRow(dataTableOutput('PIP'))
             ),
@@ -80,16 +80,12 @@ viewAnnotationLC <- function(){
         }
         list(src=path)
       },deleteFile = FALSE)
-      output$featRel <- renderDataTable({
+      output$corAnalysis <- renderDataTable({
         if (is.null(loadData())){
           return(NULL)
         } else {
           featAnnot <- loadData()
-          res <- featAnnot$featRel
-          selpc <- res[which(res$ID==input$selectedmz),'pcgroup']
-          res <- res[which(res$pcgroup==selpc),]
-          res <- res[,c('ID','mz','mzmin','mzmax','rt','rtmin','rtmax','isotopes','adduct','pcgroup')]
-          res[,c('rt','rtmin','rtmax')] <- round(res[,c('rt','rtmin','rtmax')]/60,3) 
+          res <- featAnnot$corAnalysis$selectedmz 
           return(res)
         }
       })

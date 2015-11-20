@@ -85,7 +85,10 @@ viewAnnotationLC <- function(){
           return(NULL)
         } else {
           featAnnot <- loadData()
-          res <- featAnnot$corAnalysis$selectedmz 
+          res <- featAnnot$corAnalysis[[input$selectedmz]]
+          colnames(res)[1] <- 'ID'
+          colnames(res)[6:7] <- c('Relation To','Relation From')
+          res$r <- round(res$r,3)
           return(res)
         }
       })

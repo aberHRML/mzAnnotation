@@ -1,6 +1,5 @@
 
 annotateLC <- function(features,data,xset,mode,ppm){
-  data("CAMERArules")
   peakTab <- peakTable(xset)
   mz.id <- round(peakTab$mz, digits=2)
   rt.id <- round(peakTab$rt/60, digits=2)

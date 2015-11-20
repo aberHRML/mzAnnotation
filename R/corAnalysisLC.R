@@ -9,7 +9,8 @@ corAnalysisLC <- function(data,varlist,mode,pval=0.05){
   s <- apply(cors,1,sum)
   cors <- cors[s>0,]
   cors.lists <- corLists(cors)
-  names(cors.lists) <- varlist
+  cor.names <- sapply(cors.lists,function(x){return(colnames(x)[1])})
+  names(cors.lists) <- cor.names
   cors.lists <- lapply(cors.lists,function(x){
     rt <- strsplit(as.character(x[,1]),'T')
     rt <- as.numeric(sapply(rt,function(x){return(x[2])}))
@@ -34,6 +35,6 @@ corAnalysisLC <- function(data,varlist,mode,pval=0.05){
     d <- d[[x]]
     return(data.frame(l,d[,3:5]))
   },l=cors.lists,d <- cors.diff)
-  names(cors.lists) <- varlist
+  names(cors.lists) <- cor.names
   return(cors.lists)
 }

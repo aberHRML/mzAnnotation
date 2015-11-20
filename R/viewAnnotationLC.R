@@ -89,6 +89,9 @@ viewAnnotationLC <- function(){
           colnames(res)[1] <- 'ID'
           colnames(res)[6:7] <- c('Relation To','Relation From')
           res$r <- round(res$r,3)
+          if(nrow(res)>0){
+            res[,6:7] <- apply(res[,6:7],2,function(x){x[which(x=="NA")] <- "";return(x)})
+          }
           return(res)
         }
       })

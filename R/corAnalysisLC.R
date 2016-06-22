@@ -16,7 +16,7 @@ corAnalysisLC <- function(data,varlist,mode,pval=0.05){
     rt <- as.numeric(sapply(rt,function(x){return(x[2])}))
     mz <- strsplit(as.character(x[,1]),'T')
     mz <- sapply(mz,function(x){return(x[1])})
-    mz <- as.numeric(gsub('nM','',mz))
+    mz <- as.numeric(gsub(paste(mode,'M',sep=''),'',mz))
     return(data.frame(x,mz=mz,rt=rt))
   })
   cors.diff <- lapply(names(cors.lists),function(x,l,m){

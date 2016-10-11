@@ -13,7 +13,7 @@ biocLite("mzR")
 
 library(devtools)
 
-install_github('jasenfinch/OrbiFIEproc')
+install_github('jasenfinch/binneR')
 
 install_github('jasenfinch/mzAnnotation')
 ```

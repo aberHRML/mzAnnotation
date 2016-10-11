@@ -87,14 +87,14 @@ function(add,MZedDB,mz,ppm,filter=T,iso=NULL,bio=NULL){
 	# Add adduct and isotope information
 	adduct <- rep(add[1,1],nrow(res))
  	if(!is.null(iso)){
- 	  isotope <- rep(iso[1,1],nrow(res))
+ 	  isotope <- rep(as.character(iso[1,1]),nrow(res))
  	} else {
- 	  isotope <- rep(NA,nrow(res))
+ 	  isotope <- rep('',nrow(res))
  	}
 	if(!is.null(bio)){
-	  biotransformation <- rep(bio[2,1],nrow(res))
+	  biotransformation <- rep(as.character(bio[2,1]),nrow(res))
 	} else {
-	  biotransformation <- rep(NA,nrow(res))
+	  biotransformation <- rep('',nrow(res))
 	}
  	
 	# Format results

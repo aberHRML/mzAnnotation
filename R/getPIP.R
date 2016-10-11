@@ -18,6 +18,8 @@ function(mz,mode,ppm,add=NULL,iso=NULL,bio=NULL){
   }
   if(!is.null(iso)){
     iso <- c('',iso)
+  } else {
+    iso <- ''
   }
 	data("MZedDB")
 	

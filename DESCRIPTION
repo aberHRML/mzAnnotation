@@ -7,6 +7,15 @@ Author: Jasen Finch
 Maintainer: Jasen Finch <jsf9@aber.ac.uk>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
-Imports: Rcpp (>= 0.11.0)
+Imports:
+    Rcpp (>= 0.11.0)
 LinkingTo: Rcpp
-Depends: Hmisc, plyr, shiny, rcdk, mzR, binneR, CAMERA
+Depends:
+    Hmisc,
+    plyr,
+    shiny,
+    rcdk,
+    mzR,
+    binneR,
+    CAMERA
+RoxygenNote: 5.0.1

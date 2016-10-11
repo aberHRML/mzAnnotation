@@ -98,7 +98,7 @@ function(add,MZedDB,mz,ppm,filter=T,iso=NULL,bio=NULL){
 	}
  	
 	# Format results
-  res <- data.frame(res,Adduct=adduct,Isotope=isotope,Biotransformation=biotransformation,Adduct_MZ=addmz,PPMErr=ppmerr)
+  res <- data.frame(res,Adduct=adduct,Isotope=isotope,Adduct_MZ=addmz,PPMErr=ppmerr)
   res <- res[,-c(3,6,7,8,10)]
   if(filter==T & nrow(res)>0){
    res <- filterPIP(res)

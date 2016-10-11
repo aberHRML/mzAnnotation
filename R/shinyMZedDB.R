@@ -9,8 +9,7 @@ shinyMZedDB <- function(){
                                column(2, checkboxInput("mode_p", "Positive Mode",value=F)),
                                column(2, checkboxInput("mode_ne", "Neutral",value=T)),
                                column(2, checkboxInput("mode_n", "Negative Mode",value=F)),
-                               column(2, checkboxInput("pip_iso", "Isotopes",value=F)),
-                               column(2, checkboxInput("pip_bio", "Biotransformations",value=F))
+                               column(2, checkboxInput("pip_iso", "Isotopes",value=F))
                                #column(4, selectInput('add_sel_i', 'Adducts:', adducts, multiple=TRUE, selectize=FALSE))                                                    
                              ),
                              fluidRow(

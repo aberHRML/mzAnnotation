@@ -32,7 +32,7 @@ function(mz,mode,ppm,add=NULL,iso=NULL,bio=NULL){
 	  },adducts=adducts,mz=mz,ppm=ppm,MZedDB=MZedDB,bio=bio)
 	res <- lapply(res,ldply,stringsAsFactors=F)
 	res <- ldply(res,stringsAsFactors=F)
-	#names(res) <- c("ID","Name","MF","Accurate Mass","Smiles","Adduct",'Isotope','Biotransformation',"Adduct m/z","PPM Error")
+	names(res) <- c("ID","Name","MF","Accurate Mass","Smiles","Adduct",'Isotope',"Adduct m/z","PPM Error")
 
 	return(res)
 }

@@ -99,7 +99,10 @@ shinyMZedDB <- function(){
         if(input$mode_ne){
           mode <- "ne"
         }
-        pip_tab <- getPIP(input$acc_mz,mode,input$ppm)
+        if(input$pip_iso){
+          iso <- c('C13','O18','S34')
+        }
+        pip_tab <- getPIP(input$acc_mz,mode,input$ppm,iso=iso)
         #pip_tab <- pip_tab[,-c(3,6,7,8,10)]
         #colnames(pip_tab)[3:8] <- c("MF","Accurate Mass","Smiles","Adduct","Adduct m/z","PPM Error")
         pip_tab

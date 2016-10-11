@@ -16,9 +16,21 @@ function(mz,mode,ppm,add=NULL,iso=NULL,bio=NULL){
   } else {
     adducts <- add
   }
+  if(!is.null(iso)){
+    iso <- c('',iso)
+  }
 	data("MZedDB")
-	res <- lapply(adducts,queryPIP,mz=mz,ppm=ppm,MZedDB=MZedDB,iso=iso,bio=bio)
-	res <- lapply(res,function(x){names(x) <- c("ID","Name","MF","Accurate Mass","Smiles","Adduct","Adduct m/z","PPM Error");return(x)})
-	res <- ldply(res,data.frame)
+	
+	## Loop over adducts irrespective of isotopes
+	res <- lapply(iso,function(iso,adducts,mz,ppm,MZedDB,bio){
+	  if(iso==''){
+	    iso <- NULL
+	  }
+	  lapply(adducts,queryPIP,mz=mz,ppm=ppm,MZedDB=MZedDB,iso=iso,bio=bio)
+	  },adducts=adducts,mz=mz,ppm=ppm,MZedDB=MZedDB,bio=bio)
+	res <- lapply(res,ldply)
+	res <- ldply(res)
+	names(res) <- c("ID","Name","MF","Accurate Mass","Smiles","Adduct",'Isotope','Biotransformation',"Adduct m/z","PPM Error")
+
 	return(res)
 }

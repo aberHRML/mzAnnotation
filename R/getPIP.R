@@ -1,7 +1,7 @@
 
 getPIP <-
 function(mz,mode,ppm,add=NULL,iso=NULL,bio=NULL){
-  if(!is.null(add)){
+  if(is.null(add)){
 	  if (mode=="p" & is.null(add)){
 				  adducts <- c("[M+2Na]2+","[M+H+K]2+","[M+H+Na]2+","[M+H+NH4]2+","[M+2H]2+","[M+2H-H2O-NH3]2+","[2M+K]1+","[2M+Na]1+","[2M+NH4]1+",
 				         "[2M+H]1+","[M+2K-H]1+","[M+2Na-H]1+","[M+K]1+","[M+Na]1+","[M+Na]1+","[M+H]1+","[M1+.]1+","[M+H-NH3]1+","[M+H-H2O]1+",

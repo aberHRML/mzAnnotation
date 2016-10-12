@@ -83,7 +83,15 @@ function(add,MZedDB,mz,ppm,filter=T,iso=NULL,bio=NULL){
     }
   }
 	ppmerr <- sapply(addmz,function(x,mz){y <- (x-mz)/mz*10^6;return(y)},mz=mz)
- 	
+ 
+	if(length(addmz)==0){
+	  addmz <- character()
+	}
+	
+	if(length(ppmerr)==0){
+	  ppmerr <- character()
+	}
+	
 	# Add adduct and isotope information
 	adduct <- rep(add[1,1],nrow(res))
  	if(!is.null(iso)){

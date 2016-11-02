@@ -1,3 +1,5 @@
+#' filterIso
+#' @export
 
 filterIso<-
 function(isos){

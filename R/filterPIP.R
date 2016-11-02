@@ -1,3 +1,5 @@
+#' filterPIP
+#' @export
 
 filterPIP <- 
   function(res){

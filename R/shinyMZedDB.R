@@ -1,3 +1,6 @@
+#' shinyMZedDB
+#' @export
+
 shinyMZedDB <- function(){
   shinyApp(
     ui = navbarPage("Shiny-MZedDB",

@@ -1,3 +1,5 @@
+#' LC annotation
+#' @export
 
 annotateLC <- function(features,data,xset,mode,ppm){
   peakTab <- peakTable(xset)

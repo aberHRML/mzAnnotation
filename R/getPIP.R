@@ -1,3 +1,5 @@
+#' getPIP
+#' @export
 
 getPIP <-
 function(mz,mode,ppm,add=NULL,iso=NULL,bio=NULL){

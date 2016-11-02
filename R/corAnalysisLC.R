@@ -1,3 +1,6 @@
+#' corAnalysisLC
+#' @export
+
 corAnalysisLC <- function(data,varlist,mode,pval=0.05){
   cors <- rcorr(as.matrix(data))
   cors$P <- apply(cors$P,1,p.adjust,method="bonferroni")

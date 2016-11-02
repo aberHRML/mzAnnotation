@@ -1,3 +1,5 @@
+#' viewAnnotationLC
+#' @export
 
 viewAnnotationLC <- function(){
   options(shiny.maxRequestSize = 20*1024^2)

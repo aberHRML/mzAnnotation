@@ -6,6 +6,8 @@
 #' @param pval
 #' @author Jasen Finch \email{jsf9@@aber.ac.uk}
 #' @seealso corLists, calcDiff
+#' @export
+#' @import Hmisc
 
 
 corAnalysis <-

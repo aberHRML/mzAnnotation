@@ -1,3 +1,5 @@
+#' queryPIP
+#' @export
 
 queryPIP <-
 function(add,MZedDB,mz,ppm,filter=T,iso=NULL,bio=NULL){

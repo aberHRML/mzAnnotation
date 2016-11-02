@@ -5,6 +5,7 @@
 #' @param limri 
 #' @param limitfin 
 #' @param rv 
+#' @export
 
 isoDistr <-
 function(mf, chrg=0, limri=0.00000001, limitfin=0.009, rv=10000){

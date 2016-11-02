@@ -1,3 +1,5 @@
+#' getIsoDist
+#' @export
 
 getIsoDist <- function(mf_res,mode){
   if(nrow(mf_res)>0){

@@ -1,3 +1,5 @@
+#' makeTable
+#' @export
 
 makeTable <-
   function(annot_info){

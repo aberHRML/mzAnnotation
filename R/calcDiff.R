@@ -6,6 +6,7 @@
 
 calcDiff <-
 function(mat,mo){
+  data("adduct_rel")
   if(nrow(mat)>0){
     data(adduct_rel)
   	par <- colnames(mat)[1]

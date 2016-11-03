@@ -2,10 +2,8 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-
-
-// @export
-
+//' @export
+// [[Rcpp::export]]
 std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<int> max, std::vector<int> min,double tolerance, double charge,bool applygr)
 {
 /*

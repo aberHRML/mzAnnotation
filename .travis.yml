@@ -17,7 +17,6 @@ r_binary_packages:
 
 r_github_packages:
  - jasenfinch/cdkr/rcdk
- - jasenfinch/mzAnnotation
 
 notifications:
   email:

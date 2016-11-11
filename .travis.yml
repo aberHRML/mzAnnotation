@@ -1,11 +1,8 @@
 language: r
 
-services:
- - docker
-
 sudo: required
 bioc_required: true
-warnings_are_errors: false
+warnings_are_errors: true
 
 apt_packages:
  - default-jre
@@ -22,20 +19,10 @@ bioc_packages:
  - mzR
  - CAMERA
 
-# Install the bleeding edge version of a package from github (eg to pick
-# up a not-yet-released bugfix)
 r_github_packages:
  - jasenfinch/binneR
  - jasenfinch/mzAnnotation
-
-before_install:
-  - sudo R CMD javareconf
-
-after_success:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - git clone https://github.com/jasenfinch/HRM-docker.git
-  - docker build -t jasenfinch/hrm-docker ./HRM-docker
-  - docker push jasenfinch/hrm-docker
+ - jasenfinch/cdkr/rcdk
 
 notifications:
   email:

@@ -7,9 +7,6 @@ warnings_are_errors: true
 apt_packages:
  - default-jre
  - default-jdk
- - libnetcdf-dev
- - udunits-bin
- - libudunits2-dev
  
 r_binary_packages:
  - RUnit

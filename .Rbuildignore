@@ -6,3 +6,5 @@ README.md
 .gitignore
 .git
 .Rhistory
+^.*\.Rproj$
+^\.Rproj\.user$

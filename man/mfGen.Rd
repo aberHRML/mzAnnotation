@@ -19,7 +19,18 @@ mfGen(measured_mass, max, min, tolerance, charge, applygr)
 
 \item{applygr}{\code{boolean} denoting whether to apply the 7 golden rules}
 }
+\value{
+a \code{list} object containing each result as a character vector (Clean MF, MF, RDB, mass, # Isotopes, Error).
+}
 \description{
 Molecular Formula Generator
+}
+\examples{
+res <- mfGen(341.10894,
+             max=c(C = 12,iC = 0,H = 22,iH = 0,N = 0,iN = 0,O = 11,iO = 0,F = 0 ,Na = 0,
+                   Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0),
+             min=c(C = 0,iC = 0,H = 0,iH = 0,N = 0,iN = 0,O = 0,iO = 0,F = 0 ,Na = 0,
+                   Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0),
+             tolerance=0.01,charge=-1,applygr=T)
 }
 

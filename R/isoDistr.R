@@ -1,8 +1,10 @@
-#' Isotope Distribution Generator
+#' Isotope Distribution Calculater
 #'
 #' @param mf the molecular formular to generate isotope distributions
 #' @param chrg the charge to apply to isotope distribution generation
 #' @export
+#' @examples 
+#' res <- isoDistr('C4H5O5',chrg=-1)
 
 isoDistr <- function(mf, chrg=0){
 ## -------------------------------------------------------------------------

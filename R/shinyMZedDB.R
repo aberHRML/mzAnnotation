@@ -1,9 +1,14 @@
 #' shinyMZedDB
+#' @description A shiny application for the putative annotation of high resolution m/z.
 #' @export
 #' @importFrom shiny shinyApp navbarPage tabPanel fluidRow column numericInput checkboxInput dataTableOutput 
 #' @importFrom shiny textInput plotOutput sidebarPanel mainPanel tableOutput renderDataTable renderPlot renderTable
 #' @importFrom rcdk parse.smiles view.image.2d
 #' @importFrom graphics plot par rasterImage
+#' @examples
+#' \dontrun{
+#' shinyMZedDB()
+#' }
 
 shinyMZedDB <- function(){
   shinyApp(

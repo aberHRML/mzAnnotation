@@ -2,7 +2,7 @@
 % Please edit documentation in R/getPIP.R
 \name{getPIP}
 \alias{getPIP}
-\title{getPIP}
+\title{Putative Ionisation Product Querying}
 \usage{
 getPIP(mz, mode, ppm, add = NULL, iso = NULL)
 }
@@ -13,11 +13,20 @@ getPIP(mz, mode, ppm, add = NULL, iso = NULL)
 
 \item{ppm}{the parts per million threshold to search}
 
-\item{add}{a character \code{vector} specifying the adducts to search. If \code{NULL} the default selection will be used.}
+\item{add}{a character \code{vector} specifying the adducts to search. If \code{NULL} a default selection will be used.}
 
 \item{iso}{a character \code{vector} specifying the isotopes to search. If \code{NULL} isotopes will not be searched.}
 }
 \description{
-getPIP
+Putative Ionisation Product Querying
+}
+\details{
+The underlying data base is that of MZedDB (\url{http://maltese.dbs.aber.ac.uk:8888/hrmet/index.html}). 
+A list of available adducts can be found at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/search/disprules.php}. 
+Isotopic adducts have also been added and include [2M+K41]1+, [M+K41]1+, [M+K41-2H]1- and [M+Cl37]1-. 
+Available isotopes include C13, 2C13, 3C13, 4C13, O18, Cl37, K41 and S34.
+}
+\examples{
+res <- getPIP(133.01378,'n',5)
 }
 

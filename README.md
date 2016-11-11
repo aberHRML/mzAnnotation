@@ -2,18 +2,22 @@
 
 ### mzAnnotation
 
-An R package for explanatory FIE-HRMS m/z annotation
+An R package for putative accurate m/z annotation
 
 #### Installation
 
 To install run:
 ```R
-source("https://bioconductor.org/biocLite.R")
-biocLite("mzR")
-
 library(devtools)
-
-install_github('jasenfinch/binneR')
 
 install_github('jasenfinch/mzAnnotation')
 ```
+
+#### Tools
+
+Available tools include:
+
+* Correlation analysis
+* Molecular formular generator
+* Isotope distribution calculator
+* Putative ionisation product searches

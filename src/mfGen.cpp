@@ -17,7 +17,7 @@ using namespace Rcpp;
 //'                    Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0),
 //'              min=c(C = 0,iC = 0,H = 0,iH = 0,N = 0,iN = 0,O = 0,iO = 0,F = 0 ,Na = 0,
 //'                    Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0),
-//'              tolerance=0.01,charge=-1,applygr=T)
+//'              tolerance=0.01,charge=-1,applygr=TRUE)
 // [[Rcpp::export]]
 std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<int> max, std::vector<int> min,double tolerance, double charge,bool applygr)
 {
@@ -423,7 +423,7 @@ std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<
             convert_5 << error;
             out_error = convert_5.str();
             
-            std::vector<std::string> out(7);
+            std::vector<std::string> out(6);
             out[0] = clean_mf;
             out[1] = mf;
             out[2] = out_rdb;

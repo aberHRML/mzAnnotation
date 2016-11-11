@@ -21,8 +21,8 @@ bioc_packages:
 
 r_github_packages:
  - jasenfinch/binneR
- - jasenfinch/mzAnnotation
  - jasenfinch/cdkr/rcdk
+ - jasenfinch/mzAnnotation
 
 notifications:
   email:

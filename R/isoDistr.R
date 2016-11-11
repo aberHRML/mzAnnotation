@@ -11,58 +11,9 @@ limri = 0.00000001
 limitfin = 0.009
 rv = 10000
 
-mzv = cbind("1",	"12C",	"C",	"100",	"0.9889",	"12")
-mzv = rbind(mzv,cbind("2",	"13C",	"iC",	"1.12245929821013",	"0.0111",	"13.003354"))
-mzv = rbind(mzv,cbind("3",	"1H",	"H",	"100",	"0.9999",	"1.007825"))
-mzv = rbind(mzv,cbind("4",	"2H",	"iH",	"0.01000100010001",	"0.0001",	"2.014102"))
-mzv = rbind(mzv,cbind("5",	"79Br",	"Br",	"100",	"0.5054",	"78.918348"))
-mzv = rbind(mzv,cbind("6",	"81Br",	"iBr",	"97.8630787495053",	"0.4946",	"80.916344"))
-mzv = rbind(mzv,cbind("7",	"35Cl",	"Cl",	"100",	"0.7553",	"34.968854"))
-mzv = rbind(mzv,cbind("8",	"37Cl",	"iCl",	"32.3977227591685",	"0.2447",	"36.965896"))
-mzv = rbind(mzv,cbind("9",	"19F",	"F",	"100",	"1",	"18.998405"))
-mzv = rbind(mzv,cbind("10",	"127I",	"I",	"100",	"1",	"126.904352"))
-mzv = rbind(mzv,cbind("11",	"39K",	"K",	"100",	"0.93258",	"38.9637069"))
-mzv = rbind(mzv,cbind("12",	"41K",	"iK",	"7.21653906367282",	"0.0673",	"40.9618259"))
-mzv = rbind(mzv,cbind("13",	"40K",	"i2K",	"0.12545840571318",	"0.00117",	"39.9639986"))
-mzv = rbind(mzv,cbind("14",	"24Mg",	"Mg",	"100",	"0.7899",	"23.9850419"))
-mzv = rbind(mzv,cbind("15",	"26Mg",	"iMg",	"13.9384732244588",	"0.1101",	"25.98259304"))
-mzv = rbind(mzv,cbind("16",	"25Mg",	"i2Mg",	"12.6598303582732",	"0.1",	"24.98583702"))
-mzv = rbind(mzv,cbind("17",	"14N",	"N",	"100",	"0.9963",	"14.003074"))
-mzv = rbind(mzv,cbind("18",	"15N",	"iN",	"0.37137408411121",	"0.0037",	"15.000108"))
-mzv = rbind(mzv,cbind("19",	"23Na",	"Na",	"100",	"1",	"22.989773"))
-mzv = rbind(mzv,cbind("20",	"16O",	"O",	"100",	"0.9976",	"15.994915"))
-mzv = rbind(mzv,cbind("21",	"18O",	"iO",	"0.20048115477145",	"0.002",	"17.99916"))
-mzv = rbind(mzv,cbind("22",	"17O",	"i2O",	"0.04009623095429",	"0.0004",	"16.999133"))
-mzv = rbind(mzv,cbind("23",	"31P",	"P",	"100",	"1",	"30.973763"))
-mzv = rbind(mzv,cbind("24",	"32S",	"S",	"100",	"0.9502",	"31.972074"))
-mzv = rbind(mzv,cbind("25",	"34S",	"iS",	"4.44117027994107",	"0.0422",	"33.967864"))
-mzv = rbind(mzv,cbind("26",	"33S",	"i2S",	"0.79983161439697",	"0.0076",	"32.97146"))
-mzv = rbind(mzv,cbind("27",	"36S",	"i3S",	"0.01052410018943",	"0.0001",	"35.967091"))
-mzv = rbind(mzv,cbind("28",	"28Si",	"Si",	"100",	"0.9221",	"27.976927"))
-mzv = rbind(mzv,cbind("29",	"29Si",	"iSi",	"5.09706105628457",	"0.047",	"28.976491"))
-mzv = rbind(mzv,cbind("30",	"30Si",	"i2Si",	"3.35104652423815",	"0.0309",	"29.973761"))
-mzv = rbind(mzv,cbind("31",	"e",	"e",	"100",	"1",	"0.0005484"))
-
-mzv <- mzv[,-1]
-colnames(mzv) = c("ICP.Isotope",	"Isotope",	"PercAbundance",	"Abundance",	"MW")
-mzv <- data.frame(mzv)
-mzv[,3] = as.numeric(as.character(mzv[,3]))
-mzv[,4] = as.numeric(as.character(mzv[,4]))
-mzv[,5] = as.numeric(as.character(mzv[,5]))
 ## -------------------------------------------------------------------------
 exptn = c("O","K","Si","Mg","S")                  
-# =============================
-# R2.6:
-#greg <- gregexpr("[[:upper:]]{1}[[:lower:]]?[[:digit:]]*", mf, perl = TRUE)
-#ugreg <- c(unlist(greg), nchar(mf)+1)
-#c <- sapply(1:(length(ugreg)-1), function(z) substr(mf, ugreg[z], ugreg[z+1]-1) )
-#at <- sub("([0-9]*)$", "", sapply(1:(length(ugreg)-1),   # blank out the digits
-#                 function(z) substr(mf, ugreg[z], ugreg[z+1]-1) ) )
-#nu <- sub("^$", "1", sub("([a-z]*)", "",    # just [a-z] works,  see above
-#                     sapply(1:(length(ugreg)-1),
-#                           function(z) substr(mf, ugreg[z], ugreg[z+1]-1) ) ) )
-# =============================
-# R3.0:
+
 greg <- gregexpr("[A-Z]{1}[a-z]?[0-9]*", mf)  # lower case does not work
 ugreg <- c(unlist(greg), nchar(mf) + 1)
 c <- sapply(1:(length(ugreg) - 1), function(z) substr(mf, ugreg[z], ugreg[z + 1] - 1) )
@@ -362,7 +313,6 @@ if (1 == 1) {
 
 } # if 
 ## -------------------------------------------------------------------------
-#View(res)
 	res <- res[order(as.numeric(res[,3]),decreasing = TRUE),]
   res[,1] <- round(as.numeric(res[,1]),digits = 5)
 	res[,2:3] <- round(as.numeric(res[,2:3]),digits = 3)

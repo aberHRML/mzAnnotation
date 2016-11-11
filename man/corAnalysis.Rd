@@ -4,15 +4,21 @@
 \alias{corAnalysis}
 \title{Correlation Analysis for mz data matirx}
 \usage{
-corAnalysis(data,varlist,pval=0.05)
+corAnalysis(data, varlist, mode, pval = 0.05)
+}
+\arguments{
+\item{data}{\code{matrix} containing the spectrally binned data to correlate}
+
+\item{varlist}{vector of explanatory mz to extract from correlation matrix}
+
+\item{mode}{either 'p' or 'n' denoting positive or negative acquisition modes respectively}
+
+\item{pval}{the p value threshold for returning significant correlations}
 }
 \description{
 Calculates correlations with a p-value above a given threshold between all variables in supplied data. M/z relationships between correlated vairables are given for a supplied variable list.
 }
 \author{
 Jasen Finch \email{jsf9@aber.ac.uk}
-}
-\seealso{
-corLists, calcDiff
 }
 

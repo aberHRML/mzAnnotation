@@ -4,7 +4,18 @@
 \alias{getPIP}
 \title{getPIP}
 \usage{
-getPIP(mz, mode, ppm, add = NULL, iso = NULL, bio = NULL)
+getPIP(mz, mode, ppm, add = NULL, iso = NULL)
+}
+\arguments{
+\item{mz}{the accurate m/z to search}
+
+\item{mode}{either 'p' or 'n' specifiying the acquisition mode}
+
+\item{ppm}{the parts per million threshold to search}
+
+\item{add}{a character \code{vector} specifying the adducts to search. If \code{NULL} the default selection will be used.}
+
+\item{iso}{a character \code{vector} specifying the isotopes to search. If \code{NULL} isotopes will not be searched.}
 }
 \description{
 getPIP

@@ -4,18 +4,12 @@
 \alias{isoDistr}
 \title{Isotope Distribution Generator}
 \usage{
-isoDistr(mf, chrg = 0, limri = 1e-08, limitfin = 0.009, rv = 10000)
+isoDistr(mf, chrg = 0)
 }
 \arguments{
-\item{mf}{}
+\item{mf}{the molecular formular to generate isotope distributions}
 
-\item{chrg}{}
-
-\item{limri}{}
-
-\item{limitfin}{}
-
-\item{rv}{}
+\item{chrg}{the charge to apply to isotope distribution generation}
 }
 \description{
 Isotope Distribution Generator

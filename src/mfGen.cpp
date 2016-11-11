@@ -3,6 +3,12 @@
 using namespace Rcpp;
 
 //' Molecular Formula Generator
+//' @param measured_mass accurate m/z for MF generation
+//' @param max numeric \code{vector} of maximum elemental composition
+//' @param min numeric \code{vector} of minimum elemental composition
+//' @param tolerance mmu tolerance for MF generation
+//' @param charge charge to apply to MF generation
+//' @param applygr \code{boolean} denoting whether to apply the 7 golden rules
 //' @export
 // [[Rcpp::export]]
 std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<int> max, std::vector<int> min,double tolerance, double charge,bool applygr)

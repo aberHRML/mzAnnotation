@@ -1,15 +1,15 @@
 #' Isotope Distribution Generator
 #'
-#' @param mf 
-#' @param chrg 
-#' @param limri 
-#' @param limitfin 
-#' @param rv 
+#' @param mf the molecular formular to generate isotope distributions
+#' @param chrg the charge to apply to isotope distribution generation
 #' @export
 
-isoDistr <-
-function(mf, chrg=0, limri=0.00000001, limitfin=0.009, rv=10000){
+isoDistr <- function(mf, chrg=0){
 ## -------------------------------------------------------------------------
+
+limri = 0.00000001
+limitfin = 0.009
+rv = 10000
 
 mzv = cbind("1",	"12C",	"C",	"100",	"0.9889",	"12")
 mzv = rbind(mzv,cbind("2",	"13C",	"iC",	"1.12245929821013",	"0.0111",	"13.003354"))

@@ -2,6 +2,12 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' Molecular Formula Generator
+#' @param measured_mass accurate m/z for MF generation
+#' @param max numeric \code{vector} of maximum elemental composition
+#' @param min numeric \code{vector} of minimum elemental composition
+#' @param tolerance mmu tolerance for MF generation
+#' @param charge charge to apply to MF generation
+#' @param applygr \code{boolean} denoting whether to apply the 7 golden rules
 #' @export
 mfGen <- function(measured_mass, max, min, tolerance, charge, applygr) {
     .Call('mzAnnotation_mfGen', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)

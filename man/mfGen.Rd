@@ -6,6 +6,19 @@
 \usage{
 mfGen(measured_mass, max, min, tolerance, charge, applygr)
 }
+\arguments{
+\item{measured_mass}{accurate m/z for MF generation}
+
+\item{max}{numeric \code{vector} of maximum elemental composition}
+
+\item{min}{numeric \code{vector} of minimum elemental composition}
+
+\item{tolerance}{mmu tolerance for MF generation}
+
+\item{charge}{charge to apply to MF generation}
+
+\item{applygr}{\code{boolean} denoting whether to apply the 7 golden rules}
+}
 \description{
 Molecular Formula Generator
 }

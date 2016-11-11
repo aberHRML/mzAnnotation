@@ -1,6 +1,7 @@
 language: r
 
 sudo: required
+bioc_required: true
 warnings_are_errors: true
 
 apt_packages:
@@ -11,6 +12,9 @@ r_binary_packages:
  - RUnit
  - testthat
 
+bioc_packages:
+ - survival
+ 
 r_github_packages:
  - jasenfinch/cdkr/rcdk
 

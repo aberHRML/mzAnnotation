@@ -1,7 +1,6 @@
 #' Aggregate significant correlations into lists for each variable
 #'
 #' @param x 
-#' @export
 
 corLists <-
 function(x) {

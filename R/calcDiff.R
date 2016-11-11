@@ -2,7 +2,6 @@
 #'
 #' @param mat 
 #' @param mo 
-#' @export
 
 calcDiff <-
 function(mat,mo){

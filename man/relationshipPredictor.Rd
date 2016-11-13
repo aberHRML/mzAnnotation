@@ -16,4 +16,7 @@ relationshipPredictor(mz, mode, limit = 0.001)
 \description{
 adduct relationship prediction
 }
+\examples{
+relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
+}
 

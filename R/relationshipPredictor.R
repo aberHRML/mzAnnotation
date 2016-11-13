@@ -4,6 +4,8 @@
 #' @param limit limit of deviation for thresholding associations. Defaults to 0.001
 #' @export
 #' @importFrom utils combn
+#' @examples 
+#' relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
 
 relationshipPredictor <- function(mz,mode,limit=0.001){
   adducts <- MZedDB$ADDUCT_FORMATION_RULES
@@ -33,11 +35,11 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
     },a = add2)
     diffs <- as.data.frame(diffs)
     colnames(diffs) <- rownames(diffs)
-    res <- data.frame(Adduct1 = rownames(diffs)[which(diffs < limit,arr.ind = T)[,1]],
-                      Adduct2 = colnames(diffs)[which(diffs < limit,arr.ind = T)[,2]],
+    res <- data.frame(Adduct1 = colnames(diffs)[which(diffs < limit,arr.ind = T)[,2]],
+                      Adduct2 = rownames(diffs)[which(diffs < limit,arr.ind = T)[,1]],
                       stringsAsFactors = F)
     if (nrow(res) > 0) {
-      errors <- apply(res,1,function(x,diffs){diffs[x[1],x[2]]},diffs = diffs)
+      errors <- apply(res,1,function(x,diffs){diffs[x[2],x[1]]},diffs = diffs)
       res <- data.frame(res,Error = errors,stringsAsFactors = F)
     }
     return(res)

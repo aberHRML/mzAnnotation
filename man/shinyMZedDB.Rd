@@ -14,4 +14,7 @@ A shiny application for the putative annotation of high resolution m/z.
 shinyMZedDB()
 }
 }
+\author{
+Jasen Finch
+}
 

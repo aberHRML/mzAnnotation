@@ -3,6 +3,7 @@
 #' @param mf the molecular formular to generate isotope distributions
 #' @param chrg the charge to apply to isotope distribution generation
 #' @export
+#' @author Manfred Beckmann
 #' @examples 
 #' res <- isoDistr('C4H5O5',chrg=-1)
 

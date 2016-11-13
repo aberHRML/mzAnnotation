@@ -17,14 +17,19 @@ install_github('jasenfinch/mzAnnotation')
 
 Available tools include:
 
+* Relationship prediction
+```r
+res <- relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
+```
+
 * Molecular formular generator
 ```r
-  res <- mfGen(341.10894,
-              max=c(C = 12,iC = 0,H = 22,iH = 0,N = 0,iN = 0,O = 11,iO = 0,F = 0 ,Na = 0,
-                   Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0),
-              min=c(C = 0,iC = 0,H = 0,iH = 0,N = 0,iN = 0,O = 0,iO = 0,F = 0 ,Na = 0,
-                   Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0),
-             tolerance=0.01,charge=-1,applygr=TRUE)
+res <- generateMF(341.10894,ppm = 5,charge = -1, 
+                  applygr = TRUE, 
+                  composition=c(C = 12,iC = 0,H = 22,iH = 0,
+                  N = 0,iN = 0,O = 11,iO = 0,F = 0 ,Na = 0,
+                  Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,
+                  Br = 0,iBr = 0,K = 0,iK = 0))
 ```
 
 * Isotope distribution calculator
@@ -33,5 +38,5 @@ res <- isoDistr('C4H5O5',chrg=-1)
 ```
 * Putative ionisation product searches
 ```r
-res <- getPIP(133.01378,'n',5)
+res <- PIPsearch(133.01378,'n',5)
 ```

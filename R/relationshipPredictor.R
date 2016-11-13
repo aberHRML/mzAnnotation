@@ -2,10 +2,11 @@
 #' @param mz numeric \code{vector} of accurate m/z
 #' @param mode string of either 'p' or 'n; denoting the acquisition mode
 #' @param limit limit of deviation for thresholding associations. Defaults to 0.001
+#' @author Jasen Finch
 #' @export
 #' @importFrom utils combn
 #' @examples 
-#' relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
+#' res <- relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
 
 relationshipPredictor <- function(mz,mode,limit=0.001){
   adducts <- MZedDB$ADDUCT_FORMATION_RULES

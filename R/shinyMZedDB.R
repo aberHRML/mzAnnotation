@@ -1,6 +1,7 @@
 #' shinyMZedDB
 #' @description A shiny application for the putative annotation of high resolution m/z.
 #' @export
+#' @author Jasen Finch
 #' @importFrom shiny shinyApp navbarPage tabPanel fluidRow column numericInput checkboxInput dataTableOutput 
 #' @importFrom shiny textInput plotOutput sidebarPanel mainPanel tableOutput renderDataTable renderPlot renderTable
 #' @importFrom rcdk parse.smiles view.image.2d

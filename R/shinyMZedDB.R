@@ -116,7 +116,7 @@ shinyMZedDB <- function(){
         } else {
           iso <- NULL
         }
-        pip_tab <- getPIP(input$acc_mz,mode,input$ppm,iso = iso)
+        pip_tab <- PIPsearch(input$acc_mz,mode,input$ppm,iso = iso)
         pip_tab
       }) 
       

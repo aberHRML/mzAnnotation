@@ -51,7 +51,7 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
   diffs <- ldply(diffs,stringsAsFactors = F)
   mzS <- strsplit(diffs$.id,'~')
   mzS <- ldply(mzS,stringsAsFactors = F)
-  mzS <- apply(mzS,2,as.numeric)
+  mzS <- data.frame(matrix(apply(mzS,2,as.numeric),ncol = 2))
   colnames(mzS) <- c('mz1','mz2')
   diffs <- diffs[,-1]
   diffs <- data.frame(mzS,diffs,stringsAsFactors = F)

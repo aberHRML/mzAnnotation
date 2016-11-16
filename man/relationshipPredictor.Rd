@@ -2,7 +2,7 @@
 % Please edit documentation in R/relationshipPredictor.R
 \name{relationshipPredictor}
 \alias{relationshipPredictor}
-\title{adduct relationship prediction}
+\title{m/z relationship prediction}
 \usage{
 relationshipPredictor(mz, mode, limit = 0.001)
 }
@@ -14,10 +14,10 @@ relationshipPredictor(mz, mode, limit = 0.001)
 \item{limit}{limit of deviation for thresholding associations. Defaults to 0.001}
 }
 \description{
-adduct relationship prediction
+adduct, isotope and biotransfromation prediction.
 }
 \examples{
-res <- relationshipPredictor(c(65.51148,132.03023,133.03359,168.00691),'n')
+res <- relationshipPredictor(c(132.03023,133.01425,133.03359,168.00691),'n')
 }
 \author{
 Jasen Finch

@@ -178,8 +178,6 @@ shinyMZedDB <- function(){
         if (!is.null(r)) {
         mz <- MZedDB$MZedDB_ALL$Accurate.Mass[r]
         metrules <- MZedDB$MZedDB_METRULES[r,]
-        print(class(metrules))
-        print(metrules)
         rules <- MZedDB$ADDUCT_FORMATION_RULES
         res <- apply(rules,1,function(rule,id,metrules){
           Nch <- metrules$Nch

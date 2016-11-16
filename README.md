@@ -19,7 +19,7 @@ Available tools include:
 
 * Relationship prediction
 ```r
-res <- relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
+res <- relationshipPredictor(c(132.03023,133.01425,133.03359,168.00691),'n')
 ```
 
 * Molecular formular generator

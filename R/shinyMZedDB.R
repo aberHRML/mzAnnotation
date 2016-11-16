@@ -2,8 +2,9 @@
 #' @description A shiny application for the putative annotation of high resolution m/z.
 #' @export
 #' @author Jasen Finch
-#' @importFrom shiny shinyApp navbarPage tabPanel fluidRow column numericInput checkboxInput dataTableOutput 
-#' @importFrom shiny textInput plotOutput sidebarPanel mainPanel tableOutput renderDataTable renderPlot renderTable
+#' @importFrom shiny shinyApp navbarPage tabPanel fluidRow column numericInput checkboxInput reactive
+#' @importFrom shiny textInput plotOutput sidebarPanel mainPanel tableOutput renderPlot renderTable
+#' @importFrom DT renderDataTable dataTableOutput
 #' @importFrom rcdk parse.smiles view.image.2d
 #' @importFrom graphics plot par rasterImage
 #' @examples
@@ -26,7 +27,10 @@ shinyMZedDB <- function(){
                                #column(4, selectInput('add_sel_i', 'Adducts:', adducts, multiple=TRUE, selectize=FALSE))                                                    
                              ),
                              fluidRow(
-                               dataTableOutput(outputId = "pip_table")
+                               dataTableOutput(outputId = "pipTable")
+                             ),
+                             fluidRow(
+                               plotOutput('structure')
                              )
                     ),
                     tabPanel("Molecular Formula Generator",
@@ -73,21 +77,13 @@ shinyMZedDB <- function(){
                              ) 
                              
                     ),
-                    tabPanel("Draw Smiles",
-                             sidebarPanel(
-                               textInput("smile","Smiles:","O[C@@H](CC([O-])=O)C([O-])=O")
-                             ),
-                             mainPanel(
-                               plotOutput(outputId = "structure"),width = 5
-                             )
-                    ),
                     tabPanel("MZedDB",
                              fluidRow(
                                dataTableOutput(outputId = "MZDB")
                              ) 
                     ),
                     tabPanel("Adduct Calculator",
-                              fluidRow(
+                             fluidRow(
                                column(3, textInput("id","Database ID:","D29160"))
                              ),
                              fluidRow(
@@ -100,8 +96,7 @@ shinyMZedDB <- function(){
     ),
     server = function(input, output) {
       
-      # Filter data based on selections
-      output$pip_table <- renderDataTable({
+      getPIPs <- reactive({
         if (input$mode_p) {
           mode <- "p"
         }
@@ -118,7 +113,27 @@ shinyMZedDB <- function(){
         }
         pip_tab <- PIPsearch(input$acc_mz,mode,input$ppm,iso = iso)
         pip_tab
-      }) 
+      })
+      
+      output$pipTable <- renderDataTable({
+        getPIPs()
+      },server = T,selection = 'single',rownames = F) 
+      
+      output$structure <- renderPlot({
+        r <- input$pipTable_rows_selected
+        if (!is.null(r)) {
+          res <- getPIPs()
+          res <- res[r,]
+          smile <- gsub('"','',res$Smiles)
+          par(mar = c(0,0,0,0))
+          sm <- parse.smiles(smile)[[1]]
+          temp1 <- view.image.2d(sm,500,500)
+          plot(NA,NA,xlim = c(1,100),ylim = c(1,100),xaxt = 'n',yaxt = 'n',xlab = '',ylab = '')
+          rasterImage(temp1,1,1,100,100)
+        } else {
+          NULL
+        }
+      },width = 400,height = 400)
       
       output$mf_table <- renderDataTable({
         maxi <- c(C = input$C_max,iC = input$iC_max,H = input$H_max,iH = 0,N = input$N_max,iN = 0,O = input$O_max,iO = input$iO_max,F = 0,Na = input$Na_max,Si = 0,P = input$P_max,S = input$S_max,Cl = input$Cl_max,iCl = input$iCl_max,Br = 0,iBr = 0,K = input$K_max,iK = input$iK_max)
@@ -180,7 +195,7 @@ shinyMZedDB <- function(){
         
         metrules <- MZedDB$MZedDB_METRULES
         metrules <- metrules[which(metrules$ID == id$ID),]
-
+        
         rules <- MZedDB$ADDUCT_FORMATION_RULES
         res <- apply(rules,1,function(rule,id,metrules){
           Nch <- metrules$Nch
@@ -207,5 +222,5 @@ shinyMZedDB <- function(){
         res
       })
     }
-    )
+  )
 }

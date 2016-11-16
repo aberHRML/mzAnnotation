@@ -7,7 +7,7 @@ Author: Jasen Finch
 Maintainer: Jasen Finch <jsf9@aber.ac.uk>
 Description: Tools for the putative annotation of high resolution metabolomics data.
 License: GPL (>= 2)
-Imports: Rcpp, plyr, shiny, rcdk, graphics
+Imports: Rcpp, plyr, shiny, rcdk, graphics, DT
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 LazyData: true

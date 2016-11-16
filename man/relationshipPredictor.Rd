@@ -17,7 +17,7 @@ relationshipPredictor(mz, mode, limit = 0.001)
 adduct relationship prediction
 }
 \examples{
-res <- relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
+res <- relationshipPredictor(c(65.51148,132.03023,133.03359,168.00691),'n')
 }
 \author{
 Jasen Finch

@@ -6,11 +6,13 @@
 #' @export
 #' @importFrom utils combn
 #' @examples 
-#' res <- relationshipPredictor(c(65.51148,132.03023,168.00691),'n')
+#' res <- relationshipPredictor(c(65.51148,132.03023,133.03359,168.00691),'n')
 
 relationshipPredictor <- function(mz,mode,limit=0.001){
   adducts <- MZedDB$ADDUCT_FORMATION_RULES
-  
+  isotopes <- MZedDB$ISOTOPE_RULES
+  isotopes <- isotopes[!(isotopes$Isotope %in% c('Cl37','K41')),]
+  isotopes <- data.frame(Isotope = c(NA,isotopes$Isotope),Difference = c(0,isotopes$Mass.Difference),stringsAsFactors = F)
   if (mode == 'p') {
     adducts <- adducts[adducts$Nelec < 0,]  
   }
@@ -28,23 +30,29 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
   
   combinations <- combn(mz,2)
   
-  diffs <- apply(combinations, MARGIN = 2,function(x,M,limit){
+  diffs <- apply(combinations, MARGIN = 2,function(x,M,limit,isotopes){
     add1 <- M[[as.character(x[1])]]
     add2 <- M[[as.character(x[2])]]
     diffs <- lapply(add1,function(x,a){
-      sqrt((x - a)^2)
+      abs(x - a)
     },a = add2)
     diffs <- as.data.frame(diffs)
     colnames(diffs) <- rownames(diffs)
-    res <- data.frame(Adduct1 = colnames(diffs)[which(diffs < limit,arr.ind = T)[,2]],
-                      Adduct2 = rownames(diffs)[which(diffs < limit,arr.ind = T)[,1]],
-                      stringsAsFactors = F)
-    if (nrow(res) > 0) {
-      errors <- apply(res,1,function(x,diffs){diffs[x[2],x[1]]},diffs = diffs)
-      res <- data.frame(res,Error = errors,stringsAsFactors = F)
-    }
-    return(res)
-  },M = M,limit = limit)
+    res <- apply(isotopes,1,function(y,diffs,limit){
+      diffs <- abs(diffs - as.numeric(y[2]))
+      res <- data.frame(Adduct1 = colnames(diffs)[which(diffs < limit,arr.ind = T)[,2]],
+                        Adduct2 = rownames(diffs)[which(diffs < limit,arr.ind = T)[,1]],
+                        stringsAsFactors = F)
+      if (nrow(res) > 0) {
+        errors <- apply(res,1,function(x,diffs){diffs[x[2],x[1]]},diffs = diffs)
+        res <- data.frame(res,Error = errors,stringsAsFactors = F)
+      }
+      return(res)
+    },diffs = diffs,limit = limit)
+   names(res) <- isotopes$Isotope
+   res <- ldply(res,.id = 'Isotope')
+   return(res)
+  },M = M,limit = limit,isotopes)
   
   names(diffs) <- apply(combinations,2,function(x){paste(x,collapse = '~')})
   

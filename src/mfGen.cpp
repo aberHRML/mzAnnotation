@@ -2,7 +2,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' @export
 // [[Rcpp::export]]
 std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<int> max, std::vector<int> min,double tolerance, double charge,bool applygr)
 {
@@ -408,14 +407,13 @@ std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<
             convert_5 << error;
             out_error = convert_5.str();
             
-            std::vector<std::string> out(7);
+            std::vector<std::string> out(6);
             out[0] = clean_mf;
             out[1] = mf;
             out[2] = out_rdb;
             out[3] = out_mass;
-            out[4] = out_nadd;
-            out[5] = out_niso;
-            out[6] = out_error;
+            out[4] = out_niso;
+            out[5] = out_error;
             res.push_back(out);
             }	/* end of "rdb" loop */
             

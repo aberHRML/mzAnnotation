@@ -2,22 +2,22 @@
 % Please edit documentation in R/isoDistr.R
 \name{isoDistr}
 \alias{isoDistr}
-\title{Isotope Distribution Generator}
+\title{Isotope Distribution Calculater}
 \usage{
-isoDistr(mf, chrg = 0, limri = 1e-08, limitfin = 0.009, rv = 10000)
+isoDistr(mf, chrg = 0)
 }
 \arguments{
-\item{mf}{}
+\item{mf}{the molecular formular to generate isotope distributions}
 
-\item{chrg}{}
-
-\item{limri}{}
-
-\item{limitfin}{}
-
-\item{rv}{}
+\item{chrg}{the charge to apply to isotope distribution generation}
 }
 \description{
-Isotope Distribution Generator
+Isotope Distribution Calculater
+}
+\examples{
+res <- isoDistr('C4H5O5',chrg=-1)
+}
+\author{
+Manfred Beckmann
 }
 

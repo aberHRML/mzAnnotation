@@ -1,5 +1,10 @@
-^.*\.Rproj$
-^\.Rproj\.user$
+mzAnnotation.Rproj
+.Rproj.user
 .travis.yml
 appveyor.yml
 README.md
+.gitignore
+.git
+.Rhistory
+^.*\.Rproj$
+^\.Rproj\.user$

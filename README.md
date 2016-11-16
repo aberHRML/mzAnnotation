@@ -17,7 +17,7 @@ install_github('jasenfinch/mzAnnotation')
 
 Available tools include:
 
-* Relationship prediction
+* Adduct, isotope and biotransfromation relationship prediction
 ```r
 res <- relationshipPredictor(c(132.03023,133.01425,133.03359,168.00691),'n')
 ```

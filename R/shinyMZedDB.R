@@ -89,7 +89,7 @@ shinyMZedDB <- function(){
           mode <- "ne"
         }
         if (input$pip_iso) {
-          iso <- c('C13','O18','S34')
+          iso <- c('C13','2C13','O18','S34')
         } else {
           iso <- NULL
         }

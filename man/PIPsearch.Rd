@@ -13,7 +13,7 @@ PIPsearch(mz, mode, ppm, add = NULL, iso = NULL)
 
 \item{ppm}{the parts per million threshold to search}
 
-\item{add}{a character \code{vector} specifying the adducts to search. If \code{NULL} a default selection will be used.}
+\item{add}{a character \code{vector} specifying the adducts to search. If \code{NULL}, all adducts for that acquisition mode will be used.}
 
 \item{iso}{a character \code{vector} specifying the isotopes to search. If \code{NULL} isotopes will not be searched.}
 }

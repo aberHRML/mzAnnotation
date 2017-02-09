@@ -76,7 +76,17 @@ shinyMZedDB <- function(){
                              fluidRow(
                                tableOutput("adduct")
                              ) 
-                    )
+                    ),
+                    tabPanel('Relationship Prediction',
+                             fluidRow(
+                               column(3,numericInput('mz1','m/z 1:',135.0288)),
+                               column(3,numericInput('mz2','m/z 2:',136.03216)),
+                               column(2, selectInput("mode", "Mode:",c('positive','negative')))
+                             ),
+                             fluidRow(
+                               dataTableOutput(outputId = 'predictedRelTable')
+                             )
+                             )
     ),
     server = function(input, output) {
       
@@ -306,6 +316,18 @@ shinyMZedDB <- function(){
         } else {
           NULL
         }
+      })
+      
+      ################### Relationship Prediction ############################
+      
+      output$predictedRelTable <- renderDataTable({
+        if (input$mode == 'positive') {
+          mode <- 'p'
+        }
+        if (input$mode == 'negative') {
+          mode <- 'n'
+        }
+        res <- relationshipPredictor(c(input$mz1,input$mz2),mode)
       })
     }
   )

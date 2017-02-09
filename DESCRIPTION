@@ -9,5 +9,5 @@ Description: Tools for the putative annotation of high resolution metabolomics d
 License: GPL (>= 2)
 Imports: Rcpp, plyr, shiny, rcdk, graphics, DT
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 LazyData: true

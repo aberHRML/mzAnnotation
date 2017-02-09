@@ -32,4 +32,3 @@ res <- PIPsearch(133.01378,'n',5)
 \author{
 Jasen Finch
 }
-

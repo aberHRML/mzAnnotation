@@ -36,4 +36,3 @@ res <- generateMF(341.10894,ppm = 5,charge = -1, applygr = TRUE,
 \author{
 Jasen Finch
 }
-

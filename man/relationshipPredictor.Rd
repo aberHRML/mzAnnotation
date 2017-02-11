@@ -22,3 +22,4 @@ res <- relationshipPredictor(c(132.03023,133.01425,133.03359,168.00691),'n')
 \author{
 Jasen Finch
 }
+

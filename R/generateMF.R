@@ -6,6 +6,7 @@
 #' @param composition numeric \code{vector} of maximum elemental composition
 #' @details Uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
 #' @author Jasen Finch
+#' @importFrom CHNOSZ makeup
 #' @export
 #' @return A \code{data.frame} containing the generated MFs, their theoretical m/z and their PPM error.
 #' @examples
@@ -27,6 +28,23 @@ generateMF <- function(mz, ppm = 5, charge = 0, applygr = TRUE, composition = c(
       res <- res[,-c(1,3,5)]
       colnames(res) <- c("MF", "m/z","PPM Error")
       res[,3] <- sapply(as.numeric(as.character(res[,2])),function(x,mass){x <- as.numeric(x);x <- (x - mass)/mass*10^6; return(round(x,5))},mass = mz)
+      res$MF <- sapply(res$MF,function(x){
+        mf <- makeup(x)
+        if (1 %in% mf) {
+          mf <- sapply(names(mf),function(y,freq){
+            freq <- freq[y]
+            if (freq == 1) {
+              y
+            } else {
+              paste(y,freq,sep = '')
+            }
+          },freq = mf)
+          mf <- paste(mf,collapse = '')
+          return(mf)
+        } else {
+          return(x)
+        }
+      })
     } 
     return(res)
   }

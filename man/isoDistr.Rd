@@ -20,4 +20,3 @@ res <- isoDistr('C4H5O5',chrg=-1)
 \author{
 Manfred Beckmann
 }
-

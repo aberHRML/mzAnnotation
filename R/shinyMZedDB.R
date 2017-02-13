@@ -19,11 +19,9 @@ shinyMZedDB <- function(){
                     tabPanel("Putative Ionisation Product",
                              # Create a new Row in the UI for selectInputs
                              fluidRow(
-                               column(3, numericInput("acc_mz","Accurate Mass:",117.078979)),
+                               column(3, numericInput("acc_mz","Accurate Mass:",118.08626)),
                                column(2, numericInput("ppm","PPM:",1)),
-                               column(2, checkboxInput("mode_p", "Positive Mode",value = F)),
-                               column(2, checkboxInput("mode_ne", "Neutral",value = T)),
-                               column(2, checkboxInput("mode_n", "Negative Mode",value = F)),
+                               column(2, selectInput("modeI", "Mode:",c('positive','neutral','negative'))),
                                column(2, checkboxInput("pip_iso", "Isotopes",value = F))
                                #column(4, selectInput('add_sel_i', 'Adducts:', adducts, multiple=TRUE, selectize=FALSE))                                                    
                              ),
@@ -92,13 +90,13 @@ shinyMZedDB <- function(){
       
       ###################### PIPs ##################################
       getPIPs <- reactive({
-        if (input$mode_p) {
+        if (input$modeI == 'positive') {
           mode <- "p"
         }
-        if (input$mode_n) {
+        if (input$modeI == 'negative') {
           mode <- "n"
         }
-        if (input$mode_ne) {
+        if (input$modeI == 'neutral') {
           mode <- "ne"
         }
         if (input$pip_iso) {

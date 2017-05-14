@@ -53,7 +53,8 @@ std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<
   (did it manually because I couldn\'t find \'abs\') to correct \'measured_mass\' and limits, 
   but keeping nadd = 0 for rdb calculation of neutral MW (MB)
   2014-10-09, Jasen Finch (jsf9@aber.ac.uk). Integrated code for direct sourcing in R using the Rcpp package.
-  
+  2017-05-14, Jasen Finch (jsf9@aber.ac.uk). Element ratios checks now controlled by applygr.
+   
   This is ANSI C and should compile with any C compiler; use
   something along the lines of "gcc -Wall -O3 -o hr hr.c".
   "g++ -O2 -o myhr HR2.cpp"  on a Mac OS X G5 proc
@@ -344,7 +345,11 @@ std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<
                                             if ((mass >= limit_lo) && (mass <= limit_hi)){ /* within limits? */	
                                             // element check will be performed always, if variable bool element_probability is true also probabilities will be calculated
                                             // not an elegant implementation, but fast.
+                                            if(applygr){
                                             elementcheck = Functions::calc_element_ratios(cnt,applygr);  /* pass applygr boolean by dle */
+                                            } else {
+                                              elementcheck = true;
+                                            }
                                             if (elementcheck){ 
                                               rdbori = Functions::calc_rdb(cnt,val,nr_el);	/* get RDB */           
                                             rdb = rdbori + 0.5*nadd; /* dle: if nadd addcuts */

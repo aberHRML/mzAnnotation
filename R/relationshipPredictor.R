@@ -16,11 +16,15 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
   isotopes <- data.frame(Isotope = c(NA,isotopes$Isotope),Difference = c(0,isotopes$Mass.Difference),stringsAsFactors = F)
   transformations <- MZedDB$BIOTRANSFORMATION_RULES
   transformations <- data.frame(Transformation = c(NA,transformations$MF.Change),Difference = c(0,transformations$Difference),stringsAsFactors = F)
-  if (mode == 'p') {
-    adducts <- adducts[adducts$Nelec < 0,]  
-  }
-  if (mode == 'n') {
-    adducts <- adducts[adducts$Nelec > 0,]
+  if (length(mode) == 1){
+    if (mode == 'p') {
+      adducts <- adducts[adducts$Nelec < 0,]  
+    }
+    if (mode == 'n') {
+      adducts <- adducts[adducts$Nelec > 0,]
+    } 
+  } else {
+    adducts <- adducts[adducts$Nelec > 0 | adducts$Nelec < 0,]
   }
   
   M  <- lapply(mz,function(x,add,charge,xM,name){

@@ -16,7 +16,7 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
   isotopes <- data.frame(Isotope = c(NA,isotopes$Isotope),Difference = c(0,isotopes$Mass.Difference),stringsAsFactors = F)
   transformations <- MZedDB$BIOTRANSFORMATION_RULES
   transformations <- data.frame(Transformation = c(NA,transformations$MF.Change),Difference = c(0,transformations$Difference),stringsAsFactors = F)
-  if (length(mode) == 1){
+  if (length(mode) == 1) {
     if (mode == 'p') {
       adducts <- adducts[adducts$Nelec < 0,]  
     }
@@ -48,7 +48,7 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
     res <- apply(isotopes,1,function(y,diffs,limit,transformations){
       diffs <- abs(diffs - as.numeric(y[2]))
       res <- apply(transformations,1,function(z,diffs,limit){
-        diffs <- abs(diffs - as.numeric(z[2]))
+        diffs <- abs(diffs - abs(as.numeric(z[2])))
         res <- data.frame(Adduct1 = colnames(diffs)[which(diffs < limit,arr.ind = T)[,2]],
                           Adduct2 = rownames(diffs)[which(diffs < limit,arr.ind = T)[,1]],
                           stringsAsFactors = F)
@@ -58,13 +58,13 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
         }
         return(res)
       },diffs = diffs,limit = limit)
-     names(res) <- transformations$Transformation
-     res <- ldply(res,.id = 'Transformation')
-     return(res)
+      names(res) <- transformations$Transformation
+      res <- ldply(res,.id = 'Transformation')
+      return(res)
     },diffs = diffs,limit = limit,transformations = transformations)
-   names(res) <- isotopes$Isotope
-   res <- ldply(res,.id = 'Isotope')
-   return(res)
+    names(res) <- isotopes$Isotope
+    res <- ldply(res,.id = 'Isotope')
+    return(res)
   },M = M,limit = limit,isotopes = isotopes,transformations = transformations)
   
   names(diffs) <- apply(combinations,2,function(x){paste(x,collapse = '~')})
@@ -76,6 +76,41 @@ relationshipPredictor <- function(mz,mode,limit=0.001){
   colnames(mzS) <- c('mz1','mz2')
   diffs <- diffs[,-1]
   diffs <- data.frame(mzS,diffs,stringsAsFactors = F)
+  adducts <- MZedDB$ADDUCT_FORMATION_RULES
+  adducts[,c(2,3,4,5)] <- apply(adducts[,c(2,3,4,5)],2,as.numeric)
+  diffs <- apply(diffs,1,function(x,adducts,isotopes,trans){
+    mz1 <- ((as.numeric(x[1]) - adducts$xM[which(adducts$Name == x[5])]) * adducts$xM[which(adducts$Name == x[5])])/adducts$xM[which(adducts$Name == x[5])]
+    mz2 <- ((as.numeric(x[2]) - adducts$xM[which(adducts$Name == x[6])]) * adducts$xM[which(adducts$Name == x[6])])/adducts$xM[which(adducts$Name == x[6])]
+    Isotope <- rep(NA,2)
+    Transformation <- rep(NA,2)
+    if (!is.na(x[3])) {
+      i <- isotopes$Mass.Difference[which(isotopes$Isotope == x[3])]
+      if (!is.na(x[4])) {
+        t <- trans$Difference[which(trans$MF.Change == x[4])]
+        iso <- c(c(abs((mz1 - t) - mz2),abs(mz1 - (mz2 - t))) - i)
+        Isotope[which(iso == min(iso))] <- x[3]
+      } else {
+        Isotope[which(c(mz1,mz2) == max(c(mz1,mz2)))] <- x[3]
+      }
+    }
+    if (!is.na(x[4])) {
+      t <- trans$Difference[which(trans$MF.Change == x[4])]
+      if (!is.na(x[3])) {
+        i <- isotopes$Mass.Difference[which(isotopes$Isotope == x[3])]
+        tran <- c(c(abs((mz1 - i) - mz2),abs(mz1 - (mz2 - i))) - t)
+        Transformation[which(tran == min(tran))] <- x[4]
+      } else {
+        if (t < 0) {
+          Transformation[which(c(mz1,mz2) == min(c(mz1,mz2)))] <- x[4]
+        } else {
+          Transformation[which(c(mz1,mz2) == max(c(mz1,mz2)))] <- x[4]
+        }
+      }
+    }
+    return(c(x[1:2], Isotope1 = Isotope[1],Isotope2 = Isotope[2],Transformation1 = Transformation[1],Transformation2 = Transformation[2],x[5:7]))
+  },adducts = adducts,isotopes = MZedDB$ISOTOPE_RULES, trans = MZedDB$BIOTRANSFORMATION_RULES)
+  diffs <- data.frame(t(diffs),stringsAsFactors = F)
+  diffs[,1:2] <- apply(diffs[,1:2],2,as.numeric)
   return(diffs)
 }
 

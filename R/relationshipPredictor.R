@@ -10,6 +10,7 @@
 #' res <- relationshipPredictor(c(132.03023,133.01425,133.03359,168.00691),'n')
 
 relationshipPredictor <- function(mz,mode,limit=0.001){
+  options(digits = 15)
   adducts <- MZedDB$ADDUCT_FORMATION_RULES
   isotopes <- MZedDB$ISOTOPE_RULES
   isotopes <- isotopes[!(isotopes$Isotope %in% c('Cl37','K41')),]

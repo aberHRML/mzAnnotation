@@ -4,7 +4,7 @@
 \alias{relationshipPredictor}
 \title{m/z relationship prediction}
 \usage{
-relationshipPredictor(mz, mode, limit = 0.001)
+relationshipPredictor(mz, mode, limit = 0.001, add = NULL)
 }
 \arguments{
 \item{mz}{numeric \code{vector} of accurate m/z}
@@ -12,6 +12,8 @@ relationshipPredictor(mz, mode, limit = 0.001)
 \item{mode}{string of either 'p' or 'n; denoting the acquisition mode}
 
 \item{limit}{limit of deviation for thresholding associations. Defaults to 0.001}
+
+\item{add}{character vector of adducts to use. If \code{NULL} all available adducts will be used}
 }
 \description{
 adduct, isotope and biotransfromation prediction.

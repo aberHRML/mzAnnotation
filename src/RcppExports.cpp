@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // mfGen
 std::vector<std::vector<std::string> > mfGen(double measured_mass, std::vector<int> max, std::vector<int> min, double tolerance, double charge, bool applygr);
-RcppExport SEXP mzAnnotation_mfGen(SEXP measured_massSEXP, SEXP maxSEXP, SEXP minSEXP, SEXP toleranceSEXP, SEXP chargeSEXP, SEXP applygrSEXP) {
+RcppExport SEXP _mzAnnotation_mfGen(SEXP measured_massSEXP, SEXP maxSEXP, SEXP minSEXP, SEXP toleranceSEXP, SEXP chargeSEXP, SEXP applygrSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,7 +23,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"mzAnnotation_mfGen", (DL_FUNC) &mzAnnotation_mfGen, 6},
+    {"_mzAnnotation_mfGen", (DL_FUNC) &_mzAnnotation_mfGen, 6},
     {NULL, NULL, 0}
 };
 

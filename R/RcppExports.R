@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 mfGen <- function(measured_mass, max, min, tolerance, charge, applygr) {
-    .Call('mzAnnotation_mfGen', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)
+    .Call('_mzAnnotation_mfGen', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)
 }
 

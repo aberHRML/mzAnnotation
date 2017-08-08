@@ -2,6 +2,8 @@
 
 export(PIPsearch)
 export(availableAdducts)
+export(availableIsotopes)
+export(availableTransformations)
 export(generateMF)
 export(isoDistr)
 export(relationshipPredictor)

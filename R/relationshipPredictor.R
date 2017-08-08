@@ -122,7 +122,7 @@ relationshipPredictor <- function(mz,mode,limit=0.001, add = NULL){
     diffs <- data.frame(t(diffs),stringsAsFactors = F)
     diffs[,1:2] <- apply(diffs[,1:2],2,as.numeric)
   } else {
-    diffs <- data.frame(diffs[,1:2],Isotope1 = numeric(),Isotope2 = numeric(),Transformation1 = character(),Transformation2 = character(),diffs[,5:6])
+    diffs <- data.frame(diffs[,1:2],Isotope1 = character(),Isotope2 = character(),Transformation1 = character(),Transformation2 = character(),diffs[,5:6])
   }
   return(diffs)
 }

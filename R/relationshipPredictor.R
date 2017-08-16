@@ -4,13 +4,14 @@
 #' @param mode string of either 'p' or 'n; denoting the acquisition mode
 #' @param limit limit of deviation for thresholding associations. Defaults to 0.001
 #' @param add character vector of adducts to use. If \code{NULL} all available adducts will be used
+#' @param iso character vector of isotopes to use. If \code{NULL} all available adducts will be used
 #' @author Jasen Finch
 #' @export
 #' @importFrom utils combn
 #' @examples 
 #' res <- relationshipPredictor(c(132.03023,133.01425,133.03359,168.00691),'n')
 
-relationshipPredictor <- function(mz,mode,limit=0.001, add = NULL){
+relationshipPredictor <- function(mz,mode,limit=0.001, add = NULL,iso = NULL){
   options(digits = 15)
   adducts <- MZedDB$ADDUCT_FORMATION_RULES
   isotopes <- MZedDB$ISOTOPE_RULES
@@ -33,6 +34,13 @@ relationshipPredictor <- function(mz,mode,limit=0.001, add = NULL){
     adducts <- adducts[adducts$Name %in% add,]
     if (nrow(adducts) == 0) {
       stop('no adducts selected')
+    }
+  }
+  
+  if (!is.null(iso)) {
+    isotopes <- isotopes[isotopes$Isotope %in% iso,]
+    if (nrow(isotopes) == 0) {
+      stop('no isotopes selected')
     }
   }
   

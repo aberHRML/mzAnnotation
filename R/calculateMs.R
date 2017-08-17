@@ -1,3 +1,4 @@
+#' @importFrom tibble tibble
 
 calculateMs <- function(mz,add,iso,trans,adductTable = mzAnnotation::Adducts, isotopeTable = mzAnnotation::Isotopes, transformationTable = mzAnnotation::Transformations) {
   M <- map(trans,~{

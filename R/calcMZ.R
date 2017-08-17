@@ -4,9 +4,9 @@
 #' @param adduct adduct to apply
 #' @param isotope isotope to apply
 #' @param transformation transformation to apply
-#' @param adducts adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.
-#' @param isotopes isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.
-#' @param transformations transformations table containing available transformations rules. Defaults to table returned by \code{availableTransformations()}.
+#' @param adducts adduct table containing available adduct rules. Defaults to \code{Adducts}.
+#' @param isotopes isotope table containing available isotope rules. Defaults to \code{Isotopes}.
+#' @param transformations transformations table containing available transformations rules. Defaults to \code{Transformations}.
 #' @importFrom dplyr filter
 #' @examples calcMZ(116.05182,adduct = '[M+H]1+',isotope = 'C13',transformation = 'M - [O] + NH2]')
 #' @export

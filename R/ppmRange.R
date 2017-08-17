@@ -9,5 +9,5 @@ ppmRange <- function(mz,ppm) {
   amu <- mz * ppm * 10^-6
   lower <- round(mz - amu,5)
   upper <- round(mz + amu,5)
-  return(c(lower = lower, upper = upper))
+  return(list(lower = lower, upper = upper))
 }

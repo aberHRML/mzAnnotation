@@ -17,11 +17,11 @@ calcMZ(M, adduct = "[M+H]1+", isotope = NA, transformation = NA,
 
 \item{transformation}{transformation to apply}
 
-\item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
+\item{adducts}{adduct table containing available adduct rules. Defaults to \code{Adducts}.}
 
-\item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
+\item{isotopes}{isotope table containing available isotope rules. Defaults to \code{Isotopes}.}
 
-\item{transformations}{transformations table containing available transformations rules. Defaults to table returned by \code{availableTransformations()}.}
+\item{transformations}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
 }
 \description{
 calculate an m/z for a given M, adduct, isotope and transformation

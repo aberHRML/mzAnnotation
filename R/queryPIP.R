@@ -1,38 +1,24 @@
+#' @importFrom purrr map
+#' @importFrom magrittr %>%
+#' @importFrom dplyr mutate select
 
-queryPIP <- function(add,mz,ppm,filter = T, iso = NULL){
+queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, DB = mzAnnotation::MZedDB, filter = T){
   # Retrieve database entries
-  all <- MZedDB$MZedDB_ALL
-  metrules <- MZedDB$MZedDB_METRULES
-  
-  # Retrieve adduct formation rules
-  add_rules <- MZedDB$ADDUCT_FORMATION_RULES
-  add <- add_rules[which(add_rules[,1] == add),]
-  
-  if (!is.null(iso)) {
-    iso_rules <- MZedDB$ISOTOPE_RULES
-    iso <- iso_rules[which(iso_rules[,1] == iso),]
-    elementFreq <- MZedDB$MZedDB_ELEMENT_FREQUENCIES
-  }
+  elementFreq <- DB$ELementFrequencies
+  metaboliteRules <- DB$Rules
+  DB <- DB$DB
   
   # Calculate the mz range over which to search based on ppm error
-  mass_low <- mz - (mz * ppm * 10^-6)
-  mass_high <- mz + (mz * ppm * 10^-6)
+  mass <- ppmRange(mz,ppm)
   
-  # Account for adduct transformation in mz range
-  mass_low <- ((mass_low - add[1,"Add"])*add[1,"Charge"])/add[1,"xM"]
-  mass_high <- ((mass_high - add[1,"Add"])*add[1,"Charge"])/add[1,"xM"]
-  
-  # If an isotope has been selected; account for this in the mz range
-  if (!is.null(iso)) {
-    mass_low <- mass_low - iso$Mass.Difference
-    mass_high <- mass_high - iso$Mass.Difference
-  }
+  # Calculate M
+  mass <- map(mass,calcM,adduct = add,isotope = iso)
   
   # Filter database entries based mz range
-  all <- all[which(all[,"Accurate.Mass"] > mass_low & all[,"Accurate.Mass"] < mass_high),]
+  DB <- filter(DB, `Accurate Mass` > mass$lower & `Accurate Mass` < mass$upper)
   
   # If an isotope has been selected; filter the database entries based on the isotope rules
-  if (!is.null(iso)) {
+  if (!is.na(iso)) {
     elementFreq <- elementFreq[elementFreq$ID %in% all$ID,]
     C <- elementFreq[,'C']
     O <- elementFreq[,'O']
@@ -40,52 +26,34 @@ queryPIP <- function(add,mz,ppm,filter = T, iso = NULL){
     K <- elementFreq[,'K']
     S <- elementFreq[,'S']
     
-    all <- all[which(eval(parse(text = as.character(iso["Rule"])))),]
+    isotopes <- filter(isotopes,Isotope == iso)
+    DB <- filter(DB,eval(parse(text = isotopes$Rule)))
   }
   
   # Filter the database based on the adduct formation rules
-  metrules <- metrules[metrules$ID %in% all$ID,]
-  Nch <- metrules[,"Nch"]
-  Nacc <- metrules[,"Nacc"]
-  Ndon <- metrules[,"Ndon"]
-  Nnhh <- metrules[,"Nnhh"]
-  Noh <-  metrules[,"Noh"]
-  Ncooh <- metrules[,"Ncooh"]
-  Ncoo <-  metrules[,"Ncoo"]
+  metaboliteRules <- filter(metaboliteRules, ID %in% DB$ID)
+  Nch <- metaboliteRules[,"Nch"]
+  Nacc <- metaboliteRules[,"Nacc"]
+  Ndon <- metaboliteRules[,"Ndon"]
+  Nnhh <- metaboliteRules[,"Nnhh"]
+  Noh <-  metaboliteRules[,"Noh"]
+  Ncooh <- metaboliteRules[,"Ncooh"]
+  Ncoo <-  metaboliteRules[,"Ncoo"]
   
-  res <- all[which(eval(parse(text = as.character(add["Rule"])))),]
+  adducts <- filter(adducts,Name == add)
   
-  # Calculate ppm errors of results
-  if (!is.null(iso)) {
-    addmz <- sapply(res[,"Accurate.Mass"],function(x,rules){y <- x + rules[1,'Mass.Difference'];return(y)},rules = iso)
-    addmz <- sapply(addmz,function(x,rules){y <- (x*rules[1,"xM"])/rules[1,"Charge"] + rules[1,"Add"];return(y)},rules = add)
-  } else {
-    addmz <- sapply(res[,"Accurate.Mass"],function(x,rules){y <- (x*rules[1,"xM"])/rules[1,"Charge"] + rules[1,"Add"];return(y)},rules = add)
-  }
-  ppmerr <- sapply(addmz,function(x,mz){y <- (x - mz)/mz*10^6;return(y)},mz = mz)
+  DB <- filter(DB,eval(parse(text = adducts$Rule))) %>% 
+    filterPIP() %>%
+    mutate(Adduct = add, 
+           Isotope = iso, 
+           `Theoretical m/z` = calcMZ(`Accurate Mass`,add,iso),
+           `PPM Error` = ppmError(mz,`Theoretical m/z`)
+    ) %>%
+    select(ID,Name,MF,`Accurate Mass`,`Smile 1`,Adduct:`PPM Error`)
   
-  if (length(addmz) == 0) {
-    addmz <- character()
-  }
+  DB$`PPM Error` <- round(DB$`PPM Error`,5)
   
-  if (length(ppmerr) == 0) {
-    ppmerr <- character()
-  }
+  colnames(DB)[5] <- 'Smile'
   
-  # Add adduct and isotope information
-  adduct <- rep(add[1,1],nrow(res))
-  if (!is.null(iso)) {
-    isotope <- rep(as.character(iso[1,1]),nrow(res))
-  } else {
-    isotope <- rep('',nrow(res))
-  }
-  
-  # Format results
-  res <- data.frame(res,Adduct = adduct,Isotope = isotope,Adduct_MZ = addmz,PPMErr = ppmerr)
-  res <- res[,-c(3,6,7,8,10)]
-  if (filter == T & nrow(res) > 0) {
-    res <- filterPIP(res)
-  }
-  
-  return(res)
+  return(DB)
 }

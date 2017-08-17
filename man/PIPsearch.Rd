@@ -4,18 +4,26 @@
 \alias{PIPsearch}
 \title{Putative Ionisation Product searching}
 \usage{
-PIPsearch(mz, mode, ppm, add = NULL, iso = NULL)
+PIPsearch(mz, ppm = 5, mode = "n", add = NA, iso = NA,
+  adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes,
+  DB = mzAnnotation::MZedDB)
 }
 \arguments{
 \item{mz}{the accurate m/z to search}
 
-\item{mode}{either 'p' or 'n' specifiying the acquisition mode}
-
 \item{ppm}{the parts per million threshold to search}
 
-\item{add}{a character \code{vector} specifying the adducts to search. If \code{NULL}, all adducts for that acquisition mode will be used.}
+\item{mode}{either 'p' or 'n' specifiying the acquisition mode. Can be overrided using \code{add} to do mixed mode searches.}
 
-\item{iso}{a character \code{vector} specifying the isotopes to search. If \code{NULL} isotopes will not be searched.}
+\item{add}{a character \code{vector} specifying the adducts to search. If \code{NA}, all adducts for that acquisition mode will be used.}
+
+\item{iso}{a character \code{vector} specifying the isotopes to search. If \code{NA} isotopes will not be searched.}
+
+\item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
+
+\item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
+
+\item{DB}{Database to use. Defaults to \code{MZedDB}}
 }
 \description{
 Putative Ionisation Product searching
@@ -27,7 +35,7 @@ Isotopic adducts have also been added and include [2M+K41]1+, [M+K41]1+, [M+K41-
 Available isotopes include C13, 2C13, 3C13, 4C13, O18, Cl37, K41 and S34.
 }
 \examples{
-res <- PIPsearch(133.01378,'n',5)
+res <- PIPsearch(133.01378,5)
 }
 \author{
 Jasen Finch

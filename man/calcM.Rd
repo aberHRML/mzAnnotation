@@ -5,8 +5,8 @@
 \title{calcM}
 \usage{
 calcM(mz, adduct = "[M+H]1+", isotope = NA, transformation = NA,
-  adducts = availableAdducts(), isotopes = availableIsotopes(),
-  transformations = availableTransformations())
+  adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes,
+  transformations = mzAnnotation::Transformations)
 }
 \arguments{
 \item{mz}{m/z for which to calculate M}
@@ -27,5 +27,5 @@ calcM(mz, adduct = "[M+H]1+", isotope = NA, transformation = NA,
 calculate M for a given m/z, adduct, isotope and transformation
 }
 \examples{
-calcM(118.08626)
+calcM(118.08626,adduct = '[M+H]1+',isotope = 'C13',transformation = 'M - [O] + NH2]')
 }

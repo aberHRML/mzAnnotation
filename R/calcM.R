@@ -8,10 +8,10 @@
 #' @param isotopes isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.
 #' @param transformations transformations table containing available transformations rules. Defaults to table returned by \code{availableTransformations()}.
 #' @importFrom dplyr filter
-#' @examples calcM(118.08626)
+#' @examples calcM(118.08626,adduct = '[M+H]1+',isotope = 'C13',transformation = 'M - [O] + NH2]')
 #' @export
 
-calcM <- function(mz, adduct = '[M+H]1+', isotope = NA, transformation = NA, adducts = availableAdducts(), isotopes = availableIsotopes(), transformations = availableTransformations()){
+calcM <- function(mz, adduct = '[M+H]1+', isotope = NA, transformation = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, transformations = mzAnnotation::Transformations){
   
   addRule <- filter(adducts,Name == adduct)
   
@@ -19,11 +19,11 @@ calcM <- function(mz, adduct = '[M+H]1+', isotope = NA, transformation = NA, add
   
   if (!is.na(isotope)) {
     isoRule <- filter(isotopes,Isotope == isotope)
-    M <- M - isoRule$Mass.Difference
+    M <- M - isoRule$`Mass Difference`
   }
   
   if (!is.na(transformation)) {
-    transformRule <- filter(transformations, MF.Change == transformation)
+    transformRule <- filter(transformations, `MF Change` == transformation)
     M <- M - transformRule$Difference
   }
   return(round(M,5))

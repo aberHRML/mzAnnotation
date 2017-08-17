@@ -1,4 +1,5 @@
 #' @importFrom tibble tibble
+#' @importFrom dplyr rowwise
 
 calculateMs <- function(mz,add,iso,trans,adductTable = mzAnnotation::Adducts, isotopeTable = mzAnnotation::Isotopes, transformationTable = mzAnnotation::Transformations) {
   M <- map(trans,~{

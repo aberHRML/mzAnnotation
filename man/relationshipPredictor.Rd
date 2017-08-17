@@ -4,24 +4,28 @@
 \alias{relationshipPredictor}
 \title{m/z relationship prediction}
 \usage{
-relationshipPredictor(mz, mode, limit = 0.001, add = NULL, iso = NULL)
+relationshipPredictor(mz, limit = 0.001, adducts = c("[M-H]1-", "[M+Cl]1-",
+  "[M+K-2H]1-"), isotopes = NULL, transformations = NULL,
+  adductTable = mzAnnotation::Adducts,
+  isotopeTable = mzAnnotation::Isotopes,
+  transformationTable = mzAnnotation::Transformations)
 }
 \arguments{
 \item{mz}{numeric \code{vector} of accurate m/z}
 
-\item{mode}{string of either 'p' or 'n; denoting the acquisition mode}
-
 \item{limit}{limit of deviation for thresholding associations. Defaults to 0.001}
 
-\item{add}{character vector of adducts to use. If \code{NULL} all available adducts will be used}
+\item{adducts}{character vector of adducts to use. If \code{NULL} all available adducts will be used.}
 
-\item{iso}{character vector of isotopes to use. If \code{NULL} all available adducts will be used}
+\item{isotopes}{character vector of isotopes to use.}
+
+\item{transformations}{character vector of transformations to use}
 }
 \description{
 adduct, isotope and biotransfromation prediction.
 }
 \examples{
-res <- relationshipPredictor(c(132.03023,133.01425,133.03359,168.00691),'n')
+relationshipPredictor(c(132.03023,168.00691))
 }
 \author{
 Jasen Finch

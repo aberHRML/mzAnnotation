@@ -2,6 +2,7 @@
 
 export(PIPsearch)
 export(calcM)
+export(calcMZ)
 export(generateMF)
 export(isoDistr)
 export(relationshipPredictor)

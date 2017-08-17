@@ -1,17 +1,17 @@
+# mzAnnotation
+
 [![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg)](https://travis-ci.org/jasenfinch/mzAnnotation) [![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/master?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/master)
 
-### mzAnnotation
+An R package containing tools for putative annotation of accurate m/z
 
-An R package for putative annotation of accurate m/z
-
-#### Installation
+### Installation
 
 To install run:
 ```R
 devtools::install_github('jasenfinch/mzAnnotation')
 ```
 
-#### Tools
+### Tools
 
 Available tools include:
 
@@ -20,7 +20,7 @@ Available tools include:
 res <- relationshipPredictor(mz = c(132.03023,133.01425,133.03359,168.00691),mode = 'n')
 ```
 
-* Molecular formula generator
+* Molecular formula generation
 ```r
 res <- generateMF(mz = 341.10894,ppm = 5,charge = -1, 
                   applygr = TRUE, 
@@ -30,7 +30,7 @@ res <- generateMF(mz = 341.10894,ppm = 5,charge = -1,
                   Br = 0,iBr = 0,K = 0,iK = 0))
 ```
 
-* Isotope distribution calculator
+* Isotope distribution calculation
 ```r
 res <- isoDistr(mf = 'C4H5O5',chrg=-1)
 ```

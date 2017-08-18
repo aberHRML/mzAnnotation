@@ -17,7 +17,9 @@ Available tools include:
 
 * Adduct, isotope and biotransfromation relationship prediction
 ```r
-res <- relationshipPredictor(mz = c(132.03023,133.01425,133.03359,168.00691),mode = 'n')
+res <- relationshipPredictor(c(132.03023,168.00691),
+                              limit = 0.001,
+                              adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"))
 ```
 
 * Molecular formula generation

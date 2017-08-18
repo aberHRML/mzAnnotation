@@ -4,9 +4,9 @@
 \alias{relationshipPredictor}
 \title{m/z relationship prediction}
 \usage{
-relationshipPredictor(mz, limit = 0.001, adducts = c("[M-H]1-", "[M+Cl]1-",
-  "[M+K-2H]1-"), isotopes = NULL, transformations = NULL,
-  adductTable = mzAnnotation::Adducts,
+relationshipPredictor(mz, limit = 0.001, modes = NULL,
+  adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"), isotopes = NULL,
+  transformations = NULL, adductTable = mzAnnotation::Adducts,
   isotopeTable = mzAnnotation::Isotopes,
   transformationTable = mzAnnotation::Transformations)
 }
@@ -15,7 +15,9 @@ relationshipPredictor(mz, limit = 0.001, adducts = c("[M-H]1-", "[M+Cl]1-",
 
 \item{limit}{limit of deviation for thresholding associations. Defaults to 0.001}
 
-\item{adducts}{character vector of adducts to use. If \code{NULL} all available adducts will be used.}
+\item{modes}{character vector of ionisation modes of input mz}
+
+\item{adducts}{character vector of adducts to use. If \code{NULL} all available adducts will be used. If \code{modes} is not \code{NULL}, this should be named list, the names denoting the adduct aquisition modes.}
 
 \item{isotopes}{character vector of isotopes to use.}
 
@@ -26,6 +28,12 @@ adduct, isotope and biotransfromation prediction.
 }
 \examples{
 relationshipPredictor(c(132.03023,168.00691))
+
+## with modes declared
+relationshipPredictor(c(132.03023,172.00067),
+                      modes = c('n','p'),
+                      adducts = list(n = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), 
+                                     p = c('[M+H]1+','[M+K]1+','[M+Na]1+')))
 }
 \author{
 Jasen Finch

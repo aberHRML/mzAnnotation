@@ -2,31 +2,38 @@
 % Please edit documentation in R/generateMF.R
 \name{generateMF}
 \alias{generateMF}
-\title{Molecular formula generation}
+\title{generateMF}
 \usage{
 generateMF(mass, ppm = 1, charge = 0, validation = TRUE,
   composition = c(C = 12, H = 22, N = 0, O = 11, P = 0, S = 0),
   generator = "HR2")
 }
 \arguments{
-\item{mass}{accurate mass for MF generation}
+\item{mass}{accurate mass}
 
-\item{ppm}{ppm tolerance for MF generation}
+\item{ppm}{ppm tolerance}
 
-\item{charge}{charge to apply to MF generation}
+\item{charge}{charge}
 
-\item{validation}{\code{boolean} apply validation rules}
+\item{validation}{\code{boolean}, apply validation rules}
 
 \item{composition}{numeric \code{vector} of maximum elemental composition}
+
+\item{generator}{the molecular formula generator to use. Includes \code{'HR2'},\code{'CDK'} and \code{'Rdisop'}.See details.}
 }
 \value{
-A \code{data.frame} containing the generated MFs, their theoretical mass and their PPM error.
+A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
 }
 \description{
 Molecular formula generation
 }
 \details{
-Uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
+Multiple molecular formulas are available:
+\describe{
+\item{HR2}{the HR2 generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.}
+\item{CDK}{the generator availble in the \code{rcdk} package using \code{\link[rcdk]{generate.formula}}.}
+\item{Rdisop}{the generator available in the \code{Rdisop} package using \code{\link[Rdisop]{decomposeMass}}.}
+}
 }
 \examples{
 res <- generateMF(342.11621,

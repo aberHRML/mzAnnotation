@@ -1,10 +1,17 @@
-#' Molecular formula generation
-#' @param mass accurate mass for MF generation
-#' @param ppm ppm tolerance for MF generation
-#' @param charge charge to apply to MF generation
-#' @param validation \code{boolean} apply validation rules
+#' generateMF
+#' @description Molecular formula generation
+#' @param mass accurate mass
+#' @param ppm ppm tolerance
+#' @param charge charge
+#' @param validation \code{boolean}, apply validation rules
 #' @param composition numeric \code{vector} of maximum elemental composition
-#' @details Uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
+#' @param generator the molecular formula generator to use. Includes \code{'HR2'},\code{'CDK'} and \code{'Rdisop'}.See details.
+#' @details Multiple molecular formulas are available:
+#' \describe{
+#' \item{HR2}{the HR2 generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.}
+#' \item{CDK}{the generator availble in the \code{rcdk} package using \code{\link[rcdk]{generate.formula}}.}
+#' \item{Rdisop}{the generator available in the \code{Rdisop} package using \code{\link[Rdisop]{decomposeMass}}.}
+#' }
 #' @author Jasen Finch
 #' @importFrom CHNOSZ makeup
 #' @importFrom tibble as_tibble
@@ -12,7 +19,7 @@
 #' @importFrom dplyr arrange
 #' @importFrom Rdisop decomposeMass initializeCHNOPS
 #' @export
-#' @return A \code{data.frame} containing the generated MFs, their theoretical mass and their PPM error.
+#' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
 #' @examples
 #' res <- generateMF(342.11621,
 #'                   composition=c(C = 12,H = 22,N = 0,

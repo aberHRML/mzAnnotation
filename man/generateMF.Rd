@@ -4,23 +4,23 @@
 \alias{generateMF}
 \title{Molecular formula generation}
 \usage{
-generateMF(mz, ppm = 5, charge = 0, applygr = TRUE, composition = c(C =
-  12, iC = 0, H = 22, iH = 0, N = 0, iN = 0, O = 11, iO = 0, F = 0, Na = 0, Si =
-  0, P = 0, S = 0, Cl = 0, iCl = 0, Br = 0, iBr = 0, K = 0, iK = 0))
+generateMF(mass, ppm = 1, charge = 0, validation = TRUE,
+  composition = c(C = 12, H = 22, N = 0, O = 11, P = 0, S = 0),
+  generator = "HR2")
 }
 \arguments{
-\item{mz}{accurate m/z for MF generation}
+\item{mass}{accurate mass for MF generation}
 
 \item{ppm}{ppm tolerance for MF generation}
 
 \item{charge}{charge to apply to MF generation}
 
-\item{applygr}{\code{boolean} denoting whether to apply the 7 golden rules}
+\item{validation}{\code{boolean} apply validation rules}
 
 \item{composition}{numeric \code{vector} of maximum elemental composition}
 }
 \value{
-A \code{data.frame} containing the generated MFs, their theoretical m/z and their PPM error.
+A \code{data.frame} containing the generated MFs, their theoretical mass and their PPM error.
 }
 \description{
 Molecular formula generation
@@ -29,9 +29,9 @@ Molecular formula generation
 Uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
 }
 \examples{
-res <- generateMF(341.10894,ppm = 5,charge = -1, applygr = TRUE,
-             composition=c(C = 12,iC = 0,H = 22,iH = 0,N = 0,iN = 0,O = 11,iO = 0,F = 0 ,Na = 0,
-                   Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0))
+res <- generateMF(342.11621,
+                  composition=c(C = 12,H = 22,N = 0,
+                                O = 11,P = 0,S = 0))
 }
 \author{
 Jasen Finch

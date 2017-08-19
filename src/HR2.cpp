@@ -3,7 +3,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-std::vector<std::vector<std::string> > mfGen (double measured_mass, std::vector<int> max, std::vector<int> min,double tolerance, double charge,bool applygr)
+std::vector<std::vector<std::string> > HR2 (double measured_mass, std::vector<int> max, std::vector<int> min,double tolerance, double charge,bool applygr)
 {
   /*
   HR2.C

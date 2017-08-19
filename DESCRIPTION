@@ -8,6 +8,7 @@ Maintainer: Jasen Finch <jsf9@aber.ac.uk>
 Description: Tools for the putative annotation of high resolution metabolomics
     data.
 License: GPL (>= 2)
+Depends: R (>= 3.4)
 Imports:
     Rcpp,
     CHNOSZ,

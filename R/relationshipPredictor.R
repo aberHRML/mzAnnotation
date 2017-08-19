@@ -6,6 +6,9 @@
 #' @param adducts character vector of adducts to use. If \code{NULL} all available adducts will be used. If \code{modes} is not \code{NULL}, this should be named list, the names denoting the adduct aquisition modes.
 #' @param isotopes character vector of isotopes to use.
 #' @param transformations character vector of transformations to use
+#' @param adductTable table containing adduct formation rules. Defaults to \code{\link{Adducts}}.
+#' @param isotopeTable table containing isotope rules. Defaults to \code{\link{Isotopes}}.
+#' @param transformationTable table containing transformation rules. Defaults to \code{\link{Transformations}}.
 #' @author Jasen Finch
 #' @export
 #' @importFrom utils combn

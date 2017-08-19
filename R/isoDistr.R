@@ -5,7 +5,9 @@
 #' @export
 #' @author Manfred Beckmann
 #' @examples 
+#' \dontrun{
 #' res <- isoDistr('C4H5O5',chrg=-1)
+#' }
 
 isoDistr <- function(mf, chrg=0){
 ## -------------------------------------------------------------------------

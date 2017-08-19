@@ -22,6 +22,12 @@ relationshipPredictor(mz, limit = 0.001, modes = NULL,
 \item{isotopes}{character vector of isotopes to use.}
 
 \item{transformations}{character vector of transformations to use}
+
+\item{adductTable}{table containing adduct formation rules. Defaults to \code{\link{Adducts}}.}
+
+\item{isotopeTable}{table containing isotope rules. Defaults to \code{\link{Isotopes}}.}
+
+\item{transformationTable}{table containing transformation rules. Defaults to \code{\link{Transformations}}.}
 }
 \description{
 adduct, isotope and biotransfromation prediction.

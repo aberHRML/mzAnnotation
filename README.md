@@ -24,12 +24,11 @@ res <- relationshipPredictor(c(132.03023,168.00691),
 
 * Molecular formula generation
 ```r
-res <- generateMF(mz = 341.10894,ppm = 5,charge = -1, 
-                  applygr = TRUE, 
-                  composition = c(C = 12,iC = 0,H = 22,iH = 0,
-                  N = 0,iN = 0,O = 11,iO = 0,F = 0 ,Na = 0,
-                  Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,
-                  Br = 0,iBr = 0,K = 0,iK = 0))
+res <- generateMF(342.11621,
+                  composition = c(C = 12,H = 22,N = 0,
+                                O = 11,P = 0,S = 0),
+                  generator = 'HR2')
+
 ```
 
 * Isotope distribution calculation

@@ -19,7 +19,7 @@ queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, is
   
   # If an isotope has been selected; filter the database entries based on the isotope rules
   if (!is.na(iso)) {
-    elementFreq <- elementFreq[elementFreq$ID %in% all$ID,]
+    elementFreq <- elementFreq[elementFreq$ID %in% DB$ID,]
     C <- elementFreq[,'C']
     O <- elementFreq[,'O']
     Cl <- elementFreq[,'Cl']

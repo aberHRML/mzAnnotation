@@ -20,7 +20,7 @@
 PIPsearch <-
 function(mz, ppm = 5, mode = 'n', add = NA, iso = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, DB = mzAnnotation::MZedDB){
   
-  if (is.na(add)) {
+  if (T %in% is.na(add)) {
 	  if (mode == "p") {
 	    adductList <- adducts$Name[adducts$Nelec < 0] 
 	  }
@@ -33,10 +33,8 @@ function(mz, ppm = 5, mode = 'n', add = NA, iso = NA, adducts = mzAnnotation::Ad
   } else {
     adductList <- add
   }
-  if (!is.na(iso)) {
+  if (!(T %in% is.na(iso))) {
     iso <- c(NA,iso)
-  } else {
-    iso <- NA
   }
 	
 	res <- map(iso,~{

@@ -33,7 +33,7 @@ res <- generateMF(342.11621,
 
 * Isotope distribution calculation
 ```r
-# res <- isotopeDistribution(MF = 'C4H5O5',charge = -1)
+res <- isotopeDistribution(MF = 'C4H5O5',charge = -1)
 ```
 
 * Putative ionisation product searches

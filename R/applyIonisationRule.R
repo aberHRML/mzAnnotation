@@ -12,7 +12,7 @@ applyIonisationRule <- function(ID, adduct, adducts = mzAnnotation::Adducts, DB 
   metaboliteID <- ID
   metaboliteRule <- filter(DB$Rules,ID == metaboliteID)
   
-  Nch <- unlist(metaboliteRule[1,"Nch"],use.names = F)
+  Nch <- unlist(metaboliteRule[1,"Charge"],use.names = F)
   Nacc <- unlist(metaboliteRule[1,"Nacc"],use.names = F)
   Ndon <- unlist(metaboliteRule[1,"Ndon"],use.names = F)
   Nnhh <- unlist(metaboliteRule[1,"Nnhh"],use.names = F)

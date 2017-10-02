@@ -47,10 +47,7 @@ queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, is
              Isotope = iso, 
              `Theoretical m/z` = calcMZ(`Accurate Mass`,add,iso),
              `PPM Error` = ppmError(mz,`Theoretical m/z`)
-      ) %>%
-      select(ID,Name,MF,`Accurate Mass`,`Smile 1`,Adduct:`PPM Error`) %>%
-      mutate(`PPM Error` = round(`PPM Error`,5)) %>%
-      rename(Smile = `Smile 1`)
+      )
   }
   
   return(DataBase)

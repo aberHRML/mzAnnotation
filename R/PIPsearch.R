@@ -44,7 +44,10 @@ function(mz, ppm = 5, mode = 'n', add = NA, iso = NA, adducts = mzAnnotation::Ad
 	  })
 	}) %>%
 	  map(bind_rows) %>%
-	  bind_rows()
+	  bind_rows() %>%
+	  select(ID,Name,MF,`Accurate Mass`,`Smile 1`,Adduct:`PPM Error`) %>%
+	  mutate(`PPM Error` = round(`PPM Error`,5)) %>%
+	  rename(Smile = `Smile 1`)
 	
 
 	return(res)

@@ -10,7 +10,7 @@
 #' @details The underlying database is that of MZedDB (\url{http://maltese.dbs.aber.ac.uk:8888/hrmet/index.html}). 
 #' A list of available adducts can be found at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/search/disprules.php}. 
 #' Isotopic adducts have also been added and include [2M+K41]1+, [M+K41]1+, [M+K41-2H]1- and [M+Cl37]1-. 
-#' Available isotopes include C13, 2C13, 3C13, 4C13, O18, Cl37, K41 and S34.
+#' Available isotopes include 13C, 13C2, 13C3, 13C4, 18O, 37Cl, 41K and 34S.
 #' @export
 #' @author  Jasen Finch
 #' @importFrom dplyr bind_rows

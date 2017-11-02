@@ -48,6 +48,13 @@ queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, is
              `Theoretical m/z` = calcMZ(`Accurate Mass`,add,iso),
              `PPM Error` = ppmError(mz,`Theoretical m/z`)
       )
+  } else {
+    DataBase <- DataBase %>%
+      mutate(Adduct = character(),
+             Isotope = character(),
+             `Theoretical m/z` = numeric(),
+             `PPM Error` = numeric()
+             )
   }
   
   return(DataBase)

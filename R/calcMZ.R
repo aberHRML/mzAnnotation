@@ -8,7 +8,7 @@
 #' @param isotopes isotope table containing available isotope rules. Defaults to \code{Isotopes}.
 #' @param transformations transformations table containing available transformations rules. Defaults to \code{Transformations}.
 #' @importFrom dplyr filter
-#' @examples calcMZ(116.05182,adduct = '[M+H]1+',isotope = 'C13',transformation = 'M - [O] + NH2]')
+#' @examples calcMZ(116.05182,adduct = '[M+H]1+',isotope = '13C',transformation = 'M - [O] + NH2]')
 #' @export
 
 calcMZ <- function(M, adduct = '[M+H]1+', isotope = NA, transformation = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, transformations = mzAnnotation::Transformations){

@@ -84,7 +84,7 @@ isotopeDistribution <- function(MF,charge, limit = 0.00009 , elements = Elements
       Name <- unlist(map(str_split(., '; '),~{unlist(map(str_split(.,' '),~{.[1]}))}))
       Frequency <- as.integer(unlist(map(str_split(., '; '),~{unlist(map(str_split(.,' '),~{.[2]}))})))
       isoDat <- tibble(Name = Name,Frequency = Frequency) %>%
-        mutate(Element = str_extract(Name,'[:alpha:]')) %>%
+        mutate(Element = str_replace_all(Name,'[:digit:]','')) %>%
         left_join(select(elements,Name,Element,AtomicMass),by = c('Name' = 'Name', 'Element' = 'Element')) %>%
         mutate(AtomicMass = AtomicMass * Frequency)
       isoMass <- sum(isoDat$AtomicMass)

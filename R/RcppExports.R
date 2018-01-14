@@ -5,3 +5,13 @@ HR2 <- function(measured_mass, max, min, tolerance, charge, applygr) {
     .Call('_mzAnnotation_HR2', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)
 }
 
+#' ppmRange
+#' @description Calculate the upper and lower ppm boundaries for a given m/z
+#' @param mz the m/z for which to calculate the range
+#' @param ppm the ppm 
+#' @examples ppmRange(118.08626,5)
+#' @export
+ppmRange <- function(mz, ppm) {
+    .Call('_mzAnnotation_ppmRange', PACKAGE = 'mzAnnotation', mz, ppm)
+}
+

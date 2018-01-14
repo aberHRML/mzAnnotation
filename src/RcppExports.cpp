@@ -21,9 +21,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ppmRange
+List ppmRange(double mz, double ppm);
+RcppExport SEXP _mzAnnotation_ppmRange(SEXP mzSEXP, SEXP ppmSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type mz(mzSEXP);
+    Rcpp::traits::input_parameter< double >::type ppm(ppmSEXP);
+    rcpp_result_gen = Rcpp::wrap(ppmRange(mz, ppm));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_HR2", (DL_FUNC) &_mzAnnotation_HR2, 6},
+    {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},
     {NULL, NULL, 0}
 };
 

@@ -1,9 +1,9 @@
-#' adductTransfromMF
+#' adductTransformMF
 #' @description adduct transform a molecular formula
 #' @param MF molecular formula to transform
 #' @param adduct adduct to use for transformation
 #' @examples 
-#' adductTransfromMF('C6H12O6','[M+H]1+')
+#' adductTransformMF('C6H12O6','[M+H]1+')
 #' @export
 
 adductTransformMF <- function(MF,adduct){

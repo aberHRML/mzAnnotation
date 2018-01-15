@@ -1,8 +1,8 @@
 Package: mzAnnotation
 Type: Package
 Title: Signal Annotation Tools for High Resolution Metabolomics
-Version: 1.2.0
-Date: 2018-01-12
+Version: 1.2.1
+Date: 2018-01-15
 Author: Jasen Finch
 Maintainer: Jasen Finch <jsf9@aber.ac.uk>
 Description: Tools for the putative annotation of high resolution metabolomics m/z.

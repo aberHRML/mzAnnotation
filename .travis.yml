@@ -17,6 +17,11 @@ r_binary_packages:
  - RUnit
  - testthat
 
+r_packages:
+ - rlang
+ - digest
+ - devtools
+ 
 bioc_packages:
  - survival
  

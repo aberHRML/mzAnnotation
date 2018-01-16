@@ -12,9 +12,9 @@
 #'
 #' @export
 #' @examples
-#' Descriptors('CN1C=C(N=C1)CC(C(=O)O)N')
+#' descriptors('CN1C=C(N=C1)CC(C(=O)O)N')
 
-Descriptors <- function(smile)
+descriptors <- function(smile)
 {
   smi <- rcdk::parse.smiles(smile)[[1]]
   

@@ -5,10 +5,10 @@
 #' 
 #' @export
 #' @examples 
-#' FunctionalGroups('CN1C=C(N=C1)CC(C(=O)O)N')
+#' functionalGroups('CN1C=C(N=C1)CC(C(=O)O)N')
 #' 
 
-FunctionalGroups <- function(x)
+functionalGroups <- function(x)
   {
   
   molRefs = ChemmineOB::forEachMol("SMILES",x,identity)

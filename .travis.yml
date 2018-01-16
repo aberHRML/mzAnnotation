@@ -12,6 +12,7 @@ r:
 apt_packages:
  - default-jre
  - default-jdk
+ - libopenbabel-dev
  
 r_binary_packages:
  - RUnit

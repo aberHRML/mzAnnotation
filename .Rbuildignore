@@ -8,3 +8,4 @@ README.md
 .Rhistory
 ^.*\.Rproj$
 ^\.Rproj\.user$
+LICENSE

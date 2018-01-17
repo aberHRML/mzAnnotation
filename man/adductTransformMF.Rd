@@ -2,7 +2,7 @@
 % Please edit documentation in R/adductTransfromMF.R
 \name{adductTransformMF}
 \alias{adductTransformMF}
-\title{adductTransfromMF}
+\title{adductTransformMF}
 \usage{
 adductTransformMF(MF, adduct)
 }
@@ -15,5 +15,5 @@ adductTransformMF(MF, adduct)
 adduct transform a molecular formula
 }
 \examples{
-adductTransfromMF('C6H12O6','[M+H]1+')
+adductTransformMF('C6H12O6','[M+H]1+')
 }

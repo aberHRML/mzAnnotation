@@ -12,6 +12,7 @@ r:
 apt_packages:
  - default-jre
  - default-jdk
+ - libopenbabel-dev
  
 r_binary_packages:
  - RUnit
@@ -24,10 +25,9 @@ r_packages:
  
 bioc_packages:
  - survival
+ - Rdisop
+ - ChemmineOB
  
-r_github_packages:
- - jasenfinch/cdkr/rcdk
-
 notifications:
   email:
     on_success: change

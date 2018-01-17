@@ -1,5 +1,5 @@
-#' m/z relationship prediction
-#' @description adduct, isotope and biotransfromation prediction.
+#' m/z relationship calculation
+#' @description adduct, isotope and biotransfromation calculation.
 #' @param mz numeric \code{vector} of accurate m/z
 #' @param limit limit of deviation for thresholding associations. Defaults to 0.001
 #' @param modes character vector of ionisation modes of input mz 
@@ -15,16 +15,16 @@
 #' @importFrom dplyr left_join contains
 #' @importFrom stringr str_c
 #' @examples 
-#' relationshipPredictor(c(132.03023,168.00691))
+#' relationshipCalculator(c(132.03023,168.00691))
 #' 
 #' ## with modes declared
-#' relationshipPredictor(c(132.03023,172.00067),
+#' relationshipCalculator(c(132.03023,172.00067),
 #'                       modes = c('n','p'),
 #'                       adducts = list(n = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), 
 #'                                      p = c('[M+H]1+','[M+K]1+','[M+Na]1+')))
 
 
-relationshipPredictor <- function(mz, limit = 0.001, modes = NULL, adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), isotopes = NULL, transformations = NULL, adductTable = mzAnnotation::Adducts, isotopeTable = mzAnnotation::Isotopes, transformationTable = mzAnnotation::Transformations){
+relationshipCalculator <- function(mz, limit = 0.001, modes = NULL, adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), isotopes = NULL, transformations = NULL, adductTable = mzAnnotation::Adducts, isotopeTable = mzAnnotation::Isotopes, transformationTable = mzAnnotation::Transformations){
   if (is.null(adducts)) {
     adducts <- adductTable$Name
   }

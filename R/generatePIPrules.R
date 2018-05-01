@@ -10,47 +10,63 @@
 #'     \item{TotalCharge} The total overall charge
 #' }
 #'
+#' @importFrom rcdk parse.smiles convert.implicit.to.explicit eval.desc get.total.charge
 #' @export
 #' @examples
 #' generatePIPrules('CN1C=C(N=C1)CC(C(=O)O)N')
 
 generatePIPrules <- function(smiles)
 {
-  desc <- map(smiles,~{
-    smi <- rcdk::parse.smiles(.)[[1]]
-    
-    rcdk::convert.implicit.to.explicit(smi)
-    
-    HBD <-
-      rcdk::eval.desc(
-        smi,
+  
+  smi <- map(smiles,~{
+    parse.smiles(.) %>%
+      .[[1]]
+    })
+  
+  desc <- tibble(
+    CHNOPS = '',
+    HBD = map_int(smi,~{
+      s <- .
+      convert.implicit.to.explicit(s)
+      eval.desc(
+        s,
         'org.openscience.cdk.qsar.descriptors.molecular.HBondDonorCountDescriptor'
       )[[1]]
-    HBA <-
-      rcdk::eval.desc(
-        smi,
+    }),
+    HBA = map_int(smi,~{
+      s <- .
+      convert.implicit.to.explicit(s)
+      eval.desc(
+        s,
         'org.openscience.cdk.qsar.descriptors.molecular.HBondAcceptorCountDescriptor'
       )[[1]]
-    
-    AcidGroups <-
-      rcdk::eval.desc(
-        smi,
+    }),
+    AcidGroups = map_int(smi,~{
+      s <- .
+      convert.implicit.to.explicit(s)
+      eval.desc(
+        s,
         'org.openscience.cdk.qsar.descriptors.molecular.AcidicGroupCountDescriptor'
       )[[1]]
-    
-    BaseGroups <-
-      rcdk::eval.desc(
-        smi,
+    }),
+    BaseGroups = map_int(smi,~{
+      s <- .
+      convert.implicit.to.explicit(s)
+      eval.desc(
+        s,
         'org.openscience.cdk.qsar.descriptors.molecular.BasicGroupCountDescriptor'
       )[[1]]
-    
-    TotalCharge <- rcdk::get.total.charge(smi)
-    
-    desc_tib <- tibble::tibble(HBD, HBA, AcidGroups, BaseGroups, TotalCharge)
-    }) 
-  names(desc) <- smiles
-  desc <- desc %>% 
-    bind_rows(.id = 'SMILE')
+    }),
+    TotalCharge = map_int(smi,~{
+      s <- .
+      convert.implicit.to.explicit(s)
+      get.total.charge(s)
+      })
+  ) %>%
+    bind_cols(smilesToMFs(smiles) %>% select(MF),
+              smilesToAccurateMasses(smiles) %>% select(AccurateMass)) %>%
+    mutate(SMILE = smiles) %>%
+    select(SMILE,MF,AccurateMass,CHNOPS:TotalCharge)
   
   return(desc)
 }

@@ -42,7 +42,6 @@ queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, is
     
     DataBase <- DataBase %>%
       filter(ID %in% metaboliteRules$ID) %>% 
-      filterPIP() %>%
       mutate(Adduct = add, 
              Isotope = iso, 
              `Theoretical m/z` = calcMZ(`Accurate Mass`,add,iso),

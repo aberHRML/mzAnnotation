@@ -1,4 +1,4 @@
-#' convert SMILE to a series of molecular descriptors for PIPs
+#' convert SMILE to a series of molecular descriptors
 #'
 #' @param smile vector of valid SMILEs
 #' @return a \code{tibble} of the following;
@@ -11,13 +11,14 @@
 #' }
 #'
 #' @importFrom rcdk parse.smiles convert.implicit.to.explicit eval.desc get.total.charge
+#' @importFrom ChemmineOB forEachMol smartsSearch_OB
 #' @export
 #' @examples
-#' generatePIPrules('CN1C=C(N=C1)CC(C(=O)O)N')
+#' data(aminoAcids)
+#' descriptors(aminoAcids$SMILE)
 
-generatePIPrules <- function(smiles)
+descriptors <- function(smiles)
 {
-  
   smi <- map(smiles,~{
     parse.smiles(.) %>%
       .[[1]]
@@ -25,6 +26,11 @@ generatePIPrules <- function(smiles)
   
   desc <- tibble(
     CHNOPS = '',
+    TotalCharge = map_int(smi,~{
+      s <- .
+      convert.implicit.to.explicit(s)
+      get.total.charge(s)
+    }),
     HBD = map_int(smi,~{
       s <- .
       convert.implicit.to.explicit(s)
@@ -57,11 +63,22 @@ generatePIPrules <- function(smiles)
         'org.openscience.cdk.qsar.descriptors.molecular.BasicGroupCountDescriptor'
       )[[1]]
     }),
-    TotalCharge = map_int(smi,~{
-      s <- .
-      convert.implicit.to.explicit(s)
-      get.total.charge(s)
-      })
+    Nnhh = map_int(smiles,~{
+      forEachMol("SMILES",.,identity) %>%
+      smartsSearch_OB("[NX3;H2]")
+    }),
+    Noh = map_int(smiles,~{
+      forEachMol("SMILES",.,identity) %>%
+        smartsSearch_OB("[OX2H]")
+    }),
+    Ncooh = map_int(smiles,~{
+      forEachMol("SMILES",.,identity) %>%
+        smartsSearch_OB("[CX3](=O)[OX2H1]")
+    }),
+    Ncoo = map_int(smiles,~{
+      forEachMol("SMILES",.,identity) %>%
+        smartsSearch_OB("[CX3](=O)[OX1H0-]")
+    })
   ) %>%
     bind_cols(smilesToMFs(smiles) %>% select(MF),
               smilesToAccurateMasses(smiles) %>% select(AccurateMass)) %>%

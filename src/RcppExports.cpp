@@ -21,6 +21,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// smartSearch
+int smartSearch(std::string smile, std::string smart);
+RcppExport SEXP _mzAnnotation_smartSearch(SEXP smileSEXP, SEXP smartSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type smile(smileSEXP);
+    Rcpp::traits::input_parameter< std::string >::type smart(smartSEXP);
+    rcpp_result_gen = Rcpp::wrap(smartSearch(smile, smart));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ppmRange
 List ppmRange(double mz, double ppm);
 RcppExport SEXP _mzAnnotation_ppmRange(SEXP mzSEXP, SEXP ppmSEXP) {
@@ -36,6 +48,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_HR2", (DL_FUNC) &_mzAnnotation_HR2, 6},
+    {"_mzAnnotation_smartSearch", (DL_FUNC) &_mzAnnotation_smartSearch, 2},
     {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},
     {NULL, NULL, 0}
 };

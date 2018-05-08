@@ -10,70 +10,83 @@
 #'     \item{TotalCharge} The total overall charge
 #' }
 #'
-#' @importFrom ChemmineOB forEachMol smartsSearch_OB prop_OB
 #' @importFrom parallel makeCluster parLapply stopCluster
+#' @importFrom purrr map_dbl
 #' @export
 #' @examples
 #' data(aminoAcids)
 #' descriptors(aminoAcids$SMILE)
 
-descriptors <- function(smiles,nCores = 1,clusterType = 'FORK',verbose = T){
+descriptors <- function(smiles,verbose = T){
   if (verbose == T) {
     cat(length(smiles),'SMILEs\n')
   }
-  
-  getProp <- function(smile){
-    forEachMol("SMILES",smile,identity) %>%
-      prop_OB() %>%
-      as_tibble()
-  }
-  
+
+  desc <- c('HBA1',
+            'HBA2',
+            'HBD',
+            'logP',
+            'TPSA'
+            )
+
   if (verbose == T) {
     cat('\nGenerating properties')
   }
-  
-  if (nCores > 1) {
-    clus <- makeCluster(nCores,clusterType)
-    prop <- parLapply(clus,smiles,getProp)
-    stopCluster(clus)
-  } else {
-    prop <-  map(smiles,getProp)  
-  }
-  
-  prop <- prop %>%
-    bind_rows()
-  
+
+ descs <- desc %>%
+   map(~{
+     descType <- .
+     print(descType)
+     map_dbl(smiles,~{
+       m <- .
+       print(m)
+       m %>%
+         descriptor(descType)
+     })
+   })
+ names(descs) <- desc
+
+ descs <- descs %>%
+   bind_cols()
+
   if (verbose == T) {
     cat('\nGenerating functional descriptors')
   }
-  
-  Fgroups <- tibble(Name = c('NHH',
+
+  Fgroups <- tibble(Name = c('Negative Charge',
+                             'Positive Charge',
+                             'NHH',
                              'OH',
                              'COOH',
                              'COO'),
-                    String = c("[NX3;H2]",
+                    String = c('[-]',
+                               '[+]',
+                               "[NX3;H2]",
                                "[OX2H]",
                                "[CX3](=O)[OX2H1]",
                                "[CX3](=O)[OX1H0-]")
   )
-  
-  
+
+
   groups <- Fgroups %>%
     split(1:nrow(Fgroups)) %>%
     map(~{
       cat('\n',.$Name)
       string <- .$String
       g <- map_int(smiles,~{
-        forEachMol("SMILES",.,identity) %>%
-          smartsSearch_OB("[NX3;H2]")
+        s <- .
+        s %>%
+          smartsSearch(string)
       }) %>%
         as_tibble()
       names(g) <- .$Name
       return(g)
     }) %>%
     bind_cols()
-  
-  desc <- bind_cols(prop,groups)
-  
+
+  desc <- bind_cols(SMILE = smiles,descs,groups) %>%
+    mutate(`Total Charge` = -`Negative Charge` + `Positive Charge`) %>%
+    select(SMILE:`Positive Charge`,`Total Charge`,NHH:COO)
+
   return(desc)
 }

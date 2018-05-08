@@ -4,7 +4,7 @@
 \alias{descriptors}
 \title{convert SMILE to a series of molecular descriptors}
 \usage{
-descriptors(smiles, nCores = 1, clusterType = "FORK", verbose = T)
+descriptors(smiles, verbose = T)
 }
 \arguments{
 \item{smile}{vector of valid SMILEs}

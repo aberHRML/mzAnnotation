@@ -1,6 +1,7 @@
 #include <openbabel/mol.h>
 #include <openbabel/obconversion.h>
 #include <openbabel/parsmart.h>
+#include <openbabel/descriptor.h>
 using namespace OpenBabel;
 
 #include <Rcpp.h>
@@ -9,7 +10,6 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 int smartsSearch(std::string smile,std::string smart){
   
-  int match;
   OBMol mol;
   OBConversion conv;
   
@@ -22,7 +22,23 @@ int smartsSearch(std::string smile,std::string smart){
   smarts.Init(smart);
   smarts.Match(mol);
   maplist = smarts.GetMapList();
-  match = maplist.size();
+  int match = maplist.size();
   return match;
 }
 
+// [[Rcpp::export]]
+double descriptor(std::string smile,const char* desc){
+  
+  double res;
+  OBMol mol;
+  OBConversion conv;
+  
+  conv.SetInFormat("smi");
+  conv.ReadString(&mol, smile);
+  
+  OBDescriptor* descType = OBDescriptor::FindType(desc);
+  if(descType)
+    res = descType->Predict(&mol, NULL);
+
+  return res;
+}

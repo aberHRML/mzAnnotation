@@ -5,8 +5,12 @@ HR2 <- function(measured_mass, max, min, tolerance, charge, applygr) {
     .Call('_mzAnnotation_HR2', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)
 }
 
-smartSearch <- function(smile, smart) {
-    .Call('_mzAnnotation_smartSearch', PACKAGE = 'mzAnnotation', smile, smart)
+smartsSearch <- function(smile, smart) {
+    .Call('_mzAnnotation_smartsSearch', PACKAGE = 'mzAnnotation', smile, smart)
+}
+
+descriptor <- function(smile, desc) {
+    .Call('_mzAnnotation_descriptor', PACKAGE = 'mzAnnotation', smile, desc)
 }
 
 #' ppmRange

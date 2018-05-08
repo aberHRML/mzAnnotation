@@ -9,16 +9,16 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 int smartsSearch(std::string smile,std::string smart){
-  
+
   OBMol mol;
   OBConversion conv;
-  
+
   conv.SetInFormat("smi");
   conv.ReadString(&mol, smile);
-  
+
   OBSmartsPattern smarts;
   std::vector<std::vector<int> > maplist;
-  
+
   smarts.Init(smart);
   smarts.Match(mol);
   maplist = smarts.GetMapList();

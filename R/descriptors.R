@@ -17,11 +17,8 @@
 #' data(aminoAcids)
 #' descriptors(aminoAcids$SMILE)
 
-descriptors <- function(smiles,verbose = T){
-  if (verbose == T) {
-    cat(length(smiles),'SMILEs\n')
-  }
-
+descriptors <- function(smiles){
+ 
   desc <- c('HBA1',
             'HBA2',
             'HBD',
@@ -29,29 +26,19 @@ descriptors <- function(smiles,verbose = T){
             'TPSA'
             )
 
-  if (verbose == T) {
-    cat('\nGenerating properties')
-  }
-
  descs <- desc %>%
    map(~{
      descType <- .
-     print(descType)
      map_dbl(smiles,~{
        m <- .
-       print(m)
        m %>%
-         descriptor(descType)
+         mzAnnotation:::descriptor(descType)
      })
    })
  names(descs) <- desc
 
  descs <- descs %>%
    bind_cols()
-
-  if (verbose == T) {
-    cat('\nGenerating functional descriptors')
-  }
 
   Fgroups <- tibble(Name = c('Negative Charge',
                              'Positive Charge',
@@ -71,12 +58,11 @@ descriptors <- function(smiles,verbose = T){
   groups <- Fgroups %>%
     split(1:nrow(Fgroups)) %>%
     map(~{
-      cat('\n',.$Name)
       string <- .$String
       g <- map_int(smiles,~{
         s <- .
         s %>%
-          smartsSearch(string)
+          mzAnnotation:::smartsSearch(string)
       }) %>%
         as_tibble()
       names(g) <- .$Name

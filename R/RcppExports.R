@@ -5,6 +5,14 @@ HR2 <- function(measured_mass, max, min, tolerance, charge, applygr) {
     .Call('_mzAnnotation_HR2', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)
 }
 
+convert <- function(input, inputType, outputType) {
+    .Call('_mzAnnotation_convert', PACKAGE = 'mzAnnotation', input, inputType, outputType)
+}
+
+smilesToMF <- function(smile) {
+    .Call('_mzAnnotation_smilesToMF', PACKAGE = 'mzAnnotation', smile)
+}
+
 smartsSearch <- function(smile, smart) {
     .Call('_mzAnnotation_smartsSearch', PACKAGE = 'mzAnnotation', smile, smart)
 }

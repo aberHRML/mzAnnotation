@@ -2,25 +2,15 @@
 % Please edit documentation in R/descriptors.R
 \name{descriptors}
 \alias{descriptors}
-\title{convert SMILE to a series of molecular descriptors}
+\title{convert SMILES to a series of molecular descriptors}
 \usage{
 descriptors(smiles)
 }
 \arguments{
-\item{smile}{vector of valid SMILEs}
-}
-\value{
-a \code{tibble} of the following;
-\itemize{
-    \item{HBD} The number of Hydrogen Bond Donors
-    \item{HBA} The number of Hydrogen Bond Acceptors
-    \item{AcidGroups} The number of Acidic Groups
-    \item{BaseGroups} The number of Basic Groups
-    \item{TotalCharge} The total overall charge
-}
+\item{smiles}{vector of valid SMILEs}
 }
 \description{
-convert SMILE to a series of molecular descriptors
+convert SMILES to a series of molecular descriptors
 }
 \examples{
 data(aminoAcids)

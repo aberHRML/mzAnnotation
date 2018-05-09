@@ -1,15 +1,6 @@
-#' convert SMILE to a series of molecular descriptors
+#' convert SMILES to a series of molecular descriptors
 #'
-#' @param smile vector of valid SMILEs
-#' @return a \code{tibble} of the following;
-#' \itemize{
-#'     \item{HBD} The number of Hydrogen Bond Donors
-#'     \item{HBA} The number of Hydrogen Bond Acceptors
-#'     \item{AcidGroups} The number of Acidic Groups
-#'     \item{BaseGroups} The number of Basic Groups
-#'     \item{TotalCharge} The total overall charge
-#' }
-#'
+#' @param smiles vector of valid SMILEs
 #' @importFrom parallel makeCluster parLapply stopCluster
 #' @importFrom purrr map_dbl map_int
 #' @export
@@ -32,7 +23,7 @@ descriptors <- function(smiles){
      map_dbl(smiles,~{
        m <- .
        m %>%
-         mzAnnotation:::descriptor(descType)
+         descriptor(descType)
      })
    })
  names(descs) <- desc
@@ -62,7 +53,7 @@ descriptors <- function(smiles){
       g <- map_int(smiles,~{
         s <- .
         s %>%
-          mzAnnotation:::smartsSearch(string)
+          smartsSearch(string)
       }) %>%
         as_tibble()
       names(g) <- .$Name

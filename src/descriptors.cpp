@@ -7,6 +7,12 @@ using namespace OpenBabel;
 #include <Rcpp.h>
 using namespace Rcpp;
 
+//' smartsSearch
+//' @description SMARTS substructure searching for SMILES.
+//' @param smile a valid SMILE
+//' @param smart a valid SMARTS symbol
+//' @examples
+//' smartsSearch(aminoAcids$SMILE[1],"[OX2H]")
 //' @export
 // [[Rcpp::export]]
 int smartsSearch(std::string smile,std::string smart){

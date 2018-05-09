@@ -2,17 +2,33 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' convert
+#' @description convert between SMILES and Inchi and to InchiKey
+#' @param input a valid SMILE or Inchi
+#' @param inputType either "smiles" or "inchi", denoting the input type
+#' @param outputType either "smiles", "inchi" or "inchikey", denoting the output type
+#' @examples
+#' convert(aminoAcids$SMILE[1],'smiles','inchi')
 #' @export
 convert <- function(input, inputType, outputType) {
     .Call('_mzAnnotation_convert', PACKAGE = 'mzAnnotation', input, inputType, outputType)
 }
 
 #' smileToMF
+#' @description convert a smile to a molecular formula
+#' @param smile a valid SMILE
+#' @examples
+#' smileToMF(aminoAcids$SMILE[1])
 #' @export
 smileToMF <- function(smile) {
     .Call('_mzAnnotation_smileToMF', PACKAGE = 'mzAnnotation', smile)
 }
 
+#' smartsSearch
+#' @description SMARTS substructure searching for SMILES.
+#' @param smile a valid SMILE
+#' @param smart a valid SMARTS symbol
+#' @examples
+#' smartsSearch(aminoAcids$SMILE[1],"[OX2H]")
 #' @export
 smartsSearch <- function(smile, smart) {
     .Call('_mzAnnotation_smartsSearch', PACKAGE = 'mzAnnotation', smile, smart)

@@ -62,8 +62,10 @@ descriptors <- function(smiles){
     bind_cols()
 
   desc <- bind_cols(SMILE = smiles,descs,groups) %>%
-    mutate(`Total Charge` = -`Negative Charge` + `Positive Charge`) %>%
-    select(SMILE:`Positive Charge`,`Total Charge`,NHH:COO)
+    mutate(`Total Charge` = -`Negative Charge` + `Positive Charge`,
+           MF = map_chr(SMILE,smileToMF),
+           `Accurate Mass` = map_dbl(MF,calcAccurateMass)) %>%
+    select(SMILE,MF,`Accurate Mass`,`Negative Charge`,`Positive Charge`,`Total Charge`,NHH:COO)
 
   return(desc)
 }

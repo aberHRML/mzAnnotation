@@ -4,12 +4,13 @@
 \alias{PIPsearch}
 \title{Putative Ionisation Product searching}
 \usage{
-PIPsearch(mz, ppm = 5, mode = "n", add = NA, iso = NA,
-  adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes,
-  DB = mzAnnotation::MZedDB)
+PIPsearch(mz, DB, ppm = 5, mode = "n", add = NA, iso = NA,
+  adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes)
 }
 \arguments{
 \item{mz}{the accurate m/z to search}
+
+\item{DB}{object of class \code{MetaboliteDatabase}.}
 
 \item{ppm}{the parts per million threshold to search}
 
@@ -22,17 +23,9 @@ PIPsearch(mz, ppm = 5, mode = "n", add = NA, iso = NA,
 \item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
 
 \item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
-
-\item{DB}{Database to use. Defaults to \code{MZedDB}}
 }
 \description{
 Putative Ionisation Product searching
-}
-\details{
-The underlying database is that of MZedDB (\url{http://maltese.dbs.aber.ac.uk:8888/hrmet/index.html}). 
-A list of available adducts can be found at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/search/disprules.php}. 
-Isotopic adducts have also been added and include [2M+K41]1+, [M+K41]1+, [M+K41-2H]1- and [M+Cl37]1-. 
-Available isotopes include 13C, 13C2, 13C3, 13C4, 18O, 37Cl, 41K and 34S.
 }
 \examples{
 #res <- PIPsearch(133.01378,5)

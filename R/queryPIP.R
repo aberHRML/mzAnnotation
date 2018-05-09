@@ -4,9 +4,10 @@
 
 queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, DB = mzAnnotation::MZedDB, filter = T){
   # Retrieve database entries
-  elementFreq <- DB$ELementFrequencies
-  metaboliteRules <- DB$Rules
-  DataBase <- DB$DB
+  accessions <- DB@accessions
+  descriptors <- DB@descriptors
+  
+  # elementFreq <- DB$ELementFrequencies
   
   # Calculate the mz range over which to search based on ppm error
   mass <- ppmRange(mz,ppm)
@@ -15,8 +16,8 @@ queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, is
   mass <- map(mass,calcM,adduct = add,isotope = iso)
   
   # Filter database entries based mz range
-  DataBase <- DataBase %>%
-    filter(`Accurate Mass` > mass$lower & `Accurate Mass` < mass$upper)
+  hits <- descriptors %>%
+    filter(Accurate_Mass > mass$lower & Accurate_Mass < mass$upper)
   
   # If an isotope has been selected; filter the database entries based on the isotope rules
   if (!is.na(iso)) {
@@ -33,9 +34,8 @@ queryPIP <- function(mz, ppm, add, iso = NA, adducts = mzAnnotation::Adducts, is
   }
   
   # Filter the database based on the adduct formation rules
-  if (nrow(DataBase) > 0) {
-    metaboliteRules <- metaboliteRules %>% 
-      filter(ID %in% DataBase$ID) %>%
+  if (nrow(hits) > 0) {
+    hits <- hits %>%
       rowwise() %>%
       mutate(True = applyIonisationRule(ID,add,adducts = adducts,DB = DB)) %>%
       filter(True == T)

@@ -34,14 +34,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// smilesToMF
-std::string smilesToMF(std::string smile);
-RcppExport SEXP _mzAnnotation_smilesToMF(SEXP smileSEXP) {
+// smileToMF
+std::string smileToMF(std::string smile);
+RcppExport SEXP _mzAnnotation_smileToMF(SEXP smileSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type smile(smileSEXP);
-    rcpp_result_gen = Rcpp::wrap(smilesToMF(smile));
+    rcpp_result_gen = Rcpp::wrap(smileToMF(smile));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -85,7 +85,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_HR2", (DL_FUNC) &_mzAnnotation_HR2, 6},
     {"_mzAnnotation_convert", (DL_FUNC) &_mzAnnotation_convert, 3},
-    {"_mzAnnotation_smilesToMF", (DL_FUNC) &_mzAnnotation_smilesToMF, 1},
+    {"_mzAnnotation_smileToMF", (DL_FUNC) &_mzAnnotation_smileToMF, 1},
     {"_mzAnnotation_smartsSearch", (DL_FUNC) &_mzAnnotation_smartsSearch, 2},
     {"_mzAnnotation_descriptor", (DL_FUNC) &_mzAnnotation_descriptor, 2},
     {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},

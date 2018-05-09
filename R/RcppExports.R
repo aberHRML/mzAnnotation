@@ -9,8 +9,8 @@ convert <- function(input, inputType, outputType) {
     .Call('_mzAnnotation_convert', PACKAGE = 'mzAnnotation', input, inputType, outputType)
 }
 
-smilesToMF <- function(smile) {
-    .Call('_mzAnnotation_smilesToMF', PACKAGE = 'mzAnnotation', smile)
+smileToMF <- function(smile) {
+    .Call('_mzAnnotation_smileToMF', PACKAGE = 'mzAnnotation', smile)
 }
 
 smartsSearch <- function(smile, smart) {

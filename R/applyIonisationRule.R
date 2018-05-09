@@ -5,7 +5,7 @@
 #' @param adducts adduct table containing available adduct rules
 #' @param DB Database to use. Defaults to \code{MZedDB}
 #' @examples 
-#' applyIonisationRule('D27880',"[M-H]1-")
+#' #applyIonisationRule('D27880',"[M-H]1-")
 #' @export
 
 applyIonisationRule <- function(ID, adduct, adducts = mzAnnotation::Adducts, DB = mzAnnotation::MZedDB) {

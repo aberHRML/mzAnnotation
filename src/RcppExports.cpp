@@ -5,6 +5,54 @@
 
 using namespace Rcpp;
 
+// convert
+std::string convert(std::string input, const char* inputType, const char* outputType);
+RcppExport SEXP _mzAnnotation_convert(SEXP inputSEXP, SEXP inputTypeSEXP, SEXP outputTypeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type input(inputSEXP);
+    Rcpp::traits::input_parameter< const char* >::type inputType(inputTypeSEXP);
+    Rcpp::traits::input_parameter< const char* >::type outputType(outputTypeSEXP);
+    rcpp_result_gen = Rcpp::wrap(convert(input, inputType, outputType));
+    return rcpp_result_gen;
+END_RCPP
+}
+// smileToMF
+std::string smileToMF(std::string smile);
+RcppExport SEXP _mzAnnotation_smileToMF(SEXP smileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type smile(smileSEXP);
+    rcpp_result_gen = Rcpp::wrap(smileToMF(smile));
+    return rcpp_result_gen;
+END_RCPP
+}
+// smartsSearch
+int smartsSearch(std::string smile, std::string smart);
+RcppExport SEXP _mzAnnotation_smartsSearch(SEXP smileSEXP, SEXP smartSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type smile(smileSEXP);
+    Rcpp::traits::input_parameter< std::string >::type smart(smartSEXP);
+    rcpp_result_gen = Rcpp::wrap(smartsSearch(smile, smart));
+    return rcpp_result_gen;
+END_RCPP
+}
+// descriptor
+double descriptor(std::string smile, const char* desc);
+RcppExport SEXP _mzAnnotation_descriptor(SEXP smileSEXP, SEXP descSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type smile(smileSEXP);
+    Rcpp::traits::input_parameter< const char* >::type desc(descSEXP);
+    rcpp_result_gen = Rcpp::wrap(descriptor(smile, desc));
+    return rcpp_result_gen;
+END_RCPP
+}
 // HR2
 std::vector<std::vector<std::string> > HR2(double measured_mass, std::vector<int> max, std::vector<int> min, double tolerance, double charge, bool applygr);
 RcppExport SEXP _mzAnnotation_HR2(SEXP measured_massSEXP, SEXP maxSEXP, SEXP minSEXP, SEXP toleranceSEXP, SEXP chargeSEXP, SEXP applygrSEXP) {
@@ -35,6 +83,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_mzAnnotation_convert", (DL_FUNC) &_mzAnnotation_convert, 3},
+    {"_mzAnnotation_smileToMF", (DL_FUNC) &_mzAnnotation_smileToMF, 1},
+    {"_mzAnnotation_smartsSearch", (DL_FUNC) &_mzAnnotation_smartsSearch, 2},
+    {"_mzAnnotation_descriptor", (DL_FUNC) &_mzAnnotation_descriptor, 2},
     {"_mzAnnotation_HR2", (DL_FUNC) &_mzAnnotation_HR2, 6},
     {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},
     {NULL, NULL, 0}

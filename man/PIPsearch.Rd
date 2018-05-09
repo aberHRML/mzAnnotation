@@ -35,7 +35,7 @@ Isotopic adducts have also been added and include [2M+K41]1+, [M+K41]1+, [M+K41-
 Available isotopes include 13C, 13C2, 13C3, 13C4, 18O, 37Cl, 41K and 34S.
 }
 \examples{
-res <- PIPsearch(133.01378,5)
+#res <- PIPsearch(133.01378,5)
 }
 \author{
 Jasen Finch

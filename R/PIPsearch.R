@@ -15,7 +15,7 @@
 #' @author  Jasen Finch
 #' @importFrom dplyr bind_rows
 #' @examples
-#' res <- PIPsearch(133.01378,5)
+#' #res <- PIPsearch(133.01378,5)
 
 PIPsearch <-
 function(mz, ppm = 5, mode = 'n', add = NA, iso = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, DB = mzAnnotation::MZedDB){

@@ -17,7 +17,6 @@
 #' @importFrom tibble as_tibble
 #' @importFrom rcdk generate.formula
 #' @importFrom dplyr arrange
-#' @importFrom Rdisop decomposeMass initializeCHNOPS
 #' @export
 #' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
 #' @examples
@@ -95,31 +94,31 @@ generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, composition
     }
   }
   
-  if (generator == 'Rdisop') {
-    composition <- composition[composition != 0]
-    minElements <- str_c(str_c(names(composition),0),collapse = '')
-    maxElements <- str_c(str_c(names(composition),composition),collapse = '')
-    elements <- initializeCHNOPS()
-    elements <- map(elements,~{
-      if(.$name %in% names(composition)) {
-        return(.)
-      }
-    })
-    elements <- elements[!sapply(elements,is.null)]
-    res <- decomposeMass(mass,ppm = ppm,filter = validation,elements = elements,
-                         minElements = minElements,maxElements = maxElements,mzabs = 0)
-    if (length(res) > 0) {
-      MF <- res$formula
-      m <- res$exactmass %>%
-        round(5)
-      Error <- sapply(m,ppmError,measured = mass) %>% 
-        round(5)
-      res <- tibble(MF = MF, Mass = m, `PPM Error` = Error)
-    } else {
-      res <- tibble(MF = character(), Mass = numeric(), `PPM Error` = numeric())
-    }
-   
-  }
+  # if (generator == 'Rdisop') {
+  #   composition <- composition[composition != 0]
+  #   minElements <- str_c(str_c(names(composition),0),collapse = '')
+  #   maxElements <- str_c(str_c(names(composition),composition),collapse = '')
+  #   elements <- initializeCHNOPS()
+  #   elements <- map(elements,~{
+  #     if(.$name %in% names(composition)) {
+  #       return(.)
+  #     }
+  #   })
+  #   elements <- elements[!sapply(elements,is.null)]
+  #   res <- decomposeMass(mass,ppm = ppm,filter = validation,elements = elements,
+  #                        minElements = minElements,maxElements = maxElements,mzabs = 0)
+  #   if (length(res) > 0) {
+  #     MF <- res$formula
+  #     m <- res$exactmass %>%
+  #       round(5)
+  #     Error <- sapply(m,ppmError,measured = mass) %>% 
+  #       round(5)
+  #     res <- tibble(MF = MF, Mass = m, `PPM Error` = Error)
+  #   } else {
+  #     res <- tibble(MF = character(), Mass = numeric(), `PPM Error` = numeric())
+  #   }
+  #  
+  # }
   
   return(res)
 }

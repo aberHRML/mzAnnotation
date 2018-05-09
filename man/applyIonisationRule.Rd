@@ -20,5 +20,5 @@ applyIonisationRule(ID, adduct, adducts = mzAnnotation::Adducts,
 apply an adduct formation rule to a database entry
 }
 \examples{
-applyIonisationRule('D27880',"[M-H]1-")
+#applyIonisationRule('D27880',"[M-H]1-")
 }

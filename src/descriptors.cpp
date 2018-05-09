@@ -7,6 +7,7 @@ using namespace OpenBabel;
 #include <Rcpp.h>
 using namespace Rcpp;
 
+//' @export
 // [[Rcpp::export]]
 int smartsSearch(std::string smile,std::string smart){
 

@@ -11,7 +11,7 @@
 #' }
 #'
 #' @importFrom parallel makeCluster parLapply stopCluster
-#' @importFrom purrr map_dbl
+#' @importFrom purrr map_dbl map_int
 #' @export
 #' @examples
 #' data(aminoAcids)

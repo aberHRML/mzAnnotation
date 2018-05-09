@@ -6,6 +6,8 @@ using namespace OpenBabel;
 #include <Rcpp.h>
 using namespace Rcpp;
 
+//' convert
+//' @export
 // [[Rcpp::export]]
 std::string convert(std::string input,const char* inputType,const char* outputType){
   
@@ -21,6 +23,8 @@ std::string convert(std::string input,const char* inputType,const char* outputTy
   return res;
 }
 
+//' smileToMF
+//' @export
 // [[Rcpp::export]]
 std::string smileToMF(std::string smile){
   std::string res;

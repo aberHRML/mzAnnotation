@@ -11,39 +11,34 @@
 #' @author  Jasen Finch
 #' @importFrom dplyr bind_rows
 #' @examples
-#' #res <- PIPsearch(133.01378,5)
+#' res <- PIPsearch(132.03023,metaboliteDatabase(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-')
 
-PIPsearch <- function(mz, DB, ppm = 5, mode = 'n', add = NA, iso = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes){
+PIPsearch <- function(mz,db,ppm,adduct,isotope = NA,isotopes = mzAnnotation::Isotopes,adducts = mzAnnotation::Adducts){
+  M <- calcM(mz,adduct = adduct,isotope = isotope,adducts = adducts,isotopes = isotopes)
+  mr <- ppmRange(M,ppm)
   
-  if (class(DB) != 'MetaboliteDatabase'){
-    stop('DB needs to be of class "MetaboliteDatabase"!')
+  res <- db %>%
+    filterMR(mr$lower,mr$upper)
+  
+  if (!is.na(isotope) & nrow(res@accessions) > 0){
+    isoRule <- isotopes$Rule[isotopes$Isotope == isotope]
+    res <- res %>%
+      filterIR(isoRule)
   }
   
-  if (T %in% is.na(add)) {
-	  if (mode == "p") {
-	    adductList <- adducts$Name[adducts$Nelec < 0] 
-	  }
-	  if (mode == "n") {
-	    adductList <- adducts$Name[adducts$Nelec > 0]
-	  }
-    if (mode == "ne") {
-      adductList <- c("M") 
-    }
-  } else {
-    adductList <- add
-  }
-  if (!(T %in% is.na(iso))) {
-    iso <- c(NA,iso)
-  }
-	
-	res <- map(iso,~{
-	  i <- .
-	  map(adductList,~{
-	    queryPIP(mz,ppm,.,i,adducts,isotopes,DB)
-	  })
-	}) %>%
-	  map(bind_rows) %>%
-	  bind_rows()
-
-	return(res)
+  addRule <- adducts$Rule[adducts$Name == adduct]
+  
+  res <- res %>%
+    filterIP(addRule)
+  
+  res <- res %>%
+  {left_join(.@accessions,.@descriptors,by = c("ACCESSION_ID", "SMILE"))} %>%
+    select(ACCESSION_ID:Accurate_Mass) %>%
+    mutate(Isotope = isotope,
+           Adduct = adduct,
+           `Measured m/z` = mz,
+           `Theoretical m/z` = calcMZ(Accurate_Mass,adduct),
+           `PPM Error` = ppmError(`Measured m/z`,`Theoretical m/z`)
+    ) 
+  return(res)
 }

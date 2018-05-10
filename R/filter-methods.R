@@ -35,3 +35,19 @@ filterIP <- function(db,rule){
   db@accessions <- acc
   return(db)
 }
+
+filterACCESSIONS <- function(db,ids){
+  db@accessions <- db@accessions %>%
+    filter(ACCESSION_ID %in% ids)
+  db@descriptors <- db@descriptors %>%
+    filter(ACCESSION_ID %in% ids)
+  return(db)
+}
+
+filterMF <- function(db,MF){
+  db@accessions <- db@accessions %>%
+    filter(ACCESSION_ID %in% MF)
+  db@descriptors <- db@descriptors %>%
+    filter(ACCESSION_ID %in% MF)
+  return(db)
+}

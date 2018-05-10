@@ -11,6 +11,11 @@ setGeneric("filterIR", function(db,rule) {
   standardGeneric("filterIR")
 })
 
+setGeneric("filterACCESSIONS", function(db,ids) {
+  standardGeneric("filterACCESSIONS")
+})
+
 setGeneric("elementFrequencies", function(db) {
   standardGeneric("elementFrequencies")
 })
+

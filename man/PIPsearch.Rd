@@ -4,15 +4,17 @@
 \alias{PIPsearch}
 \title{Putative Ionisation Product searching}
 \usage{
-PIPsearch(mz, DB, ppm = 5, mode = "n", add = NA, iso = NA,
-  adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes)
+PIPsearch(mz, db, ppm, adduct, isotope = NA,
+  isotopes = mzAnnotation::Isotopes, adducts = mzAnnotation::Adducts)
 }
 \arguments{
 \item{mz}{the accurate m/z to search}
 
-\item{DB}{object of class \code{MetaboliteDatabase}.}
-
 \item{ppm}{the parts per million threshold to search}
+
+\item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
+
+\item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
 
 \item{mode}{either 'p' or 'n' specifiying the acquisition mode. Can be overrided using \code{add} to do mixed mode searches.}
 
@@ -20,15 +22,13 @@ PIPsearch(mz, DB, ppm = 5, mode = "n", add = NA, iso = NA,
 
 \item{iso}{a character \code{vector} specifying the isotopes to search. If \code{NA} isotopes will not be searched.}
 
-\item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
-
-\item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
+\item{DB}{object of class \code{MetaboliteDatabase}.}
 }
 \description{
 Putative Ionisation Product searching
 }
 \examples{
-#res <- PIPsearch(133.01378,5)
+res <- PIPsearch(132.03023,metaboliteDatabase(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-')
 }
 \author{
 Jasen Finch

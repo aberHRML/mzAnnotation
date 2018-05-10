@@ -4,10 +4,10 @@
 \alias{descriptors}
 \title{convert SMILES to a series of molecular descriptors}
 \usage{
-descriptors(smiles)
+descriptors(accessions)
 }
 \arguments{
-\item{smiles}{vector of valid SMILEs}
+\item{accessions}{tibble containing accession information and valid SMILEs}
 }
 \description{
 convert SMILES to a series of molecular descriptors

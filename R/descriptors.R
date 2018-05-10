@@ -65,7 +65,7 @@ descriptors <- function(smiles){
     mutate(Total_Charge = -Negative_Charge + Positive_Charge,
            MF = map_chr(SMILE,smileToMF),
            `Accurate_Mass` = map_dbl(MF,calcAccurateMass)) %>%
-    select(SMILE,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,NHH:COO)
+    select(SMILE,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)
   
   return(desc)
 }

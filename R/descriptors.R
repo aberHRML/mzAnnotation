@@ -2,7 +2,7 @@
 #'
 #' @param smiles vector of valid SMILEs
 #' @importFrom parallel makeCluster parLapply stopCluster
-#' @importFrom purrr map_dbl map_int
+#' @importFrom purrr map_dbl map_int map_chr
 #' @export
 #' @examples
 #' data(aminoAcids)

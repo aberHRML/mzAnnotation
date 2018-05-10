@@ -1,19 +1,22 @@
-#' metaboliteDatabase
+#' metaboliteDB
 #' @description Build a metabolite database ready for use.
-#' @param accessions
-#' @param descriptors
-#' @param connection
-#' @param type
+#' @param accessions tibble containing accession information. If \code{type = 'remote'} this should be the name of the table containing the accession information within the SQL database.
+#' @param descriptors tibble containing descriptor information as returned by \code{descriptors()}. If \code{type = 'remote'} this should be the name of the table containing the descriptor information within the SQL database.
+#' @param connection If \code{type = 'remote'} this should be a valid database connection as returned by \code{DBI::dbconnect()}.
+#' @param type set to either \code{'local'} for in-memory databases or \code{remote} for SQL database connections.
 #' @examples 
-#' db <- metaboliteDatabase(aminoAcids,descriptors(aminoAcids$SMILE))
+#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILE))
 #' @importFrom dplyr tbl
 #' @importFrom purrr map_chr
 #' @importFrom methods new
 #' @export
 
-metaboliteDatabase <- function(accessions,descriptors,connection = NULL,type = 'local'){
+metaboliteDB <- function(accessions,descriptors,connection = NULL,type = 'local'){
   db <- new('MetaboliteDatabase')
   db@type <- type
+  if (!(type %in% c('local','remote'))){
+    stop('type not recognised!')
+  }
   if (type == 'local'){
     db@accessions <- list(accessions)
     db@descriptors <- list(descriptors)

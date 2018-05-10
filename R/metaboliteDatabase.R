@@ -1,8 +1,14 @@
 #' metaboliteDatabase
 #' @description Build a metabolite database ready for use.
+#' @param accessions
+#' @param descriptors
+#' @param connection
+#' @param type
 #' @examples 
 #' db <- metaboliteDatabase(aminoAcids,descriptors(aminoAcids$SMILE))
 #' @importFrom dplyr tbl
+#' @importFrom purrr map_chr
+#' @importFrom methods new
 #' @export
 
 metaboliteDatabase <- function(accessions,descriptors,connection = NULL,type = 'local'){
@@ -14,8 +20,8 @@ metaboliteDatabase <- function(accessions,descriptors,connection = NULL,type = '
   }
   if (type == 'remote'){
     if (!is.null(connection)){
-      db@accessions <- tbl(connection$con,accessions)
-      db@descriptors <- tbl(connection$con,descriptors)
+      db@accessions <- tbl(connection,accessions)
+      db@descriptors <- tbl(connection,descriptors)
     } else {
       stop('No database connection specified')
     }

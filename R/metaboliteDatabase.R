@@ -15,13 +15,13 @@ metaboliteDatabase <- function(accessions,descriptors,connection = NULL,type = '
   db <- new('MetaboliteDatabase')
   db@type <- type
   if (type == 'local'){
-    db@accessions <- accessions
-    db@descriptors <- descriptors
+    db@accessions <- list(accessions)
+    db@descriptors <- list(descriptors)
   }
   if (type == 'remote'){
     if (!is.null(connection)){
-      db@accessions <- tbl(connection,accessions)
-      db@descriptors <- tbl(connection,descriptors)
+      db@accessions <- list(tbl(connection,accessions))
+      db@descriptors <- list(tbl(connection,descriptors))
     } else {
       stop('No database connection specified')
     }

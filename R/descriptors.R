@@ -1,8 +1,9 @@
 #' convert SMILES to a series of molecular descriptors
 #'
 #' @param accessions tibble containing accession information and valid SMILEs
+#' @importFrom dplyr mutate
 #' @importFrom parallel makeCluster parLapply stopCluster
-#' @importFrom purrr map_dbl map_int
+#' @importFrom purrr map_dbl map_int map
 #' @export
 #' @examples
 #' data(aminoAcids)

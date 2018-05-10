@@ -10,5 +10,5 @@ globalVariables(c('Name','ID','MF','Accurate Mass','Smile 1','Adduct',
                   'Relative Abundance','C','S','Elements','Error',
                   'Theoretical m/z','True','desc','m/z','Adducts',
                   'Negative Charge','Positive Charge','SMILE','Total Charge',
-                  'NHH','COO'
+                  'NHH','COO','ACCESSION_ID'
                   ))

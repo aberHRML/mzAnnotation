@@ -1,7 +1,9 @@
 #' Putative Ionisation Product searching
-#' @param mz the accurate m/z to search
+#' @param mz the accurate m/z to search.
 #' @param db object of class \code{MetaboliteDatabase}.
-#' @param ppm the parts per million threshold to search
+#' @param ppm the parts per million threshold to search.
+#' @param adduct the adduct name to search.
+#' @param isotope the isotope name to search. Defaults to NA for non-isotopic searches.
 #' @param adducts adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.
 #' @param isotopes isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.
 #' @export
@@ -11,14 +13,14 @@
 #' @examples
 #' res <- PIPsearch(132.03023,metaboliteDB(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-')
 
-PIPsearch <- function(mz,db,ppm,adduct,isotope = NA,isotopes = mzAnnotation::Isotopes,adducts = mzAnnotation::Adducts){
+PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopes = mzAnnotation::Isotopes, adducts = mzAnnotation::Adducts){
   M <- calcM(mz,adduct = adduct,isotope = isotope,adducts = adducts,isotopes = isotopes)
   mr <- ppmRange(M,ppm)
   
   res <- db %>%
     filterMR(mr$lower,mr$upper)
   
-  if (!is.na(isotope) & nrow(res@accessions[[1]]) > 0){
+  if (!is.na(isotope) & nrow(res@accessions[[1]]) > 0) {
     isoRule <- isotopes$Rule[isotopes$Isotope == isotope]
     res <- res %>%
       filterIR(isoRule)

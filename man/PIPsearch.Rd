@@ -8,11 +8,15 @@ PIPsearch(mz, db, ppm, adduct, isotope = NA,
   isotopes = mzAnnotation::Isotopes, adducts = mzAnnotation::Adducts)
 }
 \arguments{
-\item{mz}{the accurate m/z to search}
+\item{mz}{the accurate m/z to search.}
 
 \item{db}{object of class \code{MetaboliteDatabase}.}
 
-\item{ppm}{the parts per million threshold to search}
+\item{ppm}{the parts per million threshold to search.}
+
+\item{adduct}{the adduct name to search.}
+
+\item{isotope}{the isotope name to search. Defaults to NA for non-isotopic searches.}
 
 \item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
 

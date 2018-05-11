@@ -3,7 +3,7 @@
 #' @param accessions tibble containing accession information and valid SMILEs
 #' @importFrom dplyr mutate
 #' @importFrom parallel makeCluster parLapply stopCluster
-#' @importFrom purrr map_dbl map_int map
+#' @importFrom purrr map_dbl map_int map_chr
 #' @export
 #' @examples
 #' data(aminoAcids)

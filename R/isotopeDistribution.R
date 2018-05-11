@@ -3,8 +3,8 @@
 #' @param charge the charge of the molecular formula
 #' @param limit the relative abundance threshold
 #' @param elements the table containing elemental information. Defaults to \code{Elements}.
-#' @importFrom stringr str_split str_extract
-#' @importFrom dplyr bind_cols group_by summarise right_join
+#' @importFrom stringr str_split str_extract str_replace_all
+#' @importFrom dplyr bind_cols group_by summarise right_join rename
 #' @export
 #' @author Jasen Finch
 #' @examples 

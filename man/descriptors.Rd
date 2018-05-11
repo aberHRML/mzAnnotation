@@ -2,26 +2,17 @@
 % Please edit documentation in R/descriptors.R
 \name{descriptors}
 \alias{descriptors}
-\title{Convert SMILE to a series of molecular descriptors}
+\title{convert SMILES to a series of molecular descriptors}
 \usage{
-descriptors(smile)
+descriptors(accessions)
 }
 \arguments{
-\item{smile}{a valid SMILE}
-}
-\value{
-a \code{tibble} of the following;
-\itemize{
-    \item{HBD} The number of Hydrogen Bond Donors
-    \item{HBA} The number of Hydrogen Bond Acceptors
-    \item{AcidGroups} The number of Acidic Groups
-    \item{BaseGroups} The number of Basic Groups
-    \item{TotalCharge} The total overall charge
-}
+\item{accessions}{tibble containing accession information and valid SMILEs}
 }
 \description{
-Convert SMILE to a series of molecular descriptors
+convert SMILES to a series of molecular descriptors
 }
 \examples{
-descriptors('CN1C=C(N=C1)CC(C(=O)O)N')
+data(aminoAcids)
+descriptors(aminoAcids)
 }

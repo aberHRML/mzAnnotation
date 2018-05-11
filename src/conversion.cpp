@@ -17,14 +17,15 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 std::string convert(std::string input,const char* inputType,const char* outputType){
   
-  std::string res;
+  std::string res = "NA";
   OBMol mol;
   OBConversion conv;
   
   conv.SetInAndOutFormats(inputType,outputType);
-  conv.ReadString(&mol, input);
-  
-  res = conv.WriteString(&mol, true);
+
+  if(conv.ReadString(&mol, input)) {
+    res = conv.WriteString(&mol, true);
+  }
   
   return res;
 }

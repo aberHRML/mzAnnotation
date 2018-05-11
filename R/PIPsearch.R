@@ -37,7 +37,7 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopes = mzAnnotation::Is
     mutate(Isotope = isotope,
            Adduct = adduct,
            `Measured m/z` = mz,
-           `Theoretical m/z` = calcMZ(Accurate_Mass,adduct),
+           `Theoretical m/z` = calcMZ(Accurate_Mass,adduct,isotope),
            `PPM Error` = ppmError(`Measured m/z`,`Theoretical m/z`)
     ) 
   return(res)

@@ -2,7 +2,7 @@
 context('PIP search')
 
 test_that('PIPsearch works',{
-  res <- PIPsearch(132.03023,metaboliteDB(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-')
+  res <- PIPsearch(133.03358 ,metaboliteDB(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-','13C')
   
   expect_false(F %in% (class(res) == c("tbl_df","tbl","data.frame")))
   expect_true(nrow(res) == 1)

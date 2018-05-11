@@ -1,3 +1,4 @@
+#' @importFrom dplyr everything
 
 elementFrequencies <- function(db){
   MFs <- db@descriptors$MF %>%

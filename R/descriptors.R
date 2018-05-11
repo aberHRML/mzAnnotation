@@ -7,7 +7,7 @@
 #' @export
 #' @examples
 #' data(aminoAcids)
-#' descriptors(aminoAcids$SMILE)
+#' descriptors(aminoAcids)
 
 descriptors <- function(accessions){
   smiles <- accessions$SMILE

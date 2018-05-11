@@ -18,7 +18,7 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA,isotopes = mzAnnotation::Iso
   res <- db %>%
     filterMR(mr$lower,mr$upper)
   
-  if (!is.na(isotope) & nrow(res@accessions) > 0){
+  if (!is.na(isotope) & nrow(res@accessions[[1]]) > 0){
     isoRule <- isotopes$Rule[isotopes$Isotope == isotope]
     res <- res %>%
       filterIR(isoRule)
@@ -30,7 +30,7 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA,isotopes = mzAnnotation::Iso
     filterIP(addRule)
   
   res <- res %>%
-  {left_join(.@accessions,.@descriptors,by = c("ACCESSION_ID", "SMILE"))} %>%
+  {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("ACCESSION_ID", "SMILE"))} %>%
     select(ACCESSION_ID:Accurate_Mass) %>%
     mutate(Isotope = isotope,
            Adduct = adduct,

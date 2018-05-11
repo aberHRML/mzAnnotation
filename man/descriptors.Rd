@@ -14,5 +14,5 @@ convert SMILES to a series of molecular descriptors
 }
 \examples{
 data(aminoAcids)
-descriptors(aminoAcids$SMILE)
+descriptors(aminoAcids)
 }

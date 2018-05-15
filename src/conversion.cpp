@@ -48,3 +48,22 @@ std::string smileToMF(std::string smile){
   res = mol.GetFormula();
   return res;
 }
+
+//' smileToAccurateMass
+//' @description convert a smile to an accurate mass
+//' @param smile a valid SMILE
+//' @examples
+//' smileToAccurateMass(aminoAcids$SMILE[1])
+//' @export
+// [[Rcpp::export]]
+double smileToAccurateMass(std::string smile){
+  double res;
+  OBMol mol;
+  OBConversion conv;
+  
+  conv.SetInFormat("smi");
+  conv.ReadString(&mol, smile);
+  
+  res = mol.GetExactMass();
+  return res;
+}

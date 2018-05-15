@@ -65,7 +65,7 @@ descriptors <- function(accessions){
   desc <- bind_cols(SMILE = smiles,descs,groups) %>%
     mutate(Total_Charge = -Negative_Charge + Positive_Charge,
            MF = map_chr(SMILE,smileToMF),
-           `Accurate_Mass` = map_dbl(MF,calcAccurateMass),
+           `Accurate_Mass` = map_dbl(SMILE,smileToAccurateMass()),
            ACCESSION_ID = accessions$ACCESSION_ID) %>%
 
     select(ACCESSION_ID,SMILE,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)

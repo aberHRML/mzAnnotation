@@ -27,6 +27,16 @@ smileToMF <- function(smile) {
     .Call('_mzAnnotation_smileToMF', PACKAGE = 'mzAnnotation', smile)
 }
 
+#' smileToAccurateMass
+#' @description convert a smile to an accurate mass
+#' @param smile a valid SMILE
+#' @examples
+#' smileToAccurateMass(aminoAcids$SMILE[1])
+#' @export
+smileToAccurateMass <- function(smile) {
+    .Call('_mzAnnotation_smileToAccurateMass', PACKAGE = 'mzAnnotation', smile)
+}
+
 #' smartsSearch
 #' @description SMARTS substructure searching for SMILES.
 #' @param smile a valid SMILE

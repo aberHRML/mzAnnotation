@@ -45,6 +45,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// smileToAccurateMass
+double smileToAccurateMass(std::string smile);
+RcppExport SEXP _mzAnnotation_smileToAccurateMass(SEXP smileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type smile(smileSEXP);
+    rcpp_result_gen = Rcpp::wrap(smileToAccurateMass(smile));
+    return rcpp_result_gen;
+END_RCPP
+}
 // smartsSearch
 int smartsSearch(std::string smile, std::string smart);
 RcppExport SEXP _mzAnnotation_smartsSearch(SEXP smileSEXP, SEXP smartSEXP) {
@@ -86,6 +97,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_HR2", (DL_FUNC) &_mzAnnotation_HR2, 6},
     {"_mzAnnotation_convert", (DL_FUNC) &_mzAnnotation_convert, 3},
     {"_mzAnnotation_smileToMF", (DL_FUNC) &_mzAnnotation_smileToMF, 1},
+    {"_mzAnnotation_smileToAccurateMass", (DL_FUNC) &_mzAnnotation_smileToAccurateMass, 1},
     {"_mzAnnotation_smartsSearch", (DL_FUNC) &_mzAnnotation_smartsSearch, 2},
     {"_mzAnnotation_descriptor", (DL_FUNC) &_mzAnnotation_descriptor, 2},
     {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},

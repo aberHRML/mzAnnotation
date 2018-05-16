@@ -1,15 +1,16 @@
 #' convert SMILES to a series of molecular descriptors
 #'
-#' @param smiles vector of valid SMILEs
+#' @param accessions tibble containing accession information and valid SMILEs
+#' @importFrom dplyr mutate
 #' @importFrom parallel makeCluster parLapply stopCluster
-#' @importFrom purrr map_dbl map_int map_chr
+#' @importFrom purrr map_dbl map_int map_chr map
 #' @export
 #' @examples
 #' data(aminoAcids)
-#' descriptors(aminoAcids$SMILE)
+#' descriptors(aminoAcids)
 
-descriptors <- function(smiles){
-  
+descriptors <- function(accessions){
+  smiles <- accessions$SMILE
   desc <- c('HBA1',
             'HBA2',
             'HBD',
@@ -64,8 +65,10 @@ descriptors <- function(smiles){
   desc <- bind_cols(SMILE = smiles,descs,groups) %>%
     mutate(Total_Charge = -Negative_Charge + Positive_Charge,
            MF = map_chr(SMILE,smileToMF),
-           `Accurate_Mass` = map_dbl(MF,calcAccurateMass)) %>%
-    select(SMILE,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)
+           `Accurate_Mass` = map_dbl(SMILE,smileToAccurateMass) %>% round(5),
+           ACCESSION_ID = accessions$ACCESSION_ID) %>%
+    
+    select(ACCESSION_ID,SMILE,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)
   
   return(desc)
 }

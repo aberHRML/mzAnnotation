@@ -56,6 +56,7 @@ relationshipCalculator <- function(mz, limit = 0.001, modes = NULL, adducts = c(
       select(contains('m/z'),contains('Adduct'),contains('Isotope'),contains('Transformation'),Error)
     return(coms)
   })
-  combinations <- bind_rows(combinations)
+  combinations <- bind_rows(combinations) %>%
+    as_tibble()
   return(combinations)
 }

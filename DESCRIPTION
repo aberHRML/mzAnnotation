@@ -1,7 +1,7 @@
 Package: mzAnnotation
 Type: Package
 Title: Signal Annotation Tools for High Resolution Metabolomics
-Version: 1.3.1
+Version: 1.4.3
 Date: 2018-01-15
 Author: Jasen Finch
 Maintainer: Jasen Finch <jsf9@aber.ac.uk>
@@ -19,7 +19,9 @@ Imports:
     stringr,
     tidyr,
     rcdk,
+    methods
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
 LazyData: true
-Biarch: TRUE
+Suggests: testthat,
+    covr

@@ -7,6 +7,10 @@
 #' \item{xM}{Number of M needed}
 #' \item{Add}{Mass value change}
 #' \item{Nelec}{Electron change}
+#' \item{AddAt}{pseudo formula of the atoms to be added to the molecular formula of one M}
+#' \item{RemAt}{pseudo formula of the atoms to be removed to the molecular formula of one M}
+#' \item{AddEx}{pseudo formula of the atoms to be added to the final ionisation product molecular formula}
+#' \item{RemEx}{pseudo formula of the atoms to be removed to the final ionisation product molecular formula}
 #' \item{Rule}{Structural rule for formation}
 #' }
 

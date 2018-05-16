@@ -17,14 +17,15 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 std::string convert(std::string input,const char* inputType,const char* outputType){
   
-  std::string res;
+  std::string res = "NA";
   OBMol mol;
   OBConversion conv;
   
   conv.SetInAndOutFormats(inputType,outputType);
-  conv.ReadString(&mol, input);
-  
-  res = conv.WriteString(&mol, true);
+
+  if(conv.ReadString(&mol, input)) {
+    res = conv.WriteString(&mol, true);
+  }
   
   return res;
 }
@@ -45,5 +46,24 @@ std::string smileToMF(std::string smile){
   conv.ReadString(&mol, smile);
   
   res = mol.GetFormula();
+  return res;
+}
+
+//' smileToAccurateMass
+//' @description convert a smile to an accurate mass
+//' @param smile a valid SMILE
+//' @examples
+//' smileToAccurateMass(aminoAcids$SMILE[1])
+//' @export
+// [[Rcpp::export]]
+double smileToAccurateMass(std::string smile){
+  double res;
+  OBMol mol;
+  OBConversion conv;
+  
+  conv.SetInFormat("smi");
+  conv.ReadString(&mol, smile);
+  
+  res = mol.GetExactMass();
   return res;
 }

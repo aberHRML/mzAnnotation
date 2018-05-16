@@ -2,7 +2,7 @@
 mzAnnotation
 ============
 
-[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=devel)](https://travis-ci.org/jasenfinch/mzAnnotation) [![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/devel?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/devel)
+[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=devel)](https://travis-ci.org/jasenfinch/mzAnnotation) [![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/devel?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/devel) [![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
 
 An R package containing tools for putative annotation of accurate m/z
 
@@ -69,12 +69,13 @@ res
 res <- PIPsearch(mz = 133.01378,mode = 'n',ppm = 5)
 res
 #> # A tibble: 6 x 9
-#>   ID     Name                  MF     `Accu… Smile Addu… Isot… `The… `PPM…
-#>   <chr>  <chr>                 <chr>   <dbl> <chr> <chr> <chr> <dbl> <dbl>
-#> 1 D27249 glyoxylate            C2H2O3   74.0 OC(=… [M+H… <NA>    133 -3.53
-#> 2 D335   pyruvate              C3H4O3   88.0 CC(=… [M+F… <NA>    133 -3.53
-#> 3 D27319 malonate semialdehyde C3H4O3   88.0 OC(=… [M+F… <NA>    133 -3.53
-#> 4 D28303 3-hydroxypropenoate   C3H4O3   88.0 OC=C… [M+F… <NA>    133 -3.53
-#> 5 D27880 malate                C4H6O5  134   OC(C… [M-H… <NA>    133 -3.53
-#> 6 D28332 3-dehydrothreonate    C4H6O5  134   OCC(… [M-H… <NA>    133 -3.53
+#>   ID     Name  MF    `Accurate Mass` Smile Adduct Isotope `Theoretical m/…
+#>   <chr>  <chr> <chr>           <dbl> <chr> <chr>  <chr>              <dbl>
+#> 1 D27249 glyo… C2H2…            74.0 OC(=… [M+Ha… <NA>                 133
+#> 2 D335   pyru… C3H4…            88.0 CC(=… [M+FA… <NA>                 133
+#> 3 D27319 malo… C3H4…            88.0 OC(=… [M+FA… <NA>                 133
+#> 4 D28303 3-hy… C3H4…            88.0 OC=C… [M+FA… <NA>                 133
+#> 5 D27880 mala… C4H6…           134   OC(C… [M-H]… <NA>                 133
+#> 6 D28332 3-de… C4H6…           134   OCC(… [M-H]… <NA>                 133
+#> # ... with 1 more variable: `PPM Error` <dbl>
 ```

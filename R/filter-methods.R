@@ -14,7 +14,7 @@ filterMR <- function(db,lower,upper){
 
 filterIR <- function(db,rule){
   ef <- elementFrequencies(db)
-  if (str_extract(isoRule,'[:alpha:]') %in% colnames(ef)){
+  if (str_extract(rule,'[:alpha:]') %in% colnames(ef)){
     ef <- ef %>%
       filter(eval(parse(text = rule)))   
   } else {

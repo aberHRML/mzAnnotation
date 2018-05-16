@@ -14,8 +14,12 @@ filterMR <- function(db,lower,upper){
 
 filterIR <- function(db,rule){
   ef <- elementFrequencies(db)
-  ef <- ef %>%
-    filter(eval(parse(text = rule)))
+  if (str_extract(isoRule,'[:alpha:]') %in% colnames(ef)){
+    ef <- ef %>%
+      filter(eval(parse(text = rule)))   
+  } else {
+    ef[0,]
+  }
   db@descriptors[[1]] <- db@descriptors[[1]] %>%
     filter(ACCESSION_ID %in% ef$ACCESSION_ID)
   db@accessions[[1]] <- db@accessions[[1]] %>%

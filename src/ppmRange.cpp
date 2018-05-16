@@ -14,6 +14,7 @@ List ppmRange(double mz,double ppm) {
   NumericVector lower = NumericVector::create(mz - amu);
   lower = round(lower,5);
   NumericVector upper = NumericVector::create(mz + amu);
+  upper = round(upper,5);
   List res = List::create(lower(0),upper(0));
   res.attr("names") = CharacterVector::create("lower","upper");
   return(res);

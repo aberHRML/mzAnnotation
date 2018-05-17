@@ -39,16 +39,16 @@ adductTransformMF <- function(MF,adduct,Adducts = mzAnnotation::Adducts){
     tMF(adductRule$RemEx,'-')
   
   if (T %in% (freq < 0)) {
-    stop('Not possible!')
+    freq <- ''
+  } else {
+    ch <- freq[names(freq) %in% c('C','H')]
+    freq <- freq[!(names(freq) %in% c('C','H'))]
+    freq <- c(ch,freq)
+    freq <- freq[!(freq == 0)]
+    freq[freq == 1] <- ''
+    freq <- str_c(names(freq),freq) %>%
+      str_c(collapse = '') 
   }
-  
-  ch <- freq[names(freq) %in% c('C','H')]
-  freq <- freq[!(names(freq) %in% c('C','H'))]
-  freq <- c(ch,freq)
-  freq <- freq[!(freq == 0)]
-  freq[freq == 1] <- ''
-  freq <- str_c(names(freq),freq) %>%
-    str_c(collapse = '')
   
   return(freq)
   

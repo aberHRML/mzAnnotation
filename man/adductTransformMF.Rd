@@ -4,15 +4,17 @@
 \alias{adductTransformMF}
 \title{adductTransformMF}
 \usage{
-adductTransformMF(MF, adduct)
+adductTransformMF(MF, adduct, Adducts = mzAnnotation::Adducts)
 }
 \arguments{
-\item{MF}{molecular formula to transform}
+\item{MF}{molecular formula to transform.}
 
-\item{adduct}{adduct to use for transformation}
+\item{adduct}{adduct to use for transformation.}
+
+\item{Adducts}{Adduct information table to use. Defaults to \code{mzAnnotation::Adducts}.}
 }
 \description{
-adduct transform a molecular formula
+adduct transform a molecular formula.
 }
 \examples{
 adductTransformMF('C6H12O6','[M+H]1+')

@@ -1,12 +1,13 @@
 #' adductTransformMF
-#' @description adduct transform a molecular formula
-#' @param MF molecular formula to transform
-#' @param adduct adduct to use for transformation
+#' @description adduct transform a molecular formula.
+#' @param MF molecular formula to transform.
+#' @param adduct adduct to use for transformation.
+#' @param Adducts Adduct information table to use. Defaults to \code{mzAnnotation::Adducts}.
 #' @examples 
 #' adductTransformMF('C6H12O6','[M+H]1+')
 #' @export
 
-adductTransformMF <- function(MF,adduct){
+adductTransformMF <- function(MF,adduct,Adducts = mzAnnotation::Adducts){
 
   tMF <- function(freq,trans,expres){
     if (!is.na(trans)) {
@@ -41,6 +42,9 @@ adductTransformMF <- function(MF,adduct){
     stop('Not possible!')
   }
   
+  ch <- freq[names(freq) %in% c('C','H')]
+  freq <- freq[!(names(freq) %in% c('C','H'))]
+  freq <- c(ch,freq)
   freq <- freq[!(freq == 0)]
   freq[freq == 1] <- ''
   freq <- str_c(names(freq),freq) %>%

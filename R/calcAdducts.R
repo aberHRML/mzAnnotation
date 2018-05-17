@@ -19,7 +19,7 @@ calcAdducts <- function(id,db,adducts = mzAnnotation::Adducts){
     select(Name,Rule) %>%
     bind_cols(desc) %>%
     rowwise() %>%
-    mutate(Possible = eval(parse(text = Rule)),`m/z` = calcMZ(Accurate_Mass,Name,adducts = adducts)) %>%
-    select(Name,Possible,`m/z`)
+    mutate(Possible = eval(parse(text = Rule)),`m/z` = calcMZ(Accurate_Mass,Name,adducts = adducts),MF = adductTransformMF(MF,Name)) %>%
+    select(Name,Possible,`m/z`,MF)
   return(add)
 }

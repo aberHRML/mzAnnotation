@@ -2,10 +2,12 @@ mzAnnotation.Rproj
 .Rproj.user
 .travis.yml
 appveyor.yml
-README.md
+README*
 .gitignore
 .git
 .Rhistory
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^appveyor\.yml$
+^codecov\.yml$
 LICENSE

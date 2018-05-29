@@ -1,13 +1,13 @@
 Package: mzAnnotation
 Type: Package
-Title: Signal annotation tools for high resolution metabolomics
-Version: 1.2.0
-Date: 2016-11-11
+Title: Signal Annotation Tools for High Resolution Metabolomics
+Version: 1.4.4
+Date: 2018-01-15
 Author: Jasen Finch
 Maintainer: Jasen Finch <jsf9@aber.ac.uk>
-Description: Tools for the putative annotation of high resolution metabolomics
+Description: Tools for the putative annotation of high resolution metabolomics m/z.
     data.
-License: GPL (>= 2)
+License: GPL (>= 3)
 Depends: R (>= 3.4)
 Imports:
     Rcpp,
@@ -19,7 +19,9 @@ Imports:
     stringr,
     tidyr,
     rcdk,
-    Rdisop
+    methods
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1
 LazyData: true
+Suggests: testthat,
+    covr

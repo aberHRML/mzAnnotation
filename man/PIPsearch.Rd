@@ -4,38 +4,29 @@
 \alias{PIPsearch}
 \title{Putative Ionisation Product searching}
 \usage{
-PIPsearch(mz, ppm = 5, mode = "n", add = NA, iso = NA,
-  adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes,
-  DB = mzAnnotation::MZedDB)
+PIPsearch(mz, db, ppm, adduct, isotope = NA,
+  isotopes = mzAnnotation::Isotopes, adducts = mzAnnotation::Adducts)
 }
 \arguments{
-\item{mz}{the accurate m/z to search}
+\item{mz}{the accurate m/z to search.}
 
-\item{ppm}{the parts per million threshold to search}
+\item{db}{object of class \code{MetaboliteDatabase}.}
 
-\item{mode}{either 'p' or 'n' specifiying the acquisition mode. Can be overrided using \code{add} to do mixed mode searches.}
+\item{ppm}{the parts per million threshold to search.}
 
-\item{add}{a character \code{vector} specifying the adducts to search. If \code{NA}, all adducts for that acquisition mode will be used.}
+\item{adduct}{the adduct name to search.}
 
-\item{iso}{a character \code{vector} specifying the isotopes to search. If \code{NA} isotopes will not be searched.}
-
-\item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
+\item{isotope}{the isotope name to search. Defaults to NA for non-isotopic searches.}
 
 \item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
 
-\item{DB}{Database to use. Defaults to \code{MZedDB}}
+\item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
 }
 \description{
 Putative Ionisation Product searching
 }
-\details{
-The underlying database is that of MZedDB (\url{http://maltese.dbs.aber.ac.uk:8888/hrmet/index.html}). 
-A list of available adducts can be found at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/search/disprules.php}. 
-Isotopic adducts have also been added and include [2M+K41]1+, [M+K41]1+, [M+K41-2H]1- and [M+Cl37]1-. 
-Available isotopes include 13C, 13C2, 13C3, 13C4, 18O, 37Cl, 41K and 34S.
-}
 \examples{
-res <- PIPsearch(133.01378,5)
+res <- PIPsearch(132.03023,metaboliteDB(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-')
 }
 \author{
 Jasen Finch

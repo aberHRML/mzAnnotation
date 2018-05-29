@@ -6,12 +6,13 @@ bioc_required: true
 warnings_are_errors: true
 
 r:
- - release
- - devel
- 
+  - release
+  - devel
+
 apt_packages:
  - default-jre
  - default-jdk
+ - libopenbabel-dev
  
 r_binary_packages:
  - RUnit
@@ -25,10 +26,10 @@ r_packages:
 bioc_packages:
  - survival
  
-r_github_packages:
- - jasenfinch/cdkr/rcdk
-
 notifications:
   email:
     on_success: change
     on_failure: change
+    
+after_success:
+  - Rscript -e 'covr::codecov()'

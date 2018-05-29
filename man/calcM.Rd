@@ -27,5 +27,5 @@ calcM(mz, adduct = "[M+H]1+", isotope = NA, transformation = NA,
 calculate M for a given m/z, adduct, isotope and transformation
 }
 \examples{
-calcM(118.08626,adduct = '[M+H]1+',isotope = 'C13',transformation = 'M - [O] + NH2]')
+calcM(118.08626,adduct = '[M+H]1+',isotope = '13C',transformation = 'M - [O] + NH2]')
 }

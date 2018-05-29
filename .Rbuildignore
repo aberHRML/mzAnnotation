@@ -10,3 +10,4 @@ README*
 ^\.Rproj\.user$
 ^appveyor\.yml$
 ^codecov\.yml$
+LICENSE

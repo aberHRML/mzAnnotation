@@ -31,9 +31,8 @@ library(mzAnnotation)
 
 * Adduct, isotope and biotransfromation relationship prediction
 ```{r}
-res <- relationshipPredictor(c(132.03023,168.00691),
-                              limit = 0.001,
-                              adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"))
+res <- relationshipCalculator(c(132.03023,168.00691))
+
 res
 ```
 
@@ -54,6 +53,10 @@ res
 
 * Putative ionisation product searches
 ```{r}
-res <- PIPsearch(mz = 133.01378,mode = 'n',ppm = 5)
+res <- PIPsearch(mz = 132.03023,
+                 db = metaboliteDB(aminoAcids,descriptors(aminoAcids)),
+                 ppm = 5,
+                 adduct = '[M-H]1-',
+                 isotope = NA)
 res
 ```

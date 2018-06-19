@@ -2,11 +2,7 @@
 mzAnnotation
 ============
 
-[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=master)](https://travis-ci.org/jasenfinch/mzAnnotation) 
-[![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/master?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/master) 
-[![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/master.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=master)
-[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=master)](https://travis-ci.org/jasenfinch/mzAnnotation)
-[![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/master?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/master)
+[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=devel)](https://travis-ci.org/jasenfinch/mzAnnotation) [![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/devel?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/devel) [![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
 
 An R package containing tools for putative annotation of accurate m/z
 

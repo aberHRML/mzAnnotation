@@ -18,8 +18,8 @@ metaboliteDB <- function(accessions,descriptors,connection = NULL,type = 'local'
     stop('type not recognised!')
   }
   if (type == 'local'){
-    db@accessions <- list(accessions)
-    db@descriptors <- list(descriptors)
+    db@accessions <- list(accessions %>% as_tibble())
+    db@descriptors <- list(descriptors %>% as_tibble())
   }
   if (type == 'remote'){
     if (!is.null(connection)){

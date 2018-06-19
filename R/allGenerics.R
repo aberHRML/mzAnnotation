@@ -19,3 +19,16 @@ setGeneric("elementFrequencies", function(db) {
   standardGeneric("elementFrequencies")
 })
 
+setGeneric('filterMF', function(db,MF){
+  standardGeneric('filterMF')
+})
+
+#' @rdname getAccessions
+setGeneric('getAccessions',function(db) {
+  standardGeneric('getAccessions')
+})
+
+#' @rdname getDescriptors
+setGeneric('getDescriptors',function(db) {
+  standardGeneric('getDescriptors')
+})

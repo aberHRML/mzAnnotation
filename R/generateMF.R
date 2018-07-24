@@ -5,7 +5,6 @@
 #' @param charge charge
 #' @param validation \code{boolean}, apply validation rules
 #' @param composition numeric \code{vector} of maximum elemental composition
-#' @param generator the molecular formula generator to use. Includes \code{'HR2'},\code{'CDK'} and \code{'Rdisop'}.See details.
 #' @details Multiple molecular formulas are available:
 #' \describe{
 #' \item{HR2}{the HR2 generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.}
@@ -15,7 +14,6 @@
 #' @author Jasen Finch
 #' @importFrom CHNOSZ makeup
 #' @importFrom tibble as_tibble
-#' @importFrom rcdk generate.formula
 #' @importFrom dplyr arrange
 #' @export
 #' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
@@ -24,14 +22,8 @@
 #'                   composition=c(C = 12,H = 22,N = 0,
 #'                                 O = 11,P = 0,S = 0))
 
-generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, composition = c(C = 12,H = 22,N = 0,O = 11,P = 0,S = 0), generator = 'HR2'){
-  generators <- c('HR2','CDK','Rdisop')
-  
-  if (!(generator %in% generators)) {
-    stop('Unrecognised MF generator')
-  }
-  
-  if (generator == 'HR2') {
+generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, composition = c(C = 12,H = 22,N = 0,O = 11,P = 0,S = 0)){
+
     comp = c(C = 0,iC = 0,H = 0,iH = 0,N = 0,iN = 0,O = 0,iO = 0,F = 0 ,Na = 0,
              Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0)
     comp[names(composition)] <- composition
@@ -70,55 +62,6 @@ generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, composition
     res <- res %>%
       as_tibble() %>%
       arrange(`PPM Error`)
-  }
-  
-  if (generator == 'CDK') {
-    amu <- ppm/10^6*mass
-    composition <- composition[composition != 0]
-    composition = map(1:length(composition),~{
-      c <- composition[.]
-      e <- names(c)
-      names(c) <- NULL
-      return(c(e,0,c))
-    })
-    res <- suppressWarnings(try(generate.formula(mass,window = amu,validation = validation,elements = composition,charge = charge),silent = T))
-    if (is.list(res)) {
-      MF <- sapply(res,function(x){return(x@string)})
-      m <- sapply(res,function(x){return(x@mass)}) %>%
-        round(5)
-      Error <- sapply(m,ppmError,measured = mass) %>% 
-        round(5)
-      res <- tibble(MF = MF, Mass = m, `PPM Error` = Error)
-    } else {
-      res <- tibble(MF = character(), Mass = numeric(), `PPM Error` = numeric())
-    }
-  }
-  
-  # if (generator == 'Rdisop') {
-  #   composition <- composition[composition != 0]
-  #   minElements <- str_c(str_c(names(composition),0),collapse = '')
-  #   maxElements <- str_c(str_c(names(composition),composition),collapse = '')
-  #   elements <- initializeCHNOPS()
-  #   elements <- map(elements,~{
-  #     if(.$name %in% names(composition)) {
-  #       return(.)
-  #     }
-  #   })
-  #   elements <- elements[!sapply(elements,is.null)]
-  #   res <- decomposeMass(mass,ppm = ppm,filter = validation,elements = elements,
-  #                        minElements = minElements,maxElements = maxElements,mzabs = 0)
-  #   if (length(res) > 0) {
-  #     MF <- res$formula
-  #     m <- res$exactmass %>%
-  #       round(5)
-  #     Error <- sapply(m,ppmError,measured = mass) %>% 
-  #       round(5)
-  #     res <- tibble(MF = MF, Mass = m, `PPM Error` = Error)
-  #   } else {
-  #     res <- tibble(MF = character(), Mass = numeric(), `PPM Error` = numeric())
-  #   }
-  #  
-  # }
-  
+ 
   return(res)
 }

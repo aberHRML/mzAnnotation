@@ -40,8 +40,7 @@ res
 ```{r}
 res <- generateMF(342.11621,
                   composition = c(C = 12,H = 22,N = 0,
-                                O = 11,P = 0,S = 0),
-                  generator = 'HR2')
+                                O = 11,P = 0,S = 0))
 res
 ```
 

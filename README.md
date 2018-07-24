@@ -2,9 +2,7 @@
 mzAnnotation
 ============
 
-[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=master)](https://travis-ci.org/jasenfinch/mzAnnotation) 
-[![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/master?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/master) 
-[![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/master.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=master)
+[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=devel)](https://travis-ci.org/jasenfinch/mzAnnotation) [![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/devel?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/devel) [![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
 
 An R package containing tools for putative annotation of accurate m/z
 
@@ -27,9 +25,9 @@ res <- relationshipCalculator(c(132.03023,168.00691))
 
 res
 #> # A tibble: 1 x 9
-#>   `m/z1` `m/z2` Adduct1 Adduct2  Isotope1 Isotope2 Transformation1
-#>    <dbl>  <dbl> <chr>   <chr>    <lgl>    <lgl>    <lgl>          
-#> 1   132.   168. [M-H]1- [M+Cl]1- NA       NA       NA             
+#>   `m/z1` `m/z2` Adduct1 Adduct2 Isotope1 Isotope2 Transformation1
+#>    <dbl>  <dbl> <chr>   <chr>   <lgl>    <lgl>    <lgl>          
+#> 1   132.   168. [M-H]1- [M+Cl]… NA       NA       NA             
 #> # ... with 2 more variables: Transformation2 <lgl>, Error <dbl>
 ```
 
@@ -38,8 +36,7 @@ res
 ``` r
 res <- generateMF(342.11621,
                   composition = c(C = 12,H = 22,N = 0,
-                                O = 11,P = 0,S = 0),
-                  generator = 'HR2')
+                                O = 11,P = 0,S = 0))
 res
 #> # A tibble: 1 x 3
 #>   MF         Mass `PPM Error`
@@ -75,9 +72,9 @@ res <- PIPsearch(mz = 132.03023,
                  isotope = NA)
 res
 #> # A tibble: 1 x 12
-#>   ACCESSION_ID NAME   InChI    InChIKey  SMILE MF    Accurate_Mass Isotope
-#>          <int> <chr>  <chr>    <chr>     <chr> <chr>         <dbl> <lgl>  
-#> 1            4 L-Asp… InChI=1… CKLJMWTZ… C([C… C4H7…          133. NA     
+#>   ACCESSION_ID NAME  InChI InChIKey SMILE MF    Accurate_Mass Isotope
+#>          <int> <chr> <chr> <chr>    <chr> <chr>         <dbl> <lgl>  
+#> 1            4 L-As… InCh… CKLJMWT… C([C… C4H7…          133. NA     
 #> # ... with 4 more variables: Adduct <chr>, `Measured m/z` <dbl>,
 #> #   `Theoretical m/z` <dbl>, `PPM Error` <dbl>
 ```

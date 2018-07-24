@@ -5,8 +5,7 @@
 \title{generateMF}
 \usage{
 generateMF(mass, ppm = 1, charge = 0, validation = TRUE,
-  composition = c(C = 12, H = 22, N = 0, O = 11, P = 0, S = 0),
-  generator = "HR2")
+  composition = c(C = 12, H = 22, N = 0, O = 11, P = 0, S = 0))
 }
 \arguments{
 \item{mass}{accurate mass}
@@ -18,8 +17,6 @@ generateMF(mass, ppm = 1, charge = 0, validation = TRUE,
 \item{validation}{\code{boolean}, apply validation rules}
 
 \item{composition}{numeric \code{vector} of maximum elemental composition}
-
-\item{generator}{the molecular formula generator to use. Includes \code{'HR2'},\code{'CDK'} and \code{'Rdisop'}.See details.}
 }
 \value{
 A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.

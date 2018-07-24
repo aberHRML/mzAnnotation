@@ -19,7 +19,7 @@ setGeneric("elementFrequencies", function(db) {
   standardGeneric("elementFrequencies")
 })
 
-setGeneric('filterMF', function(db,MF){
+setGeneric('filterMF', function(db,mf){
   standardGeneric('filterMF')
 })
 

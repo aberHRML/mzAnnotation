@@ -57,11 +57,11 @@ setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
 )
 
 setMethod('filterMF',signature = 'MetaboliteDatabase',
-          function(db,MF){
+          function(db,mf){
             db@accessions[[1]] <- db@accessions[[1]] %>%
-              filter(ACCESSION_ID %in% MF)
+              filter(MF %in% mf)
             db@descriptors[[1]] <- db@descriptors[[1]] %>%
-              filter(ACCESSION_ID %in% MF)
+              filter(MF %in% mf)
             return(db)
           }
 )

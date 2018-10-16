@@ -5,12 +5,7 @@
 #' @param charge charge
 #' @param validation \code{boolean}, apply validation rules
 #' @param composition numeric \code{vector} of maximum elemental composition
-#' @details Multiple molecular formulas are available:
-#' \describe{
-#' \item{HR2}{the HR2 generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.}
-#' \item{CDK}{the generator availble in the \code{rcdk} package using \code{\link[rcdk]{generate.formula}}.}
-#' \item{Rdisop}{the generator available in the \code{Rdisop} package using \code{\link[Rdisop]{decomposeMass}}.}
-#' }
+#' @details this uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
 #' @author Jasen Finch
 #' @importFrom CHNOSZ makeup
 #' @importFrom tibble as_tibble

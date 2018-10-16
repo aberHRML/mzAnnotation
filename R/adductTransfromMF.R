@@ -34,6 +34,7 @@ adductTransformMF <- function(MF,adduct,Adducts = mzAnnotation::Adducts){
   freq <- MF %>% makeup()
   
   freq <- freq %>% 
+    {. * adductRule$xM} %>%
     tMF(adductRule$RemAt,'-') %>%
     tMF(adductRule$AddEx,'+') %>%
     tMF(adductRule$RemEx,'-')

@@ -13,6 +13,8 @@
 
 calcMZ <- function(M, adduct = '[M+H]1+', isotope = NA, transformation = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, transformations = mzAnnotation::Transformations){
   
+  addRule <- filter(adducts,Name == adduct)
+  
   if (!is.na(transformation)) {
     transformRule <- filter(transformations, `MF Change` == transformation)
     M <- M + transformRule$Difference
@@ -20,12 +22,12 @@ calcMZ <- function(M, adduct = '[M+H]1+', isotope = NA, transformation = NA, add
   
   if (!is.na(isotope)) {
     isoRule <- filter(isotopes,Isotope == isotope)
-    M <- M + isoRule$`Mass Difference`
+    mz <- (M * addRule$xM) + isoRule$`Mass Difference`
+  } else {
+    mz <- (M * addRule$xM)
   }
   
-  addRule <- filter(adducts,Name == adduct)
-  
-  mz <- (M * addRule$xM) / addRule$Charge + addRule$Add
+   mz <- mz / addRule$Charge + addRule$Add
   
   return(round(mz,5))
 }

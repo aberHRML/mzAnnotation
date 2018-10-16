@@ -4,7 +4,8 @@
 \alias{metaboliteDB}
 \title{metaboliteDB}
 \usage{
-metaboliteDB(accessions, descriptors, connection = NULL, type = "local")
+metaboliteDB(accessions, descriptors, connection = NULL,
+  type = "local")
 }
 \arguments{
 \item{accessions}{tibble containing accession information. If \code{type = 'remote'} this should be the name of the table containing the accession information within the SQL database.}

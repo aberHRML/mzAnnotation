@@ -15,12 +15,14 @@ calcM <- function(mz, adduct = '[M+H]1+', isotope = NA, transformation = NA, add
   
   addRule <- filter(adducts,Name == adduct)
   
-  M <- ((mz - addRule$Add) * addRule$Charge) / addRule$xM 
+  M <- ((mz - addRule$Add) * addRule$Charge) 
   
   if (!is.na(isotope)) {
     isoRule <- filter(isotopes,Isotope == isotope)
-    M <- M - isoRule$`Mass Difference`
+    M <- (M - isoRule$`Mass Difference`)
   }
+  
+  M <- M / addRule$xM
   
   if (!is.na(transformation)) {
     transformRule <- filter(transformations, `MF Change` == transformation)

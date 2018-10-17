@@ -11,7 +11,7 @@
 #' @importFrom stringr str_c str_replace
 #' @export
 
-transformMF <- function(MF, transformation = 'M - [O] + NH2]', transformations = mzAnnotation::Transformations){
+transformMF <- function(MF, transformation = 'M - [O] + [NH2]', transformations = mzAnnotation::Transformations){
   if (!is.na(transformation)) {
     elements <- c('C','H','O','N','P','S')
     

@@ -4,7 +4,7 @@
 \alias{transformMF}
 \title{transformMF}
 \usage{
-transformMF(MF, transformation = "M - [O] + NH2]",
+transformMF(MF, transformation = "M - [O] + [NH2]",
   transformations = mzAnnotation::Transformations)
 }
 \arguments{

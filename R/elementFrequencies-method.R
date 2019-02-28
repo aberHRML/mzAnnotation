@@ -6,7 +6,7 @@ elementFrequencies <- function(db){
     map(~{
       mf <- .
       mf %>%
-        CHNOSZ::makeup() %>%
+        count.elements() %>%
         as.list() %>%
         as_tibble()
     })

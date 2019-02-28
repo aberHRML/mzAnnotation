@@ -13,7 +13,7 @@
 isotopeDistribution <- function(MF,charge, limit = 0.00009 , elements = Elements) {
   elements <- elements %>%
     mutate(Name = str_c(round(AtomicMass),Element))
-  atomFrequencies <- tibble(Element = names(makeup(MF)),Frequency = makeup(MF))
+  atomFrequencies <- tibble(Element = names(count.elements(MF)),Frequency = count.elements(MF))
   
   Isotopes <- filter(elements,Element %in% atomFrequencies$Element, RelativeAbundance != 1) %>%
     mutate(Isotope = str_c(round(AtomicMass),Element))

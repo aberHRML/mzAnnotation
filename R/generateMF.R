@@ -7,7 +7,7 @@
 #' @param composition numeric \code{vector} of maximum elemental composition
 #' @details this uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
 #' @author Jasen Finch
-#' @importFrom CHNOSZ makeup
+#' @importFrom CHNOSZ count.elements
 #' @importFrom tibble as_tibble
 #' @importFrom dplyr arrange
 #' @export
@@ -26,18 +26,23 @@ generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, composition
     mmu <- ppm/10^6*mass*1000
     res <- HR2(mass,comp,rep(0,19),mmu,charge,validation)	
     
-    if (length(res) == 0) {
-      res <- data.frame(matrix(nrow = 0,ncol = 3))
-      colnames(res) <- c("MF", "Mass", "PPM Error")
-    } else{
-      res <- data.frame(matrix(unlist(res), nrow = length(res),byrow = T),stringsAsFactors = F)
-      res <- res[,-c(1,3,5)]
-      colnames(res) <- c("MF", "Mass","PPM Error")
-      res$Mass <- round(as.numeric(res$Mass),5)
-      res$`PPM Error` <- sapply(res$Mass,ppmError,measured = mass) %>%
-        round(5)
+    if (length(res) > 0) {
+      res <- res %>%
+        map(~{
+          tibble(MF = .[2],
+                 Mass = .[4] %>%
+                   as.numeric() %>%
+                   round(5),
+                 `PPM Error` = .[4] %>%
+                   as.numeric() %>%
+                   round(5) %>%
+                   ppmError(measured = mass))
+        }) %>%
+        bind_rows() %>%
+        arrange(`PPM Error`)
+      
       res$MF <- sapply(res$MF,function(x){
-        mf <- makeup(x)
+        mf <- count.elements(x)
         if (1 %in% mf) {
           mf <- sapply(names(mf),function(y,freq){
             freq <- freq[y]
@@ -53,10 +58,9 @@ generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, composition
           return(x)
         }
       })
-    } 
-    res <- res %>%
-      as_tibble() %>%
-      arrange(`PPM Error`)
- 
+    } else {
+      res <- tibble(MF = character(),Mass = numeric(),`PPM Error` = numeric())
+    }
+    
   return(res)
 }

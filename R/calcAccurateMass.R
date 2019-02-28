@@ -9,7 +9,7 @@
 
 calcAccurateMass <- function(MF,charge = 0, elements = mzAnnotation::Elements) {
   e <- elements$AtomicMass[elements$Element == 'e']
-  elementFreq <- tibble(Element = names(makeup(MF)),Frequency = makeup(MF))
+  elementFreq <- tibble(Element = names(count.elements(MF)),Frequency = count.elements(MF))
   elementMasses <- elements %>%
     filter(RelativeAbundance == 1) %>%
     select(Element,AtomicMass)

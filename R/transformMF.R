@@ -18,7 +18,7 @@ transformMF <- function(MF, transformation = 'M - [O] + [NH2]', transformations 
     transformation <- filter(transformations,`MF Change` == transformation) %>%
       select(C:S)
     
-    MF <- makeup(MF)
+    MF <- count.elements(MF)
     
     if (length(which(!(elements %in% names(MF)))) > 0) {
       MF <- c(MF,rep(0,length(which(!(elements %in% names(MF))))))

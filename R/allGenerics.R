@@ -7,8 +7,8 @@ setGeneric("filterIP", function(db,rule) {
   standardGeneric("filterIP")
 })
 
-setGeneric("filterIR", function(db,rule) {
-  standardGeneric("filterIR")
+setGeneric("filterER", function(db,rule) {
+  standardGeneric("filterER")
 })
 
 setGeneric("filterACCESSIONS", function(db,ids) {

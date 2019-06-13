@@ -23,7 +23,7 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopes = mzAnnotation::Is
   if (!is.na(isotope) & nrow(res@accessions[[1]]) > 0) {
     isoRule <- isotopes$Rule[isotopes$Isotope == isotope]
     res <- res %>%
-      filterIR(isoRule)
+      filterER(isoRule)
   }
   
   addRule <- adducts$Rule[adducts$Name == adduct]

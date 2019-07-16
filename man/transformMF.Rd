@@ -12,7 +12,7 @@ transformMF(MF, transformation = "M - [O] + [NH2]",
 
 \item{transformation}{transformation to apply}
 
-\item{transformations}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
+\item{transformationTable}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
 }
 \description{
 transform a molecular formula

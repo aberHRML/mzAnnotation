@@ -2,7 +2,7 @@
 #' @param MF the molecular formular to generate the isotope distribution
 #' @param charge the charge of the molecular formula
 #' @param limit the relative abundance threshold
-#' @param elements the table containing elemental information. Defaults to \code{Elements}.
+#' @param elementTable the table containing elemental information. Defaults to \code{Elements}.
 #' @importFrom stringr str_split str_extract str_replace_all
 #' @importFrom dplyr bind_cols group_by summarise right_join rename
 #' @export
@@ -10,12 +10,12 @@
 #' @examples 
 #' res <- isotopeDistribution('C4H5O5',charge = -1)
 
-isotopeDistribution <- function(MF,charge, limit = 0.00009 , elements = elements()) {
-  elements <- elements %>%
+isotopeDistribution <- function(MF,charge, limit = 0.00009 , elementTable = elements()) {
+  elementTable <- elementTable %>%
     mutate(Name = str_c(round(AtomicMass),Element))
   atomFrequencies <- tibble(Element = names(count.elements(MF)),Frequency = count.elements(MF))
   
-  Isotopes <- filter(elements,Element %in% atomFrequencies$Element, RelativeAbundance != 1) %>%
+  Isotopes <- filter(elementTable,Element %in% atomFrequencies$Element, RelativeAbundance != 1) %>%
     mutate(Isotope = str_c(round(AtomicMass),Element))
   
   Isotopes <- map(unique(Isotopes$Element),~{
@@ -85,7 +85,7 @@ isotopeDistribution <- function(MF,charge, limit = 0.00009 , elements = elements
       Frequency <- as.integer(unlist(map(str_split(., '; '),~{unlist(map(str_split(.,' '),~{.[2]}))})))
       isoDat <- tibble(Name = Name,Frequency = Frequency) %>%
         mutate(Element = str_replace_all(Name,'[:digit:]','')) %>%
-        left_join(select(elements,Name,Element,AtomicMass),by = c('Name' = 'Name', 'Element' = 'Element')) %>%
+        left_join(select(elementTable,Name,Element,AtomicMass),by = c('Name' = 'Name', 'Element' = 'Element')) %>%
         mutate(AtomicMass = AtomicMass * Frequency)
       isoMass <- sum(isoDat$AtomicMass)
       newMF <- isoDat %>%

@@ -1,7 +1,7 @@
 #' @importFrom tibble tibble rowid_to_column
 #' @importFrom dplyr rowwise
 
-calculateMs <- function(mz,add,iso,trans,adductTable = mzAnnotation::Adducts, isotopeTable = mzAnnotation::Isotopes, transformationTable = mzAnnotation::Transformations) {
+calculateMs <- function(mz,add,iso,trans,adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()) {
   M <- map(trans,~{
     t <- .
     t <- map(iso,~{
@@ -10,7 +10,7 @@ calculateMs <- function(mz,add,iso,trans,adductTable = mzAnnotation::Adducts, is
       if (t == 'NA') {t <- NA}
       i <- tibble(`m/z` = mz, Adduct = add, Isotope = i, Transformation = t) %>%
         rowwise() %>%
-        mutate(M = calcM(`m/z`,adduct = Adduct,isotope = Isotope,transformation = Transformation,adducts = adductTable,isotopes = isotopeTable,transformations = transformationTable))
+        mutate(M = calcM(`m/z`,adduct = Adduct,isotope = Isotope,transformation = Transformation,adductTable = adductTable,isotopeTable = isotopeTable,transformationTable = transformationTable))
       return(i)
     })
     t <- bind_rows(t)

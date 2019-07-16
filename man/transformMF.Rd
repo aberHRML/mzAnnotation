@@ -5,7 +5,7 @@
 \title{transformMF}
 \usage{
 transformMF(MF, transformation = "M - [O] + [NH2]",
-  transformations = mzAnnotation::Transformations)
+  transformationTable = transformations())
 }
 \arguments{
 \item{MF}{molecular formula to transform}

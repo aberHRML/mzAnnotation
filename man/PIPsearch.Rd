@@ -18,9 +18,9 @@ PIPsearch(mz, db, ppm, adduct, isotope = NA, isotopeTable = isotopes(),
 
 \item{isotope}{the isotope name to search. Defaults to NA for non-isotopic searches.}
 
-\item{isotopeTable}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
+\item{isotopeTable}{isotope table containing available isotope rules. Defaults to table returned by \code{isotopes()}.}
 
-\item{adductTable}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
+\item{adductTable}{adduct table containing available adduct rules. Defaults to table returned by \code{adducts()}.}
 }
 \description{
 Putative Ionisation Product searching

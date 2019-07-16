@@ -2,7 +2,7 @@
 #' @description transform a molecular formula
 #' @param MF molecular formula to transform
 #' @param transformation transformation to apply
-#' @param transformations transformations table containing available transformations rules. Defaults to \code{Transformations}.
+#' @param transformationTable transformations table containing available transformations rules. Defaults to \code{Transformations}.
 #' @details \code{NA} will be returned if \code{MF} cannot be transformed.
 #' @examples 
 #' transformMF('C4H5O5')
@@ -11,11 +11,11 @@
 #' @importFrom stringr str_c str_replace
 #' @export
 
-transformMF <- function(MF, transformation = 'M - [O] + [NH2]', transformations = mzAnnotation::Transformations){
+transformMF <- function(MF, transformation = 'M - [O] + [NH2]', transformationTable = transformations()){
   if (!is.na(transformation)) {
     elements <- c('C','H','O','N','P','S')
     
-    transformation <- filter(transformations,`MF Change` == transformation) %>%
+    transformation <- filter(transformationTable,`MF Change` == transformation) %>%
       select(C:S)
     
     MF <- count.elements(MF)

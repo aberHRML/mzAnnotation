@@ -10,7 +10,7 @@
 #' @examples 
 #' res <- isotopeDistribution('C4H5O5',charge = -1)
 
-isotopeDistribution <- function(MF,charge, limit = 0.00009 , elements = Elements) {
+isotopeDistribution <- function(MF,charge, limit = 0.00009 , elements = elements()) {
   elements <- elements %>%
     mutate(Name = str_c(round(AtomicMass),Element))
   atomFrequencies <- tibble(Element = names(count.elements(MF)),Frequency = count.elements(MF))

@@ -5,8 +5,8 @@
 \title{calcM}
 \usage{
 calcMZ(M, adduct = "[M+H]1+", isotope = NA, transformation = NA,
-  adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes,
-  transformations = mzAnnotation::Transformations)
+  adductTable = adducts(), isotopeTable = isotopes(),
+  transformationTable = transformations())
 }
 \arguments{
 \item{M}{M for which to calculate an m/z}
@@ -17,11 +17,11 @@ calcMZ(M, adduct = "[M+H]1+", isotope = NA, transformation = NA,
 
 \item{transformation}{transformation to apply}
 
-\item{adducts}{adduct table containing available adduct rules. Defaults to \code{Adducts}.}
+\item{adductTable}{adduct table containing available adduct rules. Defaults to \code{adducts()}.}
 
-\item{isotopes}{isotope table containing available isotope rules. Defaults to \code{Isotopes}.}
+\item{isotopeTable}{isotope table containing available isotope rules. Defaults to \code{isotopes()}.}
 
-\item{transformations}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
+\item{transformationTable}{transformations table containing available transformations rules. Defaults to \code{transformations()}.}
 }
 \description{
 calculate an m/z for a given M, adduct, isotope and transformation

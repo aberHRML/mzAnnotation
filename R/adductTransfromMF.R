@@ -7,7 +7,7 @@
 #' adductTransformMF('C6H12O6','[M+H]1+')
 #' @export
 
-adductTransformMF <- function(MF,adduct,Adducts = mzAnnotation::Adducts){
+adductTransformMF <- function(MF,adduct,Adducts = adducts()){
 
   tMF <- function(freq,trans,expres){
     if (!is.na(trans)) {

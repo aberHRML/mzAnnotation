@@ -4,7 +4,7 @@
 \alias{adductTransformMF}
 \title{adductTransformMF}
 \usage{
-adductTransformMF(MF, adduct, Adducts = mzAnnotation::Adducts)
+adductTransformMF(MF, adduct, Adducts = adducts())
 }
 \arguments{
 \item{MF}{molecular formula to transform.}

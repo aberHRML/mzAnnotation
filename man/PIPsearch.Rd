@@ -4,8 +4,8 @@
 \alias{PIPsearch}
 \title{Putative Ionisation Product searching}
 \usage{
-PIPsearch(mz, db, ppm, adduct, isotope = NA,
-  isotopes = mzAnnotation::Isotopes, adducts = mzAnnotation::Adducts)
+PIPsearch(mz, db, ppm, adduct, isotope = NA, isotopeTable = isotopes(),
+  adductTable = adducts())
 }
 \arguments{
 \item{mz}{the accurate m/z to search.}
@@ -18,9 +18,9 @@ PIPsearch(mz, db, ppm, adduct, isotope = NA,
 
 \item{isotope}{the isotope name to search. Defaults to NA for non-isotopic searches.}
 
-\item{isotopes}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
+\item{isotopeTable}{isotope table containing available isotope rules. Defaults to table returned by \code{availableIsotopes()}.}
 
-\item{adducts}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
+\item{adductTable}{adduct table containing available adduct rules. Defaults to table returned by \code{availableAdducts()}.}
 }
 \description{
 Putative Ionisation Product searching

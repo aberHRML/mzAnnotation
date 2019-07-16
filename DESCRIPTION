@@ -1,15 +1,17 @@
 Package: mzAnnotation
-Type: Package
 Title: Signal Annotation Tools for High Resolution Metabolomics
 Version: 1.5.0
 Date: 2018-01-15
-Author: Jasen Finch
-Maintainer: Jasen Finch <jsf9@aber.ac.uk>
+Authors@R: 
+    person(given = "Jasen",
+           family = "Finch",
+           role = c("aut", "cre"),
+           email = "jsf9@aber.ac.uk")
 Description: Tools for the putative annotation of high resolution metabolomics m/z.
     data.
 License: GPL (>= 3)
 Encoding: UTF-8 
-Depends: R (>= 3.4)
+Depends: R (>= 3.5)
 Imports:
     Rcpp,
     CHNOSZ,

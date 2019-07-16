@@ -6,9 +6,8 @@
 \usage{
 relationshipCalculator(mz, limit = 0.001, modes = NULL,
   adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"), isotopes = NULL,
-  transformations = NULL, adductTable = mzAnnotation::Adducts,
-  isotopeTable = mzAnnotation::Isotopes,
-  transformationTable = mzAnnotation::Transformations)
+  transformations = NULL, adductTable = adducts(),
+  isotopeTable = isotopes(), transformationTable = transformations())
 }
 \arguments{
 \item{mz}{numeric \code{vector} of accurate m/z}
@@ -23,11 +22,11 @@ relationshipCalculator(mz, limit = 0.001, modes = NULL,
 
 \item{transformations}{character vector of transformations to use}
 
-\item{adductTable}{table containing adduct formation rules. Defaults to \code{\link{Adducts}}.}
+\item{adductTable}{table containing adduct formation rules. Defaults to \code{\link{adducts}()}.}
 
-\item{isotopeTable}{table containing isotope rules. Defaults to \code{\link{Isotopes}}.}
+\item{isotopeTable}{table containing isotope rules. Defaults to \code{\link{isotopes}()}.}
 
-\item{transformationTable}{table containing transformation rules. Defaults to \code{\link{Transformations}}.}
+\item{transformationTable}{table containing transformation rules. Defaults to \code{\link{transformations}()}.}
 }
 \description{
 adduct, isotope and biotransfromation calculation.

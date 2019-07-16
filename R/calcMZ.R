@@ -4,24 +4,24 @@
 #' @param adduct adduct to apply
 #' @param isotope isotope to apply
 #' @param transformation transformation to apply
-#' @param adducts adduct table containing available adduct rules. Defaults to \code{Adducts}.
-#' @param isotopes isotope table containing available isotope rules. Defaults to \code{Isotopes}.
-#' @param transformations transformations table containing available transformations rules. Defaults to \code{Transformations}.
+#' @param adductTable adduct table containing available adduct rules. Defaults to \code{adducts()}.
+#' @param isotopeTable isotope table containing available isotope rules. Defaults to \code{isotopes()}.
+#' @param transformationTable transformations table containing available transformations rules. Defaults to \code{transformations()}.
 #' @importFrom dplyr filter
 #' @examples calcMZ(116.05182,adduct = '[M+H]1+',isotope = '13C',transformation = 'M - [O] + NH2]')
 #' @export
 
-calcMZ <- function(M, adduct = '[M+H]1+', isotope = NA, transformation = NA, adducts = mzAnnotation::Adducts, isotopes = mzAnnotation::Isotopes, transformations = mzAnnotation::Transformations){
+calcMZ <- function(M, adduct = '[M+H]1+', isotope = NA, transformation = NA, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
   
-  addRule <- filter(adducts,Name == adduct)
+  addRule <- filter(adductTable,Name == adduct)
   
   if (!is.na(transformation)) {
-    transformRule <- filter(transformations, `MF Change` == transformation)
+    transformRule <- filter(transformationTable, `MF Change` == transformation)
     M <- M + transformRule$Difference
   }
   
   if (!is.na(isotope)) {
-    isoRule <- filter(isotopes,Isotope == isotope)
+    isoRule <- filter(isotopeTable,Isotope == isotope)
     mz <- (M * addRule$xM) + isoRule$`Mass Difference`
   } else {
     mz <- (M * addRule$xM)

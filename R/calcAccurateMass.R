@@ -2,15 +2,15 @@
 #' @description calculate the accurate mass of a given molecular formula
 #' @param MF molecular formula for which to calculate the accrate mass
 #' @param charge charge of the given molecular formula
-#' @param elements element information table. Defaults to \code{\link{Elements}}.
+#' @param elementTable element information table. Defaults to \code{\link{elements}()}.
 #' @examples 
 #' calcAccurateMass('C4H5O5',charge = 0)
 #' @export
 
-calcAccurateMass <- function(MF,charge = 0, elements = mzAnnotation::Elements) {
-  e <- elements$AtomicMass[elements$Element == 'e']
+calcAccurateMass <- function(MF,charge = 0, elementTable = elements()) {
+  e <- elementTable$AtomicMass[elementTable$Element == 'e']
   elementFreq <- tibble(Element = names(count.elements(MF)),Frequency = count.elements(MF))
-  elementMasses <- elements %>%
+  elementMasses <- elementTable %>%
     filter(RelativeAbundance == 1) %>%
     select(Element,AtomicMass)
     

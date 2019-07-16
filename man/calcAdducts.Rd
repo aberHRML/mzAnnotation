@@ -4,14 +4,14 @@
 \alias{calcAdducts}
 \title{calcAdducts}
 \usage{
-calcAdducts(id, db, adducts = mzAnnotation::Adducts)
+calcAdducts(id, db, adductTable = adducts())
 }
 \arguments{
 \item{id}{accession id.}
 
 \item{db}{object of class \code{MetaboliteDatabase}.}
 
-\item{adducts}{table of adduct rules. Defaults to Adducts.}
+\item{adductTable}{table of adduct rules. Defaults to adducts().}
 }
 \description{
 calculate ionisation products for given database accession

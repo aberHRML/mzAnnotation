@@ -4,14 +4,14 @@
 \alias{calcAccurateMass}
 \title{calcAccurateMass}
 \usage{
-calcAccurateMass(MF, charge = 0, elements = mzAnnotation::Elements)
+calcAccurateMass(MF, charge = 0, elementTable = elements())
 }
 \arguments{
 \item{MF}{molecular formula for which to calculate the accrate mass}
 
 \item{charge}{charge of the given molecular formula}
 
-\item{elements}{element information table. Defaults to \code{\link{Elements}}.}
+\item{elementTable}{element information table. Defaults to \code{\link{elements}()}.}
 }
 \description{
 calculate the accurate mass of a given molecular formula

@@ -1,4 +1,4 @@
-#' Adducts
+#' adducts
 #' @description Formation rules for electrospray ionisation adducts
 #' @format A tibble containing 58 rows and 6 columns
 #' \describe{
@@ -13,16 +13,22 @@
 #' \item{RemEx}{pseudo formula of the atoms to be removed to the final ionisation product molecular formula}
 #' \item{Rule}{Structural rule for formation}
 #' }
+#' @export
 
-'Adducts'
+adducts <- function(){
+  return(Adducts)
+}
 
-#' Elements
+#' elements
 #' @description Elemental information
 #' @format A tibble containing 31 rows and 5 columns.
+#' @export
 
-'Elements'
+elements <- function(){
+  return(Elements)
+}
 
-#' Isotopes
+#' isotopes
 #' @description Isotope rules
 #' @format A tibble containing 8 rows and 3 columns.
 #' \describe{
@@ -30,10 +36,13 @@
 #' \item{Mass Difference}{Isotopic mass difference}
 #' \item{Rule}{Elemental composition rules}
 #' }
+#' @export
 
-'Isotopes'
+isotopes <- function(){
+  return(Isotopes)
+}
 
-#' Transformations
+#' transformations
 #' @description Transformation rules
 #' @format A tibble containing 12 rows and 9 columns.
 #' \describe{
@@ -47,5 +56,8 @@
 #' \item{P}{Change in phosphorus atoms}
 #' \item{S}{Change in sulphur atoms}
 #' }
+#' @export
 
-'Transformations'
+transformations <- function(){
+  return(Transformations)
+}

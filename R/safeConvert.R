@@ -9,7 +9,7 @@
 
 safeConvert <- function(input, inputType, outputType) {
   output <- tryCatch(
-    r(
+    callr::r(
       function(x)
         convert(x, inputType, outputType),
       args = list(x),

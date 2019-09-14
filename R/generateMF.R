@@ -4,7 +4,8 @@
 #' @param ppm ppm tolerance
 #' @param charge charge
 #' @param validation \code{boolean}, apply validation rules
-#' @param composition numeric \code{vector} of maximum elemental composition
+#' @param element_max numeric \code{vector} of maximum elemental composition
+#' @param element_min numeric \code{vector} of minimum elemental composition
 #' @details this uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
 #' @author Jasen Finch
 #' @importFrom CHNOSZ count.elements
@@ -17,14 +18,18 @@
 #'                   composition=c(C = 12,H = 22,N = 0,
 #'                                 O = 11,P = 0,S = 0))
 
-generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, composition = c(C = 12,H = 22,N = 0,O = 11,P = 0,S = 0)){
+generateMF <- function(mass, ppm = 1, charge = 0, validation = TRUE, element_max = c(C = 12,H = 22,N = 0,O = 11,P = 0,S = 0), element_min = c(C = 0,H = 0,N = 0,O = 0,P = 0,S = 0)){
 
-    comp = c(C = 0,iC = 0,H = 0,iH = 0,N = 0,iN = 0,O = 0,iO = 0,F = 0 ,Na = 0,
+    comp_max <- c(C = 0,iC = 0,H = 0,iH = 0,N = 0,iN = 0,O = 0,iO = 0,F = 0 ,Na = 0,
              Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0)
-    comp[names(composition)] <- composition
+    comp_min <- c(C = 0,iC = 0,H = 0,iH = 0,N = 0,iN = 0,O = 0,iO = 0,F = 0 ,Na = 0,
+                  Si = 0,P = 0,S = 0,Cl = 0,iCl = 0,Br = 0,iBr = 0,K = 0,iK = 0)
+    
+    comp_max[names(element_max)] <- element_max
+    comp_min[names(element_min)] <- element_min
     
     mmu <- ppm/10^6*mass*1000
-    res <- HR2(mass,comp,rep(0,19),mmu,charge,validation)	
+    res <- HR2(mass,comp_max,comp_min,mmu,charge,validation)	
     
     if (length(res) > 0) {
       res <- res %>%

@@ -3,18 +3,23 @@ sudo: required
 cache: packages
 bioc_required: true
 warnings_are_errors: true
+
 r:
 - release
 - devel
+
 apt_packages:
 - default-jre
 - default-jdk
 - libopenbabel-dev
+
 notifications:
-  email:
-    on_success: change
-    on_failure: change
   slack:
-    secure: HDnH2pmeNok7g5cq0WHZ7cr2OKvyaNSXSbIlhG/yI8dM183Ykg8c/Cg+Oz9CvqfhxSn2S0K86obP0Qa2LhCx7CGRlcHQJMApo3RMFEysqk9j+A1GOjfhMKR4PMI3CsEGARZtMRCZ0eruYsrjRGxHDmHv737gR9Bfq3lNIc0cfPWhr0m8zegdDxzIhwUko0c9ON8C5nCGGqPFiCQar1FcHwL6dJ8G6HCEKXt4zqYqpLKmTPX+uEVpFyKq6dDPTlLAMeQ+A0cJfZFFX5g9RNrWRuLKwibaw/cWJQ+3SbyCvLtEn7TT/heJXDoMGcXeE3WD6fY5XKw59LnmnB4ABlQeHQOEWPlo9Op98cZA3HqbvsH2SEzDjIr5Et5YbeKbfqoTGPSN+8Zyo1hsO48GK4EFIyAr5ZYv6EDMxW5hB/jsCWPbW4qbndevkV7LhCdexDzrF927CPzLOOQQpGv56LPGDVu/CcXymRGbew0JwisLXmKZ3isAqbfs/uWoOLm3gJXVFmEJVTJPMDJyDhDjn3Uju5eVLkSvLZrFzQcdxESATlaFfOYj/TWx3w3NOaXNv6Y5r1RPFp2RPUKROAgDCcAkeHMhEIrNDrtqRre15A5gexZyKquW0jr106qQ0HZtEdhpQDXUwBKKEXcUqMFs/adf8DbmdO0Tz0kEsYc0/PNM4Fw=
+    rooms:
+      secure: HDnH2pmeNok7g5cq0WHZ7cr2OKvyaNSXSbIlhG/yI8dM183Ykg8c/Cg+Oz9CvqfhxSn2S0K86obP0Qa2LhCx7CGRlcHQJMApo3RMFEysqk9j+A1GOjfhMKR4PMI3CsEGARZtMRCZ0eruYsrjRGxHDmHv737gR9Bfq3lNIc0cfPWhr0m8zegdDxzIhwUko0c9ON8C5nCGGqPFiCQar1FcHwL6dJ8G6HCEKXt4zqYqpLKmTPX+uEVpFyKq6dDPTlLAMeQ+A0cJfZFFX5g9RNrWRuLKwibaw/cWJQ+3SbyCvLtEn7TT/heJXDoMGcXeE3WD6fY5XKw59LnmnB4ABlQeHQOEWPlo9Op98cZA3HqbvsH2SEzDjIr5Et5YbeKbfqoTGPSN+8Zyo1hsO48GK4EFIyAr5ZYv6EDMxW5hB/jsCWPbW4qbndevkV7LhCdexDzrF927CPzLOOQQpGv56LPGDVu/CcXymRGbew0JwisLXmKZ3isAqbfs/uWoOLm3gJXVFmEJVTJPMDJyDhDjn3Uju5eVLkSvLZrFzQcdxESATlaFfOYj/TWx3w3NOaXNv6Y5r1RPFp2RPUKROAgDCcAkeHMhEIrNDrtqRre15A5gexZyKquW0jr106qQ0HZtEdhpQDXUwBKKEXcUqMFs/adf8DbmdO0Tz0kEsYc0/PNM4Fw=
+  on_success: change
+  on_failure: change
+  email: false
+  
 after_success:
 - Rscript -e 'covr::codecov()'

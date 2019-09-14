@@ -32,7 +32,7 @@ this uses the HR2 molecular formula generator available at \url{http://maltese.d
 }
 \examples{
 res <- generateMF(342.11621,
-                  composition=c(C = 12,H = 22,N = 0,
+                  element_max = c(C = 12,H = 22,N = 0,
                                 O = 11,P = 0,S = 0))
 }
 \author{

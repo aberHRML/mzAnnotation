@@ -1,6 +1,6 @@
 Package: mzAnnotation
 Title: Signal Annotation Tools for High Resolution Metabolomics
-Version: 1.6.0
+Version: 1.6.1
 Date: 2018-01-15
 Authors@R: 
     person(given = "Jasen",

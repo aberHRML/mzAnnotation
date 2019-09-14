@@ -5,7 +5,8 @@
 \title{generateMF}
 \usage{
 generateMF(mass, ppm = 1, charge = 0, validation = TRUE,
-  composition = c(C = 12, H = 22, N = 0, O = 11, P = 0, S = 0))
+  element_max = c(C = 12, H = 22, N = 0, O = 11, P = 0, S = 0),
+  element_min = c(C = 0, H = 0, N = 0, O = 0, P = 0, S = 0))
 }
 \arguments{
 \item{mass}{accurate mass}
@@ -16,7 +17,9 @@ generateMF(mass, ppm = 1, charge = 0, validation = TRUE,
 
 \item{validation}{\code{boolean}, apply validation rules}
 
-\item{composition}{numeric \code{vector} of maximum elemental composition}
+\item{element_max}{numeric \code{vector} of maximum elemental composition}
+
+\item{element_min}{numeric \code{vector} of minimum elemental composition}
 }
 \value{
 A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
@@ -29,7 +32,7 @@ this uses the HR2 molecular formula generator available at \url{http://maltese.d
 }
 \examples{
 res <- generateMF(342.11621,
-                  composition=c(C = 12,H = 22,N = 0,
+                  element_max = c(C = 12,H = 22,N = 0,
                                 O = 11,P = 0,S = 0))
 }
 \author{

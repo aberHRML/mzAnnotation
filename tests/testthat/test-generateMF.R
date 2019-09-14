@@ -3,7 +3,7 @@ context('molecular formula generation')
 
 test_that('generateMF works',{
   res <- generateMF(342.11621,
-                    composition = c(C = 12,H = 22,N = 0,
+                    element_max = c(C = 12,H = 22,N = 0,
                                   O = 11,P = 0,S = 0))
   expect_false(F %in% (class(res) == c("tbl_df","tbl","data.frame")))
   expect_true(nrow(res) == 1)

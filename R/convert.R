@@ -5,19 +5,17 @@
 #' @param outputType either "smiles", "inchi" or "inchikey", denoting the output type
 #' @examples
 #' convert(aminoAcids$SMILE[1],'smiles','inchi')
+#' @importFrom callr r
+#' @importFrom utils getFromNamespace
 #' @export
 
 convert <- function(input, inputType, outputType) {
-  output <- tryCatch(
-    callr::r(
-      function(x)
-        cnvrt(x, inputType, outputType),
-      args = list(x),
+  output <- r(function(input,inputType,outputType){
+    cnvrt <- getFromNamespace('cnvrt','mzAnnotation')
+    cnvrt(input,inputType,outputType)
+  },
+      args = list(input = input,inputType = inputType,outputType = outputType),
       error = 'stack'
-    ),
-    error = function(e)
-      return(e$error)
-  )
-  
+    )
   return(output)
 }

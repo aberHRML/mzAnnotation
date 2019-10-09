@@ -5,16 +5,8 @@ HR2 <- function(measured_mass, max, min, tolerance, charge, applygr) {
     .Call('_mzAnnotation_HR2', PACKAGE = 'mzAnnotation', measured_mass, max, min, tolerance, charge, applygr)
 }
 
-#' convert
-#' @description convert between SMILES and Inchi and to InchiKey
-#' @param input a valid SMILE or Inchi
-#' @param inputType either "smiles" or "inchi", denoting the input type
-#' @param outputType either "smiles", "inchi" or "inchikey", denoting the output type
-#' @examples
-#' convert(aminoAcids$SMILE[1],'smiles','inchi')
-#' @export
-convert <- function(input, inputType, outputType) {
-    .Call('_mzAnnotation_convert', PACKAGE = 'mzAnnotation', input, inputType, outputType)
+cnvrt <- function(input, inputType, outputType) {
+    .Call('_mzAnnotation_cnvrt', PACKAGE = 'mzAnnotation', input, inputType, outputType)
 }
 
 #' smileToMF

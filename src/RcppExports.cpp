@@ -21,16 +21,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// convert
-std::string convert(std::string input, const char* inputType, const char* outputType);
-RcppExport SEXP _mzAnnotation_convert(SEXP inputSEXP, SEXP inputTypeSEXP, SEXP outputTypeSEXP) {
+// cnvrt
+std::string cnvrt(std::string input, const char* inputType, const char* outputType);
+RcppExport SEXP _mzAnnotation_cnvrt(SEXP inputSEXP, SEXP inputTypeSEXP, SEXP outputTypeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type input(inputSEXP);
     Rcpp::traits::input_parameter< const char* >::type inputType(inputTypeSEXP);
     Rcpp::traits::input_parameter< const char* >::type outputType(outputTypeSEXP);
-    rcpp_result_gen = Rcpp::wrap(convert(input, inputType, outputType));
+    rcpp_result_gen = Rcpp::wrap(cnvrt(input, inputType, outputType));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -95,7 +95,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_HR2", (DL_FUNC) &_mzAnnotation_HR2, 6},
-    {"_mzAnnotation_convert", (DL_FUNC) &_mzAnnotation_convert, 3},
+    {"_mzAnnotation_cnvrt", (DL_FUNC) &_mzAnnotation_cnvrt, 3},
     {"_mzAnnotation_smileToMF", (DL_FUNC) &_mzAnnotation_smileToMF, 1},
     {"_mzAnnotation_smileToAccurateMass", (DL_FUNC) &_mzAnnotation_smileToAccurateMass, 1},
     {"_mzAnnotation_smartsSearch", (DL_FUNC) &_mzAnnotation_smartsSearch, 2},

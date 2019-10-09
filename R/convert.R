@@ -1,17 +1,17 @@
-#' Safe Convert
-#' @description safely convert between SMILES and Inchi and to InchiKey using callr to catch potential segfaults
+#' convert
+#' @description convert between SMILES and Inchi and to InchiKey
 #' @param input a valid SMILE or Inchi
 #' @param inputType either "smiles" or "inchi", denoting the input type
 #' @param outputType either "smiles", "inchi" or "inchikey", denoting the output type
 #' @examples
-#' safeConvert(aminoAcids$SMILE[1],'smiles','inchi')
+#' convert(aminoAcids$SMILE[1],'smiles','inchi')
 #' @export
 
-safeConvert <- function(input, inputType, outputType) {
+convert <- function(input, inputType, outputType) {
   output <- tryCatch(
     callr::r(
       function(x)
-        convert(x, inputType, outputType),
+        cnvrt(x, inputType, outputType),
       args = list(x),
       error = 'stack'
     ),

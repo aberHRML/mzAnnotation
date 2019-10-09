@@ -1,7 +1,6 @@
 Package: mzAnnotation
 Title: Signal Annotation Tools for High Resolution Metabolomics
 Version: 1.6.2
-Date: 2018-01-15
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
@@ -9,8 +8,7 @@ Authors@R:
            email = "jsf9@aber.ac.uk")
 Description: Tools for the putative annotation of high resolution metabolomics m/z.
     data.
-License: GPL (>= 3)
-Encoding: UTF-8 
+URL: https://github.com/jasenfinch/mzAnnotation
 Depends: R (>= 3.5)
 Imports:
     Rcpp,
@@ -23,8 +21,10 @@ Imports:
     tidyr,
     methods,
     callr
-LinkingTo: Rcpp
+License: GPL (>= 3)
+Encoding: UTF-8
 RoxygenNote: 6.1.1
 LazyData: true
 Suggests: testthat,
     covr
+LinkingTo: Rcpp

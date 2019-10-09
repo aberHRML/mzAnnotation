@@ -9,8 +9,6 @@ r:
 - devel
 
 apt_packages:
-- default-jre
-- default-jdk
 - libopenbabel-dev
 
 notifications:

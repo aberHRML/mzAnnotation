@@ -4,8 +4,11 @@
 \alias{transformMF}
 \title{transformMF}
 \usage{
-transformMF(MF, transformation = "M - [O] + [NH2]",
-  transformationTable = transformations())
+transformMF(
+  MF,
+  transformation = "M - [O] + [NH2]",
+  transformationTable = transformations()
+)
 }
 \arguments{
 \item{MF}{molecular formula to transform}

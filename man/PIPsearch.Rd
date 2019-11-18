@@ -4,8 +4,15 @@
 \alias{PIPsearch}
 \title{Putative Ionisation Product searching}
 \usage{
-PIPsearch(mz, db, ppm, adduct, isotope = NA, isotopeTable = isotopes(),
-  adductTable = adducts())
+PIPsearch(
+  mz,
+  db,
+  ppm,
+  adduct,
+  isotope = NA,
+  isotopeTable = isotopes(),
+  adductTable = adducts()
+)
 }
 \arguments{
 \item{mz}{the accurate m/z to search.}

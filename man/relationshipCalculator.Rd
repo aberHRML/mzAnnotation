@@ -4,10 +4,17 @@
 \alias{relationshipCalculator}
 \title{m/z relationship calculation}
 \usage{
-relationshipCalculator(mz, limit = 0.001, modes = NULL,
-  adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"), isotopes = NULL,
-  transformations = NULL, adductTable = adducts(),
-  isotopeTable = isotopes(), transformationTable = transformations())
+relationshipCalculator(
+  mz,
+  limit = 0.001,
+  modes = NULL,
+  adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"),
+  isotopes = NULL,
+  transformations = NULL,
+  adductTable = adducts(),
+  isotopeTable = isotopes(),
+  transformationTable = transformations()
+)
 }
 \arguments{
 \item{mz}{numeric \code{vector} of accurate m/z}

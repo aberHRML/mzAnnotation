@@ -4,8 +4,7 @@
 \alias{isotopeDistribution}
 \title{Isotope Distribution Calculator}
 \usage{
-isotopeDistribution(MF, charge, limit = 9e-05,
-  elementTable = elements())
+isotopeDistribution(MF, charge, limit = 9e-05, elementTable = elements())
 }
 \arguments{
 \item{MF}{the molecular formular to generate the isotope distribution}

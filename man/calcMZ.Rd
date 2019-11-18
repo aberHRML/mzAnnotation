@@ -4,9 +4,15 @@
 \alias{calcMZ}
 \title{calcM}
 \usage{
-calcMZ(M, adduct = "[M+H]1+", isotope = NA, transformation = NA,
-  adductTable = adducts(), isotopeTable = isotopes(),
-  transformationTable = transformations())
+calcMZ(
+  M,
+  adduct = "[M+H]1+",
+  isotope = NA,
+  transformation = NA,
+  adductTable = adducts(),
+  isotopeTable = isotopes(),
+  transformationTable = transformations()
+)
 }
 \arguments{
 \item{M}{M for which to calculate an m/z}

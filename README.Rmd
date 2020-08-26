@@ -8,11 +8,10 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 # mzAnnotation
 
-[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=devel)](https://travis-ci.org/jasenfinch/mzAnnotation) 
-[![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/devel?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/devel)
+[![R build status](https://github.com/jasenfinch/mzAnnotation/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/mzAnnotation/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
 
-An R package containing tools for putative annotation of accurate m/z
+An R package containing tools for putative annotation of accurate m/z from electrospray ionisation mass spectrometry data.
 
 ### Installation
 
@@ -39,7 +38,7 @@ res
 * Molecular formula generation
 ```{r}
 res <- generateMF(342.11621,
-                  composition = c(C = 12,H = 22,N = 0,
+                  element_max = c(C = 12,H = 22,N = 0,
                                 O = 11,P = 0,S = 0))
 res
 ```
@@ -52,8 +51,9 @@ res
 
 * Putative ionisation product searches
 ```{r}
-res <- PIPsearch(mz = 132.03023,
-                 db = metaboliteDB(aminoAcids,descriptors(aminoAcids)),
+db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+res <- PIPsearch(db = db,
+                 mz = 132.03023,
                  ppm = 5,
                  adduct = '[M-H]1-',
                  isotope = NA)

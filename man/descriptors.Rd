@@ -4,7 +4,7 @@
 \alias{descriptors}
 \title{convert SMILES to a series of molecular descriptors}
 \usage{
-descriptors(accessions)
+descriptors(SMILES)
 }
 \arguments{
 \item{accessions}{tibble containing accession information and valid SMILEs}
@@ -14,5 +14,5 @@ convert SMILES to a series of molecular descriptors
 }
 \examples{
 data(aminoAcids)
-descriptors(aminoAcids)
+descriptors(aminoAcids$SMILES)
 }

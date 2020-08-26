@@ -2,7 +2,7 @@
 % Please edit documentation in R/isotopeDistribution.R
 \name{isotopeDistribution}
 \alias{isotopeDistribution}
-\title{Isotope Distribution Calculator}
+\title{Isotopic Distribution Calculator}
 \usage{
 isotopeDistribution(MF, charge, limit = 9e-05, elementTable = elements())
 }
@@ -16,7 +16,7 @@ isotopeDistribution(MF, charge, limit = 9e-05, elementTable = elements())
 \item{elementTable}{the table containing elemental information. Defaults to \code{Elements}.}
 }
 \description{
-Isotope Distribution Calculator
+Isotopic Distribution Calculator
 }
 \examples{
 res <- isotopeDistribution('C4H5O5',charge = -1)

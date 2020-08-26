@@ -3,7 +3,9 @@
 \name{elements}
 \alias{elements}
 \title{elements}
-\format{A tibble containing 31 rows and 5 columns.}
+\format{
+A tibble containing 31 rows and 5 columns.
+}
 \usage{
 elements()
 }

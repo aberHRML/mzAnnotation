@@ -2,7 +2,6 @@
 #' @name mzAnnotation
 #' @useDynLib mzAnnotation
 #' @importFrom Rcpp evalCpp
-#' @name mzAnnotation
 
 globalVariables(c('Name','ID','MF','Accurate Mass','Smile 1','Adduct',
                   'PPM Error','RelativeAbundance','Element','AtomicMass',

@@ -8,7 +8,7 @@ globalVariables(c('Name','ID','MF','Accurate Mass','Smile 1','Adduct',
                   'Frequency','Isotope','MF Change','Probability',
                   'Relative Abundance','C','S','Elements','Error',
                   'Theoretical m/z','True','desc','m/z','Adducts',
-                  'Negative_Charge','Positive_Charge','SMILE','Total_Charge',
+                  'Negative_Charge','Positive_Charge','SMILES','Total_Charge',
                   'NHH','COO','ACCESSION_ID','Accurate_Mass','Measured m/z',
                   'HBA1','TPSA','.','Possible','Rule','x'
 ))

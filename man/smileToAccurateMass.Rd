@@ -13,5 +13,5 @@ smileToAccurateMass(smile)
 convert a smile to an accurate mass
 }
 \examples{
-smileToAccurateMass(aminoAcids$SMILE[1])
+smileToAccurateMass(aminoAcids$SMILES[1])
 }

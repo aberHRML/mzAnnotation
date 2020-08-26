@@ -20,6 +20,6 @@ filterMR(db, lower, upper)
 Filter a MetaboliteDatabase for a given mass range.
 }
 \examples{
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 db <- filterMR(db,100,120)
 }

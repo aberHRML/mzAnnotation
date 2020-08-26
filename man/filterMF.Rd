@@ -18,6 +18,6 @@ filterMF(db, mf)
 Filter a MetaboliteDatabase based on given molecular formulas
 }
 \examples{
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 db <- filterMF(db,c('C3H7NO2','C5H10N2O3'))
 }

@@ -2,6 +2,7 @@
 % Please edit documentation in R/allGenerics.R, R/calcAdducts.R
 \name{calcAdducts}
 \alias{calcAdducts}
+\alias{calcAdducts,MetaboliteDatabase-method}
 \title{calcAdducts}
 \usage{
 calcAdducts(db, id, adductTable = adducts())
@@ -9,13 +10,14 @@ calcAdducts(db, id, adductTable = adducts())
 \S4method{calcAdducts}{MetaboliteDatabase}(db, id, adductTable = adducts())
 }
 \arguments{
+\item{db}{object of class \code{MetaboliteDatabase}}
+
 \item{id}{accession id}
 
 \item{adductTable}{table of adduct rules. Defaults to adducts()}
 }
 \description{
 Calculate ionisation products for given database accession.
-#' @param db object of class \code{MetaboliteDatabase}
 }
 \examples{
 db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))

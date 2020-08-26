@@ -5,7 +5,7 @@
 #' @param lower lower mass boundary
 #' @param upper upper mass boundary
 #' @examples 
-#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 #' db <- filterMR(db,100,120)
 #' @export
 
@@ -29,7 +29,7 @@ setMethod('filterMR',signature = 'MetaboliteDatabase',
 #' @param db S4 object of class MetaboliteDatabase
 #' @param rule elemental rule given as a string
 #' @examples 
-#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 #' db <- filterER(db,'S>0')
 #' @export
 
@@ -57,7 +57,7 @@ setMethod('filterER',signature = 'MetaboliteDatabase',
 #' @param rule Character containing ionisation rule.
 #' @examples 
 #' rule <- adducts()$Rule[52]
-#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 #' db <- filterIP(db,rule)
 #' @export
 
@@ -81,15 +81,17 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
 #' @param db S4 object of class MetaboliteDatabase
 #' @param ids vector of accession IDs
 #' @examples 
-#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 #' db <- filterACCESSIONS(db,c(1,2))
 #' @export
 
 setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
           function(db,ids){
-            db@accessions[[1]] <- db@accessions[[1]] %>%
+            db@accessions[[1]] <- db %>%
+              getAccessions() %>%
               filter(ID %in% ids)
-            db@descriptors[[1]] <- db@descriptors[[1]] %>%
+            db@descriptors[[1]] <- db %>%
+              getDescriptors() %>%
               filter(ID %in% ids)
             return(db)
           }
@@ -101,7 +103,7 @@ setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
 #' @param db S4 object of class MetaboliteDatabase
 #' @param mf character vector of molecular formulas
 #' @examples 
-#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids))
+#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 #' db <- filterMF(db,c('C3H7NO2','C5H10N2O3'))
 #' @export
 

@@ -1,7 +1,7 @@
 #' calcAdducts
-#' @name calcAdducts
+#' @rdname calcAdducts
 #' @description Calculate ionisation products for given database accession.
-#' #' @param db object of class \code{MetaboliteDatabase}
+#' @param db object of class \code{MetaboliteDatabase}
 #' @param id accession id
 #' @param adductTable table of adduct rules. Defaults to adducts()
 #' @examples 

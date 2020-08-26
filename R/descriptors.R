@@ -10,7 +10,7 @@
 #' descriptors(aminoAcids)
 
 descriptors <- function(accessions){
-  smiles <- accessions$SMILE
+  smiles <- accessions$SMILES
   desc <- c('HBA1',
             'HBA2',
             'HBD',
@@ -62,13 +62,13 @@ descriptors <- function(accessions){
     }) %>%
     bind_cols()
   
-  desc <- bind_cols(SMILE = smiles,descs,groups) %>%
+  desc <- bind_cols(SMILES = smiles,descs,groups) %>%
     mutate(Total_Charge = -Negative_Charge + Positive_Charge,
-           MF = map_chr(SMILE,smileToMF),
-           `Accurate_Mass` = map_dbl(SMILE,smileToAccurateMass) %>% round(5),
+           MF = map_chr(SMILES,smileToMF),
+           `Accurate_Mass` = map_dbl(SMILES,smileToAccurateMass) %>% round(5),
            ACCESSION_ID = accessions$ACCESSION_ID) %>%
     
-    select(ACCESSION_ID,SMILE,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)
+    select(ACCESSION_ID,SMILES,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)
   
   return(desc)
 }

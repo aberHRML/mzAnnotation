@@ -16,7 +16,7 @@ setMethod('filterMR',signature = 'MetaboliteDatabase',
               filter(Accurate_Mass > lower & Accurate_Mass < upper)
             acc <- db@accessions[[1]]
             acc <- acc %>%
-              filter(SMILE %in% desc$SMILE)
+              filter(SMILES %in% desc$SMILES)
             db@descriptors <- list(desc)
             db@accessions <- list(acc)
             return(db)
@@ -68,7 +68,7 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
               filter(eval(parse(text = rule)))
             acc <- db@accessions[[1]]
             acc <- acc %>%
-              filter(SMILE %in% desc$SMILE)
+              filter(SMILES %in% desc$SMILES)
             db@descriptors <- list(desc)
             db@accessions <- list(acc)
             return(db)

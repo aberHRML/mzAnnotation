@@ -8,7 +8,7 @@ test_that('PIPsearch works',{
   expect_true(nrow(res) == 1)
   expect_true(ncol(res) == 12)
   expect_false(F %in% (colnames(res) == c( "ACCESSION_ID","NAME","InChI",
-                                           "InChIKey","SMILE","MF",
+                                           "InChIKey","SMILES","MF",
                                            "Accurate_Mass","Isotope","Adduct",
                                            "Measured m/z","Theoretical m/z","PPM Error")))
   expect_false(F %in% (res$NAME == "L-Aspartic acid"))

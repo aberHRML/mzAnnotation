@@ -32,8 +32,8 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopeTable = isotopes(), 
     filterIP(addRule)
   
   res <- res %>%
-  {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("ACCESSION_ID", "SMILES"))} %>%
-    select(ACCESSION_ID:Accurate_Mass) %>%
+  {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("ID", "SMILES"))} %>%
+    select(ID:Accurate_Mass) %>%
     mutate(Isotope = isotope,
            Adduct = adduct,
            `Measured m/z` = mz,

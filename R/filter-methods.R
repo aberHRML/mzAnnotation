@@ -43,9 +43,9 @@ setMethod('filterER',signature = 'MetaboliteDatabase',
               ef[0,]
             }
             db@descriptors[[1]] <- db@descriptors[[1]] %>%
-              filter(ACCESSION_ID %in% ef$ACCESSION_ID)
+              filter(ID %in% ef$ID)
             db@accessions[[1]] <- db@accessions[[1]] %>%
-              filter(ACCESSION_ID %in% ef$ACCESSION_ID)
+              filter(ID %in% ef$ID)
             return(db)
           }
 )
@@ -88,9 +88,9 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
 setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
           function(db,ids){
             db@accessions[[1]] <- db@accessions[[1]] %>%
-              filter(ACCESSION_ID %in% ids)
+              filter(ID %in% ids)
             db@descriptors[[1]] <- db@descriptors[[1]] %>%
-              filter(ACCESSION_ID %in% ids)
+              filter(ID %in% ids)
             return(db)
           }
 )
@@ -111,7 +111,7 @@ setMethod('filterMF',signature = 'MetaboliteDatabase',
               filter(MF %in% mf)
             
             db@accessions[[1]] <- db@accessions[[1]] %>%
-              filter(ACCESSION_ID %in% db@descriptors[[1]]$ACCESSION_ID)
+              filter(ID %in% db@descriptors[[1]]$ID)
             
             return(db)
           }

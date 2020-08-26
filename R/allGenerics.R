@@ -36,3 +36,8 @@ setGeneric('getAccessions',function(db) {
 setGeneric('getDescriptors',function(db) {
   standardGeneric('getDescriptors')
 })
+
+#' @rdname calcAdducts
+setGeneric('calcAdducts',function(db,id,adductTable = adducts()) {
+  standardGeneric('calcAdducts')
+})

@@ -1,4 +1,4 @@
-#' Isotope Distribution Calculator
+#' Isotopic Distribution Calculator
 #' @param MF the molecular formular to generate the isotope distribution
 #' @param charge the charge of the molecular formula
 #' @param limit the relative abundance threshold
@@ -44,7 +44,9 @@ isotopeDistribution <- function(MF,charge, limit = 0.00009 , elementTable = elem
     com <- Isotopes$Name %>% 
       combn(m = numberCombinations) %>%
       t() %>%
-      as_tibble()
+      {
+        suppressMessages(as_tibble(.,.name_repair = 'unique'))
+      }
     differentCombinations <- map(com,~{
       unlist(map(str_split(.,' '),~{
         .[[1]][1]

@@ -4,14 +4,16 @@
 \name{aminoAcids}
 \alias{aminoAcids}
 \title{aminoAcids}
-\format{a tibble containing 20 rows and 6 columns
+\format{
+a tibble containing 20 rows and 6 columns
 \describe{
 \item{ACCESSION_ID}{}
 \item{NAME}{}
 \item{InChi}{}
 \item{InChiKey}{}
-\item{SMILE}{}
-}}
+\item{SMILES}{}
+}
+}
 \usage{
 aminoAcids
 }

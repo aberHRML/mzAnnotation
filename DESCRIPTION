@@ -1,6 +1,6 @@
 Package: mzAnnotation
 Title: Signal Annotation Tools for High Resolution Metabolomics
-Version: 1.6.2
+Version: 1.7.0
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
@@ -23,8 +23,35 @@ Imports:
     callr
 License: GPL (>= 3)
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 LazyData: true
 Suggests: testthat,
     covr
 LinkingTo: Rcpp
+Collate: allGenerics.R
+    allClasses.R
+    adductTransfromMF.R
+    aminoAcids.R
+    calcAccurateMass.R
+    calcAdducts.R
+    calcM.R
+    calcMZ.R
+    calculateMs.R
+    checks.R
+    convert.R
+    data.R
+    descriptors.R
+    elementFrequencies-method.R
+    filter-methods.R
+    generateMF.R
+    get-methods.R
+    ionisationProducts.R
+    isotopeDistribution.R
+    metaboliteDB.R
+    mzAnnotation.R
+    PIPsearch.R
+    ppmError.R
+    RcppExports.R
+    relationshipCalculator.R
+    show-method.R
+    transformMF.R

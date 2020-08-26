@@ -1,10 +1,13 @@
 
-mzAnnotation
-============
+# mzAnnotation
 
-[![Build Status](https://travis-ci.org/jasenfinch/mzAnnotation.svg?branch=devel)](https://travis-ci.org/jasenfinch/mzAnnotation) [![Build status](https://ci.appveyor.com/api/projects/status/b9wgaej0u690ls20/branch/devel?svg=true)](https://ci.appveyor.com/project/jasenfinch/mzannotation/branch/devel) [![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
+[![R build
+status](https://github.com/jasenfinch/mzAnnotation/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/mzAnnotation/actions)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
 
 An R package containing tools for putative annotation of accurate m/z
+from electrospray ionisation mass spectrometry data.
 
 ### Installation
 
@@ -18,7 +21,9 @@ devtools::install_github('jasenfinch/mzAnnotation')
 
 Available tools include:
 
--   Adduct, isotope and biotransfromation relationship prediction
+  - Adduct, isotope and biotransfromation relationship prediction
+
+<!-- end list -->
 
 ``` r
 res <- relationshipCalculator(c(132.03023,168.00691))
@@ -28,14 +33,16 @@ res
 #>   `m/z1` `m/z2` Adduct1 Adduct2 Isotope1 Isotope2 Transformation1
 #>    <dbl>  <dbl> <chr>   <chr>   <lgl>    <lgl>    <lgl>          
 #> 1   132.   168. [M-H]1- [M+Cl]… NA       NA       NA             
-#> # ... with 2 more variables: Transformation2 <lgl>, Error <dbl>
+#> # … with 2 more variables: Transformation2 <lgl>, Error <dbl>
 ```
 
--   Molecular formula generation
+  - Molecular formula generation
+
+<!-- end list -->
 
 ``` r
 res <- generateMF(342.11621,
-                  composition = c(C = 12,H = 22,N = 0,
+                  element_max = c(C = 12,H = 22,N = 0,
                                 O = 11,P = 0,S = 0))
 res
 #> # A tibble: 1 x 3
@@ -44,7 +51,9 @@ res
 #> 1 C12H22O11  342.           0
 ```
 
--   Isotope distribution calculation
+  - Isotope distribution calculation
+
+<!-- end list -->
 
 ``` r
 res <- isotopeDistribution(MF = 'C4H5O5',charge = -1)
@@ -62,19 +71,22 @@ res
 #> 8 13C 1; 17O 1  135.            0.0000900   0.0000850
 ```
 
--   Putative ionisation product searches
+  - Putative ionisation product searches
+
+<!-- end list -->
 
 ``` r
-res <- PIPsearch(mz = 132.03023,
-                 db = metaboliteDB(aminoAcids,descriptors(aminoAcids)),
+db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+res <- PIPsearch(db = db,
+                 mz = 132.03023,
                  ppm = 5,
                  adduct = '[M-H]1-',
                  isotope = NA)
 res
 #> # A tibble: 1 x 12
-#>   ACCESSION_ID NAME  InChI InChIKey SMILE MF    Accurate_Mass Isotope
-#>          <int> <chr> <chr> <chr>    <chr> <chr>         <dbl> <lgl>  
-#> 1            4 L-As… InCh… CKLJMWT… C([C… C4H7…          133. NA     
-#> # ... with 4 more variables: Adduct <chr>, `Measured m/z` <dbl>,
-#> #   `Theoretical m/z` <dbl>, `PPM Error` <dbl>
+#>      ID NAME  InChI InChIKey SMILES MF    Accurate_Mass Isotope Adduct
+#>   <int> <chr> <chr> <chr>    <chr>  <chr>         <dbl> <lgl>   <chr> 
+#> 1     4 L-As… InCh… CKLJMWT… C([C@… C4H7…          133. NA      [M-H]…
+#> # … with 3 more variables: `Measured m/z` <dbl>, `Theoretical m/z` <dbl>, `PPM
+#> #   Error` <dbl>
 ```

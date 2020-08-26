@@ -4,7 +4,7 @@
 #' @param inputType either "smiles" or "inchi", denoting the input type
 #' @param outputType either "smiles", "inchi" or "inchikey", denoting the output type
 #' @examples
-#' convert(aminoAcids$SMILE[1],'smiles','inchi')
+#' convert(aminoAcids$SMILES[1],'smiles','inchi')
 #' @importFrom callr r
 #' @importFrom utils getFromNamespace
 #' @export

@@ -1,6 +1,7 @@
 #' Putative Ionisation Product searching
-#' @param mz the accurate m/z to search.
+#' @rdname PIPsearch
 #' @param db object of class \code{MetaboliteDatabase}.
+#' @param mz the accurate m/z to search.
 #' @param ppm the parts per million threshold to search.
 #' @param adduct the adduct name to search.
 #' @param isotope the isotope name to search. Defaults to NA for non-isotopic searches.
@@ -11,9 +12,10 @@
 #' @importFrom dplyr bind_rows select filter
 #' @importFrom magrittr %>%
 #' @examples
-#' res <- PIPsearch(132.03023,metaboliteDB(aminoAcids,descriptors(aminoAcids)),5,'[M-H]1-')
+#' res <- PIPsearch(metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES)),132.03023,5,'[M-H]1-')
 
-PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopeTable = isotopes(), adductTable = adducts()){
+setMethod('PIPsearch',signature = 'MetaboliteDatabase',
+          function(db,mz,ppm,adduct,isotope = NA, isotopeTable = isotopes(), adductTable = adducts()){
   M <- calcM(mz,adduct = adduct,isotope = isotope,adductTable = adductTable,isotopeTable = isotopeTable)
   mr <- ppmRange(M,ppm)
   
@@ -32,8 +34,8 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopeTable = isotopes(), 
     filterIP(addRule)
   
   res <- res %>%
-  {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("ACCESSION_ID", "SMILE"))} %>%
-    select(ACCESSION_ID:Accurate_Mass) %>%
+  {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("ID", "SMILES"))} %>%
+    select(ID:Accurate_Mass) %>%
     mutate(Isotope = isotope,
            Adduct = adduct,
            `Measured m/z` = mz,
@@ -41,4 +43,4 @@ PIPsearch <- function(mz,db,ppm,adduct,isotope = NA, isotopeTable = isotopes(), 
            `PPM Error` = ppmError(`Measured m/z`,`Theoretical m/z`)
     ) 
   return(res)
-}
+})

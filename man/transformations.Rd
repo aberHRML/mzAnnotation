@@ -3,7 +3,8 @@
 \name{transformations}
 \alias{transformations}
 \title{transformations}
-\format{A tibble containing 12 rows and 9 columns.
+\format{
+A tibble containing 12 rows and 9 columns.
 \describe{
 \item{Name}{Transformation name}
 \item{MF Change}{Molecular formula change}
@@ -14,7 +15,8 @@
 \item{N}{Change in nitrogen atoms}
 \item{P}{Change in phosphorus atoms}
 \item{S}{Change in sulphur atoms}
-}}
+}
+}
 \usage{
 transformations()
 }

@@ -12,7 +12,7 @@ using namespace Rcpp;
 //' @param smile a valid SMILE
 //' @param smart a valid SMARTS symbol
 //' @examples
-//' smartsSearch(aminoAcids$SMILE[1],"[OX2H]")
+//' smartsSearch(aminoAcids$SMILES[1],"[OX2H]")
 //' @export
 // [[Rcpp::export]]
 int smartsSearch(std::string smile,std::string smart){

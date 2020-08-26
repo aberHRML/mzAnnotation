@@ -36,3 +36,14 @@ setGeneric('getAccessions',function(db) {
 setGeneric('getDescriptors',function(db) {
   standardGeneric('getDescriptors')
 })
+
+#' @rdname calcAdducts
+setGeneric('calcAdducts',function(db,id,adductTable = adducts()) {
+  standardGeneric('calcAdducts')
+})
+
+#' @rdname PIPsearch
+setGeneric('PIPsearch',function(db,mz,ppm,adduct,isotope = NA, isotopeTable = isotopes(), adductTable = adducts()) {
+  standardGeneric('PIPsearch')
+})
+

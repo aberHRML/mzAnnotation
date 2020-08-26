@@ -3,7 +3,8 @@
 \name{adducts}
 \alias{adducts}
 \title{adducts}
-\format{A tibble containing 58 rows and 6 columns
+\format{
+A tibble containing 58 rows and 6 columns
 \describe{
 \item{Name}{Adduct name}
 \item{Charge}{Charge added}
@@ -15,7 +16,8 @@
 \item{AddEx}{pseudo formula of the atoms to be added to the final ionisation product molecular formula}
 \item{RemEx}{pseudo formula of the atoms to be removed to the final ionisation product molecular formula}
 \item{Rule}{Structural rule for formation}
-}}
+}
+}
 \usage{
 adducts()
 }

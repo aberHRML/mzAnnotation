@@ -15,5 +15,5 @@ smartsSearch(smile, smart)
 SMARTS substructure searching for SMILES.
 }
 \examples{
-smartsSearch(aminoAcids$SMILE[1],"[OX2H]")
+smartsSearch(aminoAcids$SMILES[1],"[OX2H]")
 }

@@ -3,12 +3,14 @@
 \name{isotopes}
 \alias{isotopes}
 \title{isotopes}
-\format{A tibble containing 8 rows and 3 columns.
+\format{
+A tibble containing 8 rows and 3 columns.
 \describe{
 \item{Isotope}{Isotope name}
 \item{Mass Difference}{Isotopic mass difference}
 \item{Rule}{Elemental composition rules}
-}}
+}
+}
 \usage{
 isotopes()
 }

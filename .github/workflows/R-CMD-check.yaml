@@ -62,6 +62,9 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'cat(remotes::system_requirements("ubuntu", "20.04"), sep = "\n")')
           sudo apt install libopenbabel-dev
+        if: runner.os == 'macOS'
+        run: |
+          brew install open-babel
 
       - name: Install dependencies
         run: |

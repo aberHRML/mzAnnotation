@@ -62,7 +62,7 @@ jobs:
           unzip D:\a\openbabel3-build.zip -d D:\a\openbabel3-build
           setx OPEN_BABEL_SRC D:/a/openbabel3-build/src
           setx OPEN_BABEL_BIN D:/a/openbabel3-build/bin
-          SET
+          env
         
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'

@@ -8,6 +8,7 @@ Authors@R:
            email = "jsf9@aber.ac.uk")
 Description: Tools for the putative annotation of high resolution metabolomics m/z.
     data.
+biocViews: MassSpectrometry, Metabolomics
 URL: https://github.com/jasenfinch/mzAnnotation
 Depends: R (>= 3.5)
 Imports:

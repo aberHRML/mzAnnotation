@@ -57,11 +57,11 @@ jobs:
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
         run: |
-          curl.exe -L https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip -o openbabel3-build.zip
-          mkdir openbabel3-build
-          unzip openbabel3-build.zip -d openbabel3-build
-          setx OPEN_BABEL_SRC ./openbabel3-build/src
-          setx OPEN_BABEL_BIN ./openbabel3-build/bin
+          curl.exe -L https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip -o D:\a\openbabel3-build.zip
+          mkdir D:\a\openbabel3-build
+          unzip D:\a\openbabel3-build.zip -d D:\a\openbabel3-build
+          setx OPEN_BABEL_SRC D:/a/openbabel3-build/src
+          setx OPEN_BABEL_BIN D:/a/openbabel3-build/bin
         
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'

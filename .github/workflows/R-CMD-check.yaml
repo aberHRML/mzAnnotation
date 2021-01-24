@@ -60,9 +60,6 @@ jobs:
           curl.exe -L https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip -o D:\a\openbabel3-build.zip
           mkdir D:\a\openbabel3-build
           unzip D:\a\openbabel3-build.zip -d D:\a\openbabel3-build
-          setx OPEN_BABEL_SRC D:/a/openbabel3-build/src /m
-          setx OPEN_BABEL_BIN D:/a/openbabel3-build/bin /m
-          env
         
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'
@@ -87,6 +84,8 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
+          OPEN_BABEL_SRC: D:/a/openbabel3-build/src
+          OPEN_BABEL_BIN: D:/a/openbabel3-build/bin
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
         

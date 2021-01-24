@@ -60,8 +60,8 @@ jobs:
           curl.exe -L https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip -o D:\a\openbabel3-build.zip
           mkdir D:\a\openbabel3-build
           unzip D:\a\openbabel3-build.zip -d D:\a\openbabel3-build
-          setx OPEN_BABEL_SRC D:/a/openbabel3-build/src
-          setx OPEN_BABEL_BIN D:/a/openbabel3-build/bin
+          setx OPEN_BABEL_SRC D:/a/openbabel3-build/src /m
+          setx OPEN_BABEL_BIN D:/a/openbabel3-build/bin /m
           env
         
       - name: Install Linux system dependencies

@@ -26,7 +26,8 @@ Encoding: UTF-8
 RoxygenNote: 7.1.1
 LazyData: true
 Suggests: testthat,
-    covr
+    covr,
+    zlibbioc
 LinkingTo: Rcpp
 Collate: allGenerics.R
     allClasses.R

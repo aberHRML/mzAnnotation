@@ -1,0 +1,3 @@
+PKG_CXXFLAGS +=  -I${OPEN_BABEL_SRC}${R_ARCH}/include 
+PKG_LIBS += -L${OPEN_BABEL_BIN}${R_ARCH}/bin -lopenbabel $(shell echo 'zlibbioc::pkgconfig("PKG_LIBS_shared")' |\
+"${R_HOME}/bin/R" --vanilla --slave) 

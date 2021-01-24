@@ -57,7 +57,7 @@ jobs:
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
         run: |
-          curl.exe -L https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip -o openbable-3-build.zip
+          curl.exe -L https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip -o openbabel3-build.zip
           tar -xf openbabel3-build.zip
           echo %cd%
         

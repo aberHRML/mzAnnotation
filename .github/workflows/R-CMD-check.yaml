@@ -57,8 +57,8 @@ jobs:
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'
         run: |
-          download.file('https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip','D:\a\openbabel3-build.zip')
-          unzip('D:\a\openbabel3-build.zip',exdir = 'D:\a\openbabel3-build')
+          download.file('https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip','D:/a/openbabel3-build.zip')
+          unzip('D:/a/openbabel3-build.zip',exdir = 'D:/a/openbabel3-build')
         shell: Rscript {0}
         
       - name: Install Linux system dependencies

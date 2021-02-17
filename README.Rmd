@@ -30,6 +30,7 @@ library(mzAnnotation)
 ```
 
 * Adduct, isotope and biotransfromation relationship prediction
+
 ```{r}
 res <- relationshipCalculator(c(132.03023,168.00691))
 
@@ -37,6 +38,7 @@ res
 ```
 
 * Molecular formula generation
+
 ```{r}
 res <- generateMF(342.11621,
                   element_max = c(C = 12,H = 22,N = 0,
@@ -45,12 +47,14 @@ res
 ```
 
 * Isotope distribution calculation
+
 ```{r}
 res <- isotopeDistribution(MF = 'C4H5O5',charge = -1)
 res
 ```
 
 * Putative ionisation product searches
+
 ```{r}
 db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
 res <- PIPsearch(db = db,

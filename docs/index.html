@@ -73,6 +73,7 @@
 <div id="mzannotation" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#mzannotation" class="anchor"></a>mzAnnotation</h1></div>
+<!-- badges: start -->
 
 <p>An R package containing tools for putative annotation of accurate m/z from electrospray ionisation mass spectrometry data.</p>
 <div id="installation" class="section level3">
@@ -104,7 +105,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generateMF.html">generateMF</a></span><span class="op">(</span><span class="fl">342.11621</span>,
                   element_max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>C <span class="op">=</span> <span class="fl">12</span>,H <span class="op">=</span> <span class="fl">22</span>,N <span class="op">=</span> <span class="fl">0</span>,
-                                O <span class="op">=</span> <span class="fl">11</span>,P <span class="op">=</span> <span class="fl">0</span>,S <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
+                                  O <span class="op">=</span> <span class="fl">11</span>,P <span class="op">=</span> <span class="fl">0</span>,S <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="va">res</span>
 <span class="co">#&gt; # A tibble: 1 x 3</span>
 <span class="co">#&gt;   MF         Mass `PPM Error`</span>
@@ -174,8 +175,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://github.com/jasenfinch/mzAnnotation/actions"><img src="https://github.com/jasenfinch/mzAnnotation/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel"><img src="https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg" alt="Coverage Status"></a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/33083554"><img src="https://zenodo.org/badge/33083554.svg" alt="DOI"></a></li>
 </ul>
 </div>
 </div>

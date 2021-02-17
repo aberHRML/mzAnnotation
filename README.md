@@ -1,10 +1,16 @@
 
 # mzAnnotation
 
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R build
 status](https://github.com/jasenfinch/mzAnnotation/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/mzAnnotation/actions)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
+[![DOI](https://zenodo.org/badge/33083554.svg)](https://zenodo.org/badge/latestdoi/33083554)
+<!-- badges: end -->
 
 An R package containing tools for putative annotation of accurate m/z
 from electrospray ionisation mass spectrometry data.
@@ -39,7 +45,7 @@ res
 ``` r
 res <- generateMF(342.11621,
                   element_max = c(C = 12,H = 22,N = 0,
-                                O = 11,P = 0,S = 0))
+                                  O = 11,P = 0,S = 0))
 res
 #> # A tibble: 1 x 3
 #>   MF         Mass `PPM Error`

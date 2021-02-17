@@ -2,7 +2,7 @@
 % Please edit documentation in R/generateMF.R
 \name{generateMF}
 \alias{generateMF}
-\title{generateMF}
+\title{Molecular formula generation}
 \usage{
 generateMF(
   mass,

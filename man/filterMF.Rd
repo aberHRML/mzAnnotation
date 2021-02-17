@@ -3,7 +3,7 @@
 \name{filterMF}
 \alias{filterMF}
 \alias{filterMF,MetaboliteDatabase-method}
-\title{filterMF}
+\title{Filter a molecular formula}
 \usage{
 filterMF(db, mf)
 

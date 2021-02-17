@@ -2,7 +2,7 @@
 % Please edit documentation in R/metaboliteDB.R
 \name{metaboliteDB}
 \alias{metaboliteDB}
-\title{metaboliteDB}
+\title{Create a metabolite database}
 \usage{
 metaboliteDB(accessions, descriptors, connection = NULL, type = "local")
 }

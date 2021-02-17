@@ -1,4 +1,4 @@
-#' ppmError
+#' Calculate PPM error
 #' @description Calculate ppmError between a measured and theoretical m/z
 #' @param measured measured m/z
 #' @param theoretical theoretical m/z

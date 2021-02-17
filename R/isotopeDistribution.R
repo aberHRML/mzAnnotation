@@ -1,4 +1,4 @@
-#' Isotopic Distribution Calculator
+#' Isotopic distribution calculator
 #' @param MF the molecular formular to generate the isotope distribution
 #' @param charge the charge of the molecular formula
 #' @param limit the relative abundance threshold

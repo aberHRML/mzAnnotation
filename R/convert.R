@@ -1,4 +1,4 @@
-#' convert
+#' Convert chemical notation
 #' @description convert between SMILES and Inchi and to InchiKey
 #' @param input a valid SMILE or Inchi
 #' @param inputType either "smiles" or "inchi", denoting the input type

@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{ppmRange}
 \alias{ppmRange}
-\title{ppmRange}
+\title{Calculate a PPM error range}
 \usage{
 ppmRange(mz, ppm)
 }

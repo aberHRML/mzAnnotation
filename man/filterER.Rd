@@ -3,7 +3,7 @@
 \name{filterER}
 \alias{filterER}
 \alias{filterER,MetaboliteDatabase-method}
-\title{filterER}
+\title{Filter using an elemental rule}
 \usage{
 filterER(db, rule)
 

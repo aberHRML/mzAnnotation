@@ -3,7 +3,7 @@
 \name{filterIP}
 \alias{filterIP}
 \alias{filterIP,MetaboliteDatabase-method}
-\title{filterIP}
+\title{Filter using an ionisation rule}
 \usage{
 filterIP(db, rule)
 

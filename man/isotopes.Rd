@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{isotopes}
 \alias{isotopes}
-\title{isotopes}
+\title{Isotopic rules}
 \format{
 A tibble containing 8 rows and 3 columns.
 \describe{

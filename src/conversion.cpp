@@ -22,7 +22,7 @@ std::string cnvrt(std::string input,const char* inputType,const char* outputType
   return res;
 }
 
-//' smileToMF
+//' Convert SMILES to molecular formula
 //' @description convert a smile to a molecular formula
 //' @param smile a valid SMILE
 //' @examples
@@ -41,7 +41,7 @@ std::string smileToMF(std::string smile){
   return res;
 }
 
-//' smileToAccurateMass
+//' Convert SMILES to accurate mass
 //' @description convert a smile to an accurate mass
 //' @param smile a valid SMILE
 //' @examples

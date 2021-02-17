@@ -3,7 +3,7 @@
 \name{getAccessions}
 \alias{getAccessions}
 \alias{getAccessions,MetaboliteDatabase-method}
-\title{getAccessions-MetaboliteDatabase}
+\title{Retrieve accessions}
 \usage{
 getAccessions(db)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{smartsSearch}
 \alias{smartsSearch}
-\title{smartsSearch}
+\title{SMARTS substructure search}
 \usage{
 smartsSearch(smile, smart)
 }

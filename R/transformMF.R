@@ -1,4 +1,4 @@
-#' transformMF
+#' Transform a molecular formula
 #' @description transform a molecular formula
 #' @param MF molecular formula to transform
 #' @param transformation transformation to apply

@@ -1,4 +1,4 @@
-#' metaboliteDB
+#' Create a metabolite database
 #' @description Build a metabolite database ready for use.
 #' @param accessions tibble containing accession information. If \code{type = 'remote'} this should be the name of the table containing the accession information within the SQL database.
 #' @param descriptors tibble containing descriptor information as returned by \code{descriptors()}. If \code{type = 'remote'} this should be the name of the table containing the descriptor information within the SQL database.

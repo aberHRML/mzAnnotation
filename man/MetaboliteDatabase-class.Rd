@@ -3,7 +3,7 @@
 \docType{class}
 \name{MetaboliteDatabase-class}
 \alias{MetaboliteDatabase-class}
-\title{MetaboliteDatabase}
+\title{Metabolite database class}
 \description{
-MetaboliteDatabase
+Metabolite database class
 }

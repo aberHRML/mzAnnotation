@@ -1,4 +1,4 @@
-#' adductTransformMF
+#' Molecular formula adduct transformation
 #' @description adduct transform a molecular formula.
 #' @param MF molecular formula to transform.
 #' @param adduct adduct to use for transformation.

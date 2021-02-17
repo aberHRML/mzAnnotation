@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert.R
 \name{convert}
 \alias{convert}
-\title{convert}
+\title{Convert chemical notation}
 \usage{
 convert(input, inputType, outputType)
 }

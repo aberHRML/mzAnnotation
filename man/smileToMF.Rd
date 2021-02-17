@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{smileToMF}
 \alias{smileToMF}
-\title{smileToMF}
+\title{Convert SMILES to molecular formula}
 \usage{
 smileToMF(smile)
 }

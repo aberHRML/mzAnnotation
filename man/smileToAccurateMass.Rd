@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{smileToAccurateMass}
 \alias{smileToAccurateMass}
-\title{smileToAccurateMass}
+\title{Convert SMILES to accurate mass}
 \usage{
 smileToAccurateMass(smile)
 }

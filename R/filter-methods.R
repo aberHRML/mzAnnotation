@@ -1,4 +1,4 @@
-#' filterMR
+#' Filter a mass range
 #' @rdname filterMR
 #' @description Filter a MetaboliteDatabase for a given mass range.
 #' @param db S4 object of class MetaboliteDatabase
@@ -23,7 +23,7 @@ setMethod('filterMR',signature = 'MetaboliteDatabase',
           }
 )
 
-#' filterER
+#' Filter using an elemental rule
 #' @rdname filterER
 #' @description Filter a MetaboliteDatabase based on an elemental rule.
 #' @param db S4 object of class MetaboliteDatabase
@@ -50,7 +50,7 @@ setMethod('filterER',signature = 'MetaboliteDatabase',
           }
 )
 
-#' filterIP
+#' Filter using an ionisation rule
 #' @rdname filterIP
 #' @description Filter MetaboliteDatabase based on an ionisation rule
 #' @param db S4 object of class MetaboliteDatabase
@@ -75,7 +75,7 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
           }
 )
 
-#' filterACCESSIONS
+#' Filter accessions
 #' @rdname filterACCESSIONS
 #' @description Filter a MetaboliteDatabase based on given accession IDs.
 #' @param db S4 object of class MetaboliteDatabase
@@ -97,7 +97,7 @@ setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
           }
 )
 
-#' filterMF
+#' Filter a molecular formula
 #' @rdname filterMF
 #' @description Filter a MetaboliteDatabase based on given molecular formulas
 #' @param db S4 object of class MetaboliteDatabase

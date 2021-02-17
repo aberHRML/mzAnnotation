@@ -2,5 +2,8 @@ pandoc: 2.11.2
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-02-17T23:30Z
+last_built: 2021-02-17T23:44Z
+urls:
+  reference: https://jasenfinch.github.io/mzAnnotation//reference
+  article: https://jasenfinch.github.io/mzAnnotation//articles
 

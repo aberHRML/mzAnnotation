@@ -9,7 +9,8 @@ Authors@R:
 Description: Tools for the putative annotation of high resolution metabolomics m/z.
     data.
 biocViews: MassSpectrometry, Metabolomics
-URL: https://github.com/jasenfinch/mzAnnotation
+URL: https://jasenfinch.github.io/pdi/
+BugReports: https://github.com/jasenfinch/mzAnnotation/issues
 Depends: R (>= 3.5)
 Imports:
     Rcpp,

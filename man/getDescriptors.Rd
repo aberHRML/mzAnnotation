@@ -3,7 +3,7 @@
 \name{getDescriptors}
 \alias{getDescriptors}
 \alias{getDescriptors,MetaboliteDatabase-method}
-\title{getDescriptors-MetaboliteDatabase}
+\title{Retrieve descriptors}
 \usage{
 getDescriptors(db)
 

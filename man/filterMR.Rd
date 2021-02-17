@@ -3,7 +3,7 @@
 \name{filterMR}
 \alias{filterMR}
 \alias{filterMR,MetaboliteDatabase-method}
-\title{filterMR}
+\title{Filter a mass range}
 \usage{
 filterMR(db, lower, upper)
 

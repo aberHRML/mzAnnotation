@@ -7,7 +7,7 @@ using namespace OpenBabel;
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' smartsSearch
+//' SMARTS substructure search
 //' @description SMARTS substructure searching for SMILES.
 //' @param smile a valid SMILE
 //' @param smart a valid SMARTS symbol

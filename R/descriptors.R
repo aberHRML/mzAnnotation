@@ -1,5 +1,4 @@
-#' convert SMILES to a series of molecular descriptors
-#'
+#' Molecular descriptors
 #' @param SMILES a character vector of valid SMILES
 #' @importFrom dplyr mutate
 #' @importFrom parallel makeCluster parLapply stopCluster

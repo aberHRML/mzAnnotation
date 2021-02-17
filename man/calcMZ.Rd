@@ -2,7 +2,7 @@
 % Please edit documentation in R/calcMZ.R
 \name{calcMZ}
 \alias{calcMZ}
-\title{calcM}
+\title{Calculate the m/z of a mass}
 \usage{
 calcMZ(
   M,

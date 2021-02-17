@@ -3,7 +3,7 @@
 \docType{data}
 \name{aminoAcids}
 \alias{aminoAcids}
-\title{aminoAcids}
+\title{Example amino acids}
 \format{
 a tibble containing 20 rows and 6 columns
 \describe{

@@ -21,9 +21,7 @@ devtools::install_github('jasenfinch/mzAnnotation')
 
 Available tools include:
 
-  - Adduct, isotope and biotransfromation relationship prediction
-
-<!-- end list -->
+-   Adduct, isotope and biotransfromation relationship prediction
 
 ``` r
 res <- relationshipCalculator(c(132.03023,168.00691))
@@ -36,9 +34,7 @@ res
 #> # … with 2 more variables: Transformation2 <lgl>, Error <dbl>
 ```
 
-  - Molecular formula generation
-
-<!-- end list -->
+-   Molecular formula generation
 
 ``` r
 res <- generateMF(342.11621,
@@ -51,9 +47,7 @@ res
 #> 1 C12H22O11  342.           0
 ```
 
-  - Isotope distribution calculation
-
-<!-- end list -->
+-   Isotope distribution calculation
 
 ``` r
 res <- isotopeDistribution(MF = 'C4H5O5',charge = -1)
@@ -71,9 +65,7 @@ res
 #> 8 13C 1; 17O 1  135.            0.0000900   0.0000850
 ```
 
-  - Putative ionisation product searches
-
-<!-- end list -->
+-   Putative ionisation product searches
 
 ``` r
 db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))

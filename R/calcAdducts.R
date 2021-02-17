@@ -1,4 +1,4 @@
-#' calcAdducts
+#' Calculate adducts
 #' @rdname calcAdducts
 #' @description Calculate ionisation products for given database accession.
 #' @param db object of class \code{MetaboliteDatabase}

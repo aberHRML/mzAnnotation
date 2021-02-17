@@ -54,6 +54,13 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
+      - name: Install Windows system dependencies
+        if: runner.os == 'Windows'
+        run: |
+          download.file('https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip','D:/a/openbabel3-build.zip')
+          untar('D:/a/openbabel3-build.zip',exdir = 'D:/a/openbabel3-build')
+        shell: Rscript {0}
+        
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'
         run: |
@@ -77,6 +84,8 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
+          OPEN_BABEL_SRC: D:/a/openbabel3-build/src
+          OPEN_BABEL_BIN: D:/a/openbabel3-build/bin
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
         

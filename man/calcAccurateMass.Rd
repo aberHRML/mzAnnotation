@@ -2,7 +2,7 @@
 % Please edit documentation in R/calcAccurateMass.R
 \name{calcAccurateMass}
 \alias{calcAccurateMass}
-\title{calcAccurateMass}
+\title{Calculate molecular formula accurate mass}
 \usage{
 calcAccurateMass(MF, charge = 0, elementTable = elements())
 }

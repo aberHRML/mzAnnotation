@@ -2,7 +2,7 @@
 % Please edit documentation in R/transformMF.R
 \name{transformMF}
 \alias{transformMF}
-\title{transformMF}
+\title{Transform a molecular formula}
 \usage{
 transformMF(
   MF,

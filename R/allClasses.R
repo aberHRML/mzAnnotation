@@ -1,7 +1,7 @@
 # setOldClass('tbl_dbi')
 # setClassUnion('metabolite_table',c('tbl_df','tbl_dbi'))
 
-#' MetaboliteDatabase
+#' Metabolite database class
 #' @export
 
 setClass('MetaboliteDatabase',

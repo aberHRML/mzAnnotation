@@ -9,7 +9,7 @@ cnvrt <- function(input, inputType, outputType) {
     .Call('_mzAnnotation_cnvrt', PACKAGE = 'mzAnnotation', input, inputType, outputType)
 }
 
-#' smileToMF
+#' Convert SMILES to molecular formula
 #' @description convert a smile to a molecular formula
 #' @param smile a valid SMILE
 #' @examples
@@ -19,7 +19,7 @@ smileToMF <- function(smile) {
     .Call('_mzAnnotation_smileToMF', PACKAGE = 'mzAnnotation', smile)
 }
 
-#' smileToAccurateMass
+#' Convert SMILES to accurate mass
 #' @description convert a smile to an accurate mass
 #' @param smile a valid SMILE
 #' @examples
@@ -29,7 +29,7 @@ smileToAccurateMass <- function(smile) {
     .Call('_mzAnnotation_smileToAccurateMass', PACKAGE = 'mzAnnotation', smile)
 }
 
-#' smartsSearch
+#' SMARTS substructure search
 #' @description SMARTS substructure searching for SMILES.
 #' @param smile a valid SMILE
 #' @param smart a valid SMARTS symbol
@@ -44,7 +44,7 @@ descriptor <- function(smile, desc) {
     .Call('_mzAnnotation_descriptor', PACKAGE = 'mzAnnotation', smile, desc)
 }
 
-#' ppmRange
+#' Calculate a PPM error range
 #' @description Calculate the upper and lower ppm boundaries for a given m/z
 #' @param mz the m/z for which to calculate the range
 #' @param ppm the ppm 

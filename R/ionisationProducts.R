@@ -1,4 +1,4 @@
-#' Ionisation Products
+#' Ionisation products
 #' @description Calculate ionisation products for a given SMILES.
 #' @param SMILES a valid SMILES string
 #' @param adductTable table of adduct rules. Defaults to adducts()

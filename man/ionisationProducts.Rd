@@ -2,7 +2,7 @@
 % Please edit documentation in R/ionisationProducts.R
 \name{ionisationProducts}
 \alias{ionisationProducts}
-\title{Ionisation Products}
+\title{Ionisation products}
 \usage{
 ionisationProducts(SMILES, adductTable = adducts())
 }

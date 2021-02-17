@@ -1,4 +1,4 @@
-#' calcAccurateMass
+#' Calculate molecular formula accurate mass
 #' @description calculate the accurate mass of a given molecular formula
 #' @param MF molecular formula for which to calculate the accrate mass
 #' @param charge charge of the given molecular formula

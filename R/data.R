@@ -1,4 +1,4 @@
-#' adducts
+#' Adduct formation rules
 #' @description Formation rules for electrospray ionisation adducts
 #' @format A tibble containing 58 rows and 6 columns
 #' \describe{
@@ -19,7 +19,7 @@ adducts <- function(){
   return(Adducts)
 }
 
-#' elements
+#' Elemental information
 #' @description Elemental information
 #' @format A tibble containing 31 rows and 5 columns.
 #' @export
@@ -28,7 +28,7 @@ elements <- function(){
   return(Elements)
 }
 
-#' isotopes
+#' Isotopic rules
 #' @description Isotope rules
 #' @format A tibble containing 8 rows and 3 columns.
 #' \describe{
@@ -42,7 +42,7 @@ isotopes <- function(){
   return(Isotopes)
 }
 
-#' transformations
+#' Transformation rules
 #' @description Transformation rules
 #' @format A tibble containing 12 rows and 9 columns.
 #' \describe{

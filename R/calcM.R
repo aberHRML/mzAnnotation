@@ -1,4 +1,4 @@
-#' calcM
+#' Calculate the mass of an m/z
 #' @description calculate M for a given m/z, adduct, isotope and transformation
 #' @param mz m/z for which to calculate M
 #' @param adduct adduct to apply

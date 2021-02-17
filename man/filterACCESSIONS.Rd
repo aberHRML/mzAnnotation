@@ -3,7 +3,7 @@
 \name{filterACCESSIONS}
 \alias{filterACCESSIONS}
 \alias{filterACCESSIONS,MetaboliteDatabase-method}
-\title{filterACCESSIONS}
+\title{Filter accessions}
 \usage{
 filterACCESSIONS(db, ids)
 

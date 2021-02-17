@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{adducts}
 \alias{adducts}
-\title{adducts}
+\title{Adduct formation rules}
 \format{
 A tibble containing 58 rows and 6 columns
 \describe{

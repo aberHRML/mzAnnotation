@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{elements}
 \alias{elements}
-\title{elements}
+\title{Elemental information}
 \format{
 A tibble containing 31 rows and 5 columns.
 }

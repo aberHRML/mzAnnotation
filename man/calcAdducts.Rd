@@ -3,7 +3,7 @@
 \name{calcAdducts}
 \alias{calcAdducts}
 \alias{calcAdducts,MetaboliteDatabase-method}
-\title{calcAdducts}
+\title{Calculate adducts}
 \usage{
 calcAdducts(db, id, adductTable = adducts())
 

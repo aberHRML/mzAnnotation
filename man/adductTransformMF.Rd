@@ -2,7 +2,7 @@
 % Please edit documentation in R/adductTransfromMF.R
 \name{adductTransformMF}
 \alias{adductTransformMF}
-\title{adductTransformMF}
+\title{Molecular formula adduct transformation}
 \usage{
 adductTransformMF(MF, adduct, Adducts = adducts())
 }

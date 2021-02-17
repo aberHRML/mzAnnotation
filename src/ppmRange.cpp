@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' ppmRange
+//' Calculate a PPM error range
 //' @description Calculate the upper and lower ppm boundaries for a given m/z
 //' @param mz the m/z for which to calculate the range
 //' @param ppm the ppm 

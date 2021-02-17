@@ -2,7 +2,7 @@
 % Please edit documentation in R/descriptors.R
 \name{descriptors}
 \alias{descriptors}
-\title{convert SMILES to a series of molecular descriptors}
+\title{Molecular descriptors}
 \usage{
 descriptors(SMILES)
 }
@@ -10,7 +10,7 @@ descriptors(SMILES)
 \item{SMILES}{a character vector of valid SMILES}
 }
 \description{
-convert SMILES to a series of molecular descriptors
+Molecular descriptors
 }
 \examples{
 data(aminoAcids)

@@ -1,4 +1,4 @@
-#' getAccessions-MetaboliteDatabase
+#' Retrieve accessions
 #' @rdname getAccessions
 #' @description return accession data table from MetaboliteDatabase object
 #' @param db MetaboliteDatabase
@@ -10,7 +10,7 @@ setMethod('getAccessions',signature = 'MetaboliteDatabase',
           }
 )
 
-#' getDescriptors-MetaboliteDatabase
+#' Retrieve descriptors
 #' @rdname getDescriptors
 #' @description return descriptor data table from MetaboliteDatabase object
 #' @param db MetaboliteDatabase

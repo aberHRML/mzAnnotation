@@ -1,4 +1,4 @@
-#' generateMF
+#' Molecular formula generation
 #' @description Molecular formula generation
 #' @param mass accurate mass
 #' @param ppm ppm tolerance

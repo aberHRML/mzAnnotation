@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{transformations}
 \alias{transformations}
-\title{transformations}
+\title{Transformation rules}
 \format{
 A tibble containing 12 rows and 9 columns.
 \describe{

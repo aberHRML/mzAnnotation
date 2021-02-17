@@ -1,4 +1,4 @@
-#' Putative Ionisation Product searching
+#' Putative ionisation product search
 #' @rdname PIPsearch
 #' @param db object of class \code{MetaboliteDatabase}.
 #' @param mz the accurate m/z to search.

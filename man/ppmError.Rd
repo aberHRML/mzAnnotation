@@ -2,7 +2,7 @@
 % Please edit documentation in R/ppmError.R
 \name{ppmError}
 \alias{ppmError}
-\title{ppmError}
+\title{Calculate PPM error}
 \usage{
 ppmError(measured, theoretical)
 }

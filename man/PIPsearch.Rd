@@ -3,7 +3,7 @@
 \name{PIPsearch}
 \alias{PIPsearch}
 \alias{PIPsearch,MetaboliteDatabase-method}
-\title{Putative Ionisation Product searching}
+\title{Putative ionisation product search}
 \usage{
 PIPsearch(
   db,
@@ -41,7 +41,7 @@ PIPsearch(
 \item{adductTable}{adduct table containing available adduct rules. Defaults to table returned by \code{adducts()}.}
 }
 \description{
-Putative Ionisation Product searching
+Putative ionisation product search
 }
 \examples{
 res <- PIPsearch(metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES)),132.03023,5,'[M-H]1-')

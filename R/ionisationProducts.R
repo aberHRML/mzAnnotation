@@ -4,7 +4,7 @@
 #' @param adductTable table of adduct rules. Defaults to adducts()
 #' @examples 
 #' ionisationProducts(aminoAcids$SMILES[1])
-#' @importFrom dplyr ungroup
+#' @importFrom dplyr ungroup rowwise
 #' @export
 
 ionisationProducts <- function(SMILES,adductTable = adducts()){

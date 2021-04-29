@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mzAnnotation</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.4</span>
       </span>
     </div>
 
@@ -123,10 +123,9 @@
     <pre class="usage"><span class='fu'>relationshipCalculator</span><span class='op'>(</span>
   <span class='va'>mz</span>,
   limit <span class='op'>=</span> <span class='fl'>0.001</span>,
-  modes <span class='op'>=</span> <span class='cn'>NULL</span>,
   adducts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"[M-H]1-"</span>, <span class='st'>"[M+Cl]1-"</span>, <span class='st'>"[M+K-2H]1-"</span><span class='op'>)</span>,
-  isotopes <span class='op'>=</span> <span class='cn'>NULL</span>,
-  transformations <span class='op'>=</span> <span class='cn'>NULL</span>,
+  isotopes <span class='op'>=</span> <span class='cn'>NA</span>,
+  transformations <span class='op'>=</span> <span class='cn'>NA</span>,
   adductTable <span class='op'>=</span> <span class='fu'><a href='adducts.html'>adducts</a></span><span class='op'>(</span><span class='op'>)</span>,
   isotopeTable <span class='op'>=</span> <span class='fu'><a href='isotopes.html'>isotopes</a></span><span class='op'>(</span><span class='op'>)</span>,
   transformationTable <span class='op'>=</span> <span class='fu'><a href='transformations.html'>transformations</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -144,12 +143,8 @@
       <td><p>limit of deviation for thresholding associations. Defaults to 0.001</p></td>
     </tr>
     <tr>
-      <th>modes</th>
-      <td><p>character vector of ionisation modes of input mz</p></td>
-    </tr>
-    <tr>
       <th>adducts</th>
-      <td><p>character vector of adducts to use. If <code>NULL</code> all available adducts will be used. If <code>modes</code> is not <code>NULL</code>, this should be named list, the names denoting the adduct aquisition modes.</p></td>
+      <td><p>character vector of adducts names to use</p></td>
     </tr>
     <tr>
       <th>isotopes</th>
@@ -180,20 +175,10 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>relationshipCalculator</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>132.03023</span>,<span class='fl'>168.00691</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 9</span><span>
-#&gt;   `m/z1` `m/z2` Adduct1 Adduct2 Isotope1 Isotope2 Transformation1
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>   132.   168. [M-H]1- [M+Cl]… </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #949494;'># … with 2 more variables: Transformation2 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, Error </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
-<span class='co'>## with modes declared</span>
-<span class='fu'>relationshipCalculator</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>132.03023</span>,<span class='fl'>172.00067</span><span class='op'>)</span>,
-                      modes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'n'</span>,<span class='st'>'p'</span><span class='op'>)</span>,
-                      adducts <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"[M-H]1-"</span>,<span class='st'>"[M+Cl]1-"</span>,<span class='st'>"[M+K-2H]1-"</span><span class='op'>)</span>, 
-                                     p <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'[M+H]1+'</span>,<span class='st'>'[M+K]1+'</span>,<span class='st'>'[M+Na]1+'</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 1 x 9</span><span>
-#&gt;   `m/z1` `m/z2` Adduct1 Adduct2 Isotope1 Isotope2 Transformation1
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>          
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>   132.   172. [M-H]1- [M+K]1+ </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>             
-#&gt; </span><span style='color: #949494;'># … with 2 more variables: Transformation2 </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span style='color: #949494;'>, Error </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span></div></span></pre>
+#&gt;   `m/z1` `m/z2` Adduct1 Adduct2  Isotope1 Isotope2 Transformation1
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>          
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>   132.   168. [M-H]1- [M+Cl]1- </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>       </span><span style='color: #BB0000;'>NA</span><span>             
+#&gt; </span><span style='color: #949494;'># … with 2 more variables: Transformation2 &lt;lgl&gt;, Error &lt;dbl&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

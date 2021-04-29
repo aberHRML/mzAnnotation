@@ -14,9 +14,9 @@
 #' @author Jasen Finch
 #' @export
 #' @importFrom utils combn
-#' @importFrom dplyr left_join contains
+#' @importFrom dplyr left_join contains inner_join
 #' @importFrom stringr str_c
-#' @importFrom tidyr expand_grid
+#' @importFrom tidyr expand_grid spread drop_na
 #' @importFrom tibble rowid_to_column tibble
 
 relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), isotopes = NA, transformations = NA, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
@@ -55,7 +55,7 @@ relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+
   unique_rel <- relationships %>% 
     select(contains('ID')) %>% 
     mutate(fill = 1) %>%
-    tidyr::spread(ID2,fill) %>%
+    spread(ID2,fill) %>%
     {
       id1 <- select(., ID1)
       . <- select(.,-ID1)
@@ -65,12 +65,12 @@ relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+
       .
     } %>%
     gather(ID2,fill,-ID1) %>%
-    tidyr::drop_na() %>%
+    drop_na() %>%
     select(-fill) %>% 
     mutate(ID2 = as.numeric(ID2))
   
   relationships <- relationships %>% 
-    dplyr::anti_join(unique_rel,
+    inner_join(unique_rel,
                      by = c("ID1", "ID2")) %>% 
     select(-contains('ID'))
   

@@ -9,77 +9,106 @@
 #' @param adductTable table containing adduct formation rules. Defaults to \code{\link{adducts}()}.
 #' @param isotopeTable table containing isotope rules. Defaults to \code{\link{isotopes}()}.
 #' @param transformationTable table containing transformation rules. Defaults to \code{\link{transformations}()}.
+#' @examples 
+#' relationshipCalculator(c(132.03023,168.00691))
 #' @author Jasen Finch
 #' @export
 #' @importFrom utils combn
 #' @importFrom dplyr left_join contains
 #' @importFrom stringr str_c
-#' @examples 
-#' relationshipCalculator(c(132.03023,168.00691))
-#' 
-#' ## with modes declared
-#' relationshipCalculator(c(132.03023,172.00067),
-#'                       modes = c('n','p'),
-#'                       adducts = list(n = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), 
-#'                                      p = c('[M+H]1+','[M+K]1+','[M+Na]1+')))
+#' @importFrom tidyr expand_grid
+#' @importFrom tibble rowid_to_column tibble
 
-
-relationshipCalculator <- function(mz, limit = 0.001, modes = NULL, adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), isotopes = NULL, transformations = NULL, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
-  if (is.null(adducts)) {
-    adducts <- adductTable$Name
-  }
-  if (!is.null(modes) & is.list(adducts)) {
-    A1 <- adducts[[modes[1]]]
-    A2 <- adducts[[modes[2]]]
-  } else {
-    A1 <- adducts
-    A2 <- adducts
-  }
-  isotopes <- c('NA',isotopes)
-  transformations <- c('NA',transformations)
+relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), isotopes = NA, transformations = NA, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
   
-  combinations <- combn(mz,2)
+  Ms <- expand_grid(`m/z` = mz,
+                    Adduct = adducts,
+                    Isotope = isotopes,
+                    Transformation = transformations) %>% 
+    mutate(M = calculateMs(`m/z`,Adduct,Isotope,Transformation)) %>% 
+    rowid_to_column(var = 'ID')
   
-  combinations <- apply(combinations,2,function(x){
-    M1 <- calculateMs(x[1],A1,isotopes,transformations,adductTable,isotopeTable,transformationTable)
-    M2 <- calculateMs(x[2],A2,isotopes,transformations,adductTable,isotopeTable,transformationTable)
-    
-    coms <- expand.grid(M1$ID,M2$ID)
-    colnames(coms) <- c('ID1','ID2')
-    coms <- left_join(coms,M1,by = c('ID1' = 'ID'))
-    colnames(coms)[3:ncol(coms)] <- str_c(colnames(coms)[3:ncol(coms)],'1')
-    coms <- left_join(coms,M2,by = c('ID2' = 'ID'))
-    colnames(coms)[8:ncol(coms)] <- str_c(colnames(coms)[8:ncol(coms)],'2')
-    
-    coms <- mutate(coms,Error = abs(M1 - M2)) %>%
-      filter(Error <= limit) %>%
-      select(contains('m/z'),contains('Adduct'),contains('Isotope'),contains('Transformation'),Error)
-    return(coms)
-  })
-  combinations <- bind_rows(combinations) %>%
-    as_tibble()
-  return(combinations)
+  relationships <- expand_grid(ID1 = Ms$ID,
+                               ID2 = Ms$ID) %>%
+    filter(ID1 != ID2) %>% 
+  left_join(Ms %>% 
+              select(ID1 = ID,M1 = M),
+            by = 'ID1') %>% 
+    left_join(Ms %>% 
+                select(ID2 = ID,M2 = M),
+              by = 'ID2') %>% 
+    mutate(Error = abs(M1 - M2)) %>% 
+    filter(Error <= limit) %>% 
+    left_join(Ms %>% 
+                setNames(str_c(names(.),'1')),
+              by = c("ID1", "M1")) %>% 
+    left_join(Ms %>% 
+                setNames(str_c(names(.),'2')),
+              by = c("ID2", "M2")) %>%
+    filter(`m/z1` != `m/z2`) %>% 
+    select(contains('ID'),
+           contains('m/z'),
+           contains('Adduct'),
+           contains('Isotope'),
+           contains('Transformation'),Error)
+  
+  unique_rel <- relationships %>% 
+    select(contains('ID')) %>% 
+    mutate(fill = 1) %>%
+    tidyr::spread(ID2,fill) %>%
+    {
+      id1 <- select(., ID1)
+      . <- select(.,-ID1)
+      
+      .[lower.tri(.)] <- NA
+      . <- bind_cols(.,id1)
+      .
+    } %>%
+    gather(ID2,fill,-ID1) %>%
+    tidyr::drop_na() %>%
+    select(-fill) %>% 
+    mutate(ID2 = as.numeric(ID2))
+  
+  relationships <- relationships %>% 
+    dplyr::anti_join(unique_rel,
+                     by = c("ID1", "ID2")) %>% 
+    select(-contains('ID'))
+  
+  return(relationships)
 }
 
-#' @importFrom tibble tibble rowid_to_column
-#' @importFrom dplyr rowwise
-
-calculateMs <- function(mz,add,iso,trans,adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()) {
-  M <- map(trans,~{
-    t <- .
-    t <- map(iso,~{
-      i <- .
-      if (i == 'NA') {i <- NA}
-      if (t == 'NA') {t <- NA}
-      i <- tibble(`m/z` = mz, Adduct = add, Isotope = i, Transformation = t) %>%
-        rowwise() %>%
-        mutate(M = calcM(`m/z`,adduct = Adduct,isotope = Isotope,transformation = Transformation,adductTable = adductTable,isotopeTable = isotopeTable,transformationTable = transformationTable))
-      return(i)
-    })
-    t <- bind_rows(t)
-    return(t)
-  })
-  M <- bind_rows(M)
-  M <- rowid_to_column(M, 'ID')
-  return(M)
+calculateMs <- function(mzs, adducts, isotopes, transformations, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
+  
+  if (!identical(length(mzs),length(adducts),length(isotopes),length(transformations))){
+    stop('Arguments mzs, adducts, isotopes, transformations should be vectors of the same length',
+         call. = FALSE) 
+  }
+  
+  addRules <- adducts %>% 
+    tibble(Adduct = .) %>% 
+    left_join(adductTable ,
+              by = c('Adduct' = 'Name'))
+  
+  isoRules <- isotopes %>% 
+    tibble(Isotope = .) %>% 
+    left_join(isotopeTable, by = "Isotope") %>% 
+    {
+      .$`Mass Difference`[is.na(.$`Mass Difference`)] <- 0
+      .
+    }
+  
+  transRules <- transformations %>% 
+    tibble(Transformation  = .) %>% 
+    left_join(transformationTable, by = c("Transformation" = "MF Change")) %>% 
+    {
+      .$Difference[is.na(.$Difference)] <- 0
+      .
+    }
+  
+  M <- ((mzs - addRules$Add) * addRules$Charge) 
+  M <- (M - isoRules$`Mass Difference`)
+  M <- M / addRules$xM
+  M <- M - transRules$Difference
+  
+  return(round(M,5))
 }

@@ -1,3 +1,7 @@
+# mzAnnotation 1.7.5
+
+* Fixed error in `relationshipCalculator()` for empty returns. 
+
 # mzAnnotation 1.7.4
 
 * Remove `modes` argument form `relationshipCalcualtor()`.

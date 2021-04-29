@@ -3,9 +3,7 @@ context('relationship calculation')
 
 test_that('relationshipCalculator works',{
   rel <- relationshipCalculator(c(132.03023,172.00067),
-                                modes = c('n','p'),
-                                adducts = list(n = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), 
-                                               p = c('[M+H]1+','[M+K]1+','[M+Na]1+')))
+                                adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-",'[M+H]1+','[M+K]1+','[M+Na]1+'))
   
   expect_false(F %in% (class(rel) == c("tbl_df","tbl","data.frame")))
   expect_true(nrow(rel) == 1)

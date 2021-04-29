@@ -7,10 +7,9 @@
 relationshipCalculator(
   mz,
   limit = 0.001,
-  modes = NULL,
   adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"),
-  isotopes = NULL,
-  transformations = NULL,
+  isotopes = NA,
+  transformations = NA,
   adductTable = adducts(),
   isotopeTable = isotopes(),
   transformationTable = transformations()
@@ -21,9 +20,7 @@ relationshipCalculator(
 
 \item{limit}{limit of deviation for thresholding associations. Defaults to 0.001}
 
-\item{modes}{character vector of ionisation modes of input mz}
-
-\item{adducts}{character vector of adducts to use. If \code{NULL} all available adducts will be used. If \code{modes} is not \code{NULL}, this should be named list, the names denoting the adduct aquisition modes.}
+\item{adducts}{character vector of adducts names to use}
 
 \item{isotopes}{character vector of isotopes to use.}
 
@@ -40,12 +37,6 @@ adduct, isotope and biotransfromation calculation.
 }
 \examples{
 relationshipCalculator(c(132.03023,168.00691))
-
-## with modes declared
-relationshipCalculator(c(132.03023,172.00067),
-                      modes = c('n','p'),
-                      adducts = list(n = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), 
-                                     p = c('[M+H]1+','[M+K]1+','[M+Na]1+')))
 }
 \author{
 Jasen Finch

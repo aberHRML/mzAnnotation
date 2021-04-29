@@ -52,27 +52,29 @@ relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+
            contains('Isotope'),
            contains('Transformation'),Error)
   
-  unique_rel <- relationships %>% 
-    select(contains('ID')) %>% 
-    mutate(fill = 1) %>%
-    spread(ID2,fill) %>%
-    {
-      id1 <- select(., ID1)
-      . <- select(.,-ID1)
-      
-      .[lower.tri(.)] <- NA
-      . <- bind_cols(.,id1)
-      .
-    } %>%
-    gather(ID2,fill,-ID1) %>%
-    drop_na() %>%
-    select(-fill) %>% 
-    mutate(ID2 = as.numeric(ID2))
-  
-  relationships <- relationships %>% 
-    inner_join(unique_rel,
-                     by = c("ID1", "ID2")) %>% 
-    select(-contains('ID'))
+  if (nrow(relationships) > 1){
+    unique_rel <- relationships %>% 
+      select(contains('ID')) %>% 
+      mutate(fill = 1) %>%
+      spread(ID2,fill) %>%
+      {
+        id1 <- select(., ID1)
+        . <- select(.,-ID1)
+        
+        .[lower.tri(.)] <- NA
+        . <- bind_cols(.,id1)
+        .
+      } %>%
+      gather(ID2,fill,-ID1) %>%
+      drop_na() %>%
+      select(-fill) %>% 
+      mutate(ID2 = as.numeric(ID2))
+    
+    relationships <- relationships %>% 
+      inner_join(unique_rel,
+                 by = c("ID1", "ID2")) %>% 
+      select(-contains('ID')) 
+  }
   
   return(relationships)
 }

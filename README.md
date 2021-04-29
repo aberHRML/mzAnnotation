@@ -34,9 +34,9 @@ res <- relationshipCalculator(c(132.03023,168.00691))
 
 res
 #> # A tibble: 1 x 9
-#>   `m/z1` `m/z2` Adduct1 Adduct2 Isotope1 Isotope2 Transformation1
-#>    <dbl>  <dbl> <chr>   <chr>   <lgl>    <lgl>    <lgl>          
-#> 1   132.   168. [M-H]1- [M+Cl]… NA       NA       NA             
+#>   `m/z1` `m/z2` Adduct1 Adduct2  Isotope1 Isotope2 Transformation1
+#>    <dbl>  <dbl> <chr>   <chr>    <lgl>    <lgl>    <lgl>          
+#> 1   132.   168. [M-H]1- [M+Cl]1- NA       NA       NA             
 #> # … with 2 more variables: Transformation2 <lgl>, Error <dbl>
 ```
 
@@ -82,9 +82,9 @@ res <- PIPsearch(db = db,
                  isotope = NA)
 res
 #> # A tibble: 1 x 12
-#>      ID NAME  InChI InChIKey SMILES MF    Accurate_Mass Isotope Adduct
-#>   <int> <chr> <chr> <chr>    <chr>  <chr>         <dbl> <lgl>   <chr> 
-#> 1     4 L-As… InCh… CKLJMWT… C([C@… C4H7…          133. NA      [M-H]…
-#> # … with 3 more variables: `Measured m/z` <dbl>, `Theoretical m/z` <dbl>, `PPM
-#> #   Error` <dbl>
+#>      ID NAME   InChI       InChIKey   SMILES  MF    Accurate_Mass Isotope Adduct
+#>   <int> <chr>  <chr>       <chr>      <chr>   <chr>         <dbl> <lgl>   <chr> 
+#> 1     4 L-Asp… InChI=1S/C… CKLJMWTZI… C([C@@… C4H7…          133. NA      [M-H]…
+#> # … with 3 more variables: Measured m/z <dbl>, Theoretical m/z <dbl>,
+#> #   PPM Error <dbl>
 ```

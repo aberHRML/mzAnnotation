@@ -39,7 +39,6 @@ Collate: allGenerics.R
     calcAdducts.R
     calcM.R
     calcMZ.R
-    calculateMs.R
     checks.R
     convert.R
     data.R

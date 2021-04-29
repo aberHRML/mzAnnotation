@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">mzAnnotation</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.7.4</span>
       </span>
     </div>
 
@@ -95,9 +95,9 @@
 
 <span class="va">res</span>
 <span class="co">#&gt; # A tibble: 1 x 9</span>
-<span class="co">#&gt;   `m/z1` `m/z2` Adduct1 Adduct2 Isotope1 Isotope2 Transformation1</span>
-<span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;    &lt;lgl&gt;    &lt;lgl&gt;          </span>
-<span class="co">#&gt; 1   132.   168. [M-H]1- [M+Cl]… NA       NA       NA             </span>
+<span class="co">#&gt;   `m/z1` `m/z2` Adduct1 Adduct2  Isotope1 Isotope2 Transformation1</span>
+<span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;lgl&gt;    &lt;lgl&gt;    &lt;lgl&gt;          </span>
+<span class="co">#&gt; 1   132.   168. [M-H]1- [M+Cl]1- NA       NA       NA             </span>
 <span class="co">#&gt; # … with 2 more variables: Transformation2 &lt;lgl&gt;, Error &lt;dbl&gt;</span></code></pre></div>
 <ul>
 <li>Molecular formula generation</li>
@@ -140,11 +140,11 @@
                  isotope <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>
 <span class="va">res</span>
 <span class="co">#&gt; # A tibble: 1 x 12</span>
-<span class="co">#&gt;      ID NAME  InChI InChIKey SMILES MF    Accurate_Mass Isotope Adduct</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt; &lt;lgl&gt;   &lt;chr&gt; </span>
-<span class="co">#&gt; 1     4 L-As… InCh… CKLJMWT… C([C@… C4H7…          133. NA      [M-H]…</span>
-<span class="co">#&gt; # … with 3 more variables: `Measured m/z` &lt;dbl&gt;, `Theoretical m/z` &lt;dbl&gt;, `PPM</span>
-<span class="co">#&gt; #   Error` &lt;dbl&gt;</span></code></pre></div>
+<span class="co">#&gt;      ID NAME   InChI       InChIKey   SMILES  MF    Accurate_Mass Isotope Adduct</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;lgl&gt;   &lt;chr&gt; </span>
+<span class="co">#&gt; 1     4 L-Asp… InChI=1S/C… CKLJMWTZI… C([C@@… C4H7…          133. NA      [M-H]…</span>
+<span class="co">#&gt; # … with 3 more variables: Measured m/z &lt;dbl&gt;, Theoretical m/z &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   PPM Error &lt;dbl&gt;</span></code></pre></div>
 </div>
 </div>
   </div>

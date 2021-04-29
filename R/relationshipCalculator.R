@@ -2,8 +2,7 @@
 #' @description adduct, isotope and biotransfromation calculation.
 #' @param mz numeric \code{vector} of accurate m/z
 #' @param limit limit of deviation for thresholding associations. Defaults to 0.001
-#' @param modes character vector of ionisation modes of input mz 
-#' @param adducts character vector of adducts to use. If \code{NULL} all available adducts will be used. If \code{modes} is not \code{NULL}, this should be named list, the names denoting the adduct aquisition modes.
+#' @param adducts character vector of adducts names to use
 #' @param isotopes character vector of isotopes to use.
 #' @param transformations character vector of transformations to use
 #' @param adductTable table containing adduct formation rules. Defaults to \code{\link{adducts}()}.
@@ -18,6 +17,7 @@
 #' @importFrom stringr str_c
 #' @importFrom tidyr expand_grid spread drop_na
 #' @importFrom tibble rowid_to_column tibble
+#' @importFrom stats setNames
 
 relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), isotopes = NA, transformations = NA, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
   

@@ -63,7 +63,7 @@ jobs:
           BiocManager::install('zlibbioc')
           ZLIB_CONFIG = system.file('libs/x64',package = 'zlibbioc')
           ZLIB_CONFIG = gsub('/','\\\\',system.file('libs/x64',package = 'zlibbioc'))
-          system(paste0('set PATH=%PATH%;',ZLIB_CONFIG))
+          system(paste0('setx /M PATH %PATH%;',ZLIB_CONFIG))
         shell: Rscript {0}
         
       - name: Install Linux system dependencies

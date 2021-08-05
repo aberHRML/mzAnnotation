@@ -64,7 +64,6 @@ jobs:
           ZLIB_CONFIG = system.file('libs/x64',package = 'zlibbioc')
           ZLIB_CONFIG = gsub('/','\\\\',system.file('libs/x64',package = 'zlibbioc'))
           system(paste0('setx /M PATH %PATH%;D:/a/openbabel3-build/bin;',ZLIB_CONFIG),intern = TRUE)
-          system('PATH',intern = TRUE)
         shell: Rscript {0}
         
       - name: Install Linux system dependencies
@@ -92,7 +91,9 @@ jobs:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
           OPEN_BABEL_SRC: D:/a/openbabel3-build/src
           OPEN_BABEL_BIN: D:/a/openbabel3-build/bin
-        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        run: |
+          Sys.getenv('PATH')
+          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
         
       - name: Test coverage

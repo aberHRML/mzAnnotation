@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // HR2
 std::vector<std::vector<std::string> > HR2(double measured_mass, std::vector<int> max, std::vector<int> min, double tolerance, double charge, bool applygr);
 RcppExport SEXP _mzAnnotation_HR2(SEXP measured_massSEXP, SEXP maxSEXP, SEXP minSEXP, SEXP toleranceSEXP, SEXP chargeSEXP, SEXP applygrSEXP) {

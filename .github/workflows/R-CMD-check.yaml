@@ -63,7 +63,9 @@ jobs:
       
       - name: Set system PATH
         if: runner.os == 'Windows'
-        run: echo "D:\a\openbabel3-build\bin;D:\a\_temp\Library\zlibbioc\libs" >> $GITHUB_PATH
+        run: |
+          echo "D:\a\openbabel3-build\bin" >> $GITHUB_PATH
+          echo "D:\a\_temp\Library\zlibbioc\libs" >> $GITHUB_PATH
         
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'

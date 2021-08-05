@@ -59,12 +59,11 @@ jobs:
         run: |
           download.file('https://github.com/girke-lab/ChemmineOB/releases/download/3.0.0/openbabel3-build.zip','D:/a/openbabel3-build.zip')
           untar('D:/a/openbabel3-build.zip',exdir = 'D:/a/openbabel3-build')
-          install.packages('BiocManager')
-          BiocManager::install('zlibbioc')
-          ZLIB_CONFIG = system.file('libs/x64',package = 'zlibbioc')
-          ZLIB_CONFIG = gsub('/','\\\\',system.file('libs/x64',package = 'zlibbioc'))
-          system(paste0('echo D:\\a\\openbabel3-build\\bin;',ZLIB_CONFIG,' >> $GITHUB_PATH'))
         shell: Rscript {0}
+      
+      - name: Set system PATH
+        if: runner.os == 'Windows'
+        run: echo "D:\a\openbabel3-build\bin;D:\a\_temp\Library\zlibbioc\libs" >> $GITHUB_PATH
         
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'

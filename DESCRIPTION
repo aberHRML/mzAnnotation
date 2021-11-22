@@ -45,7 +45,7 @@ Collate: allGenerics.R
     descriptors.R
     elementFrequencies-method.R
     filter-methods.R
-    generateMF.R
+    molecular_formulas.R
     get-methods.R
     ionisationProducts.R
     isotopeDistribution.R

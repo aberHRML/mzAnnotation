@@ -15,3 +15,6 @@ named numeric vector of element frequencies
 \description{
 Calculate maximum elemental frequencies for a given mass which are suitable for molecular formula generation.
 }
+\examples{
+suitableMaxElements(342.11621)
+}

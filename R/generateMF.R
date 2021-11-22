@@ -99,3 +99,48 @@ generateMF <- function(mass,
     
   return(res)
 }
+
+#' Ionisation product molecular formula generation
+#' @description Generate molecular formulas for a given ionisation product accurate *m/z*.
+#' @param mz Accurate *m/z*
+#' @param adduct ionisation product adduct
+#' @param isotope ionisation product isotope
+#' @param ppm ppm error tolerance threshold
+#' @param adduct_rules_table tibble containing available adduct formation rules. Defaults to `adduct_rules()`.
+#' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
+#' @examples 
+#' ipMF(118.08626,adduct = '[M+H]1+')
+#' @export
+
+ipMF <- function(mz,
+                 adduct = "[M+H]1+",
+                 isotope = NA,
+                 ppm = 1, 
+                 adduct_rules_table = adduct_rules(),
+                 isotope_rules_table = isotope_rules()){
+  
+  M <- calcM(mz,
+             adduct,
+             isotope,
+             adduct_rules = adduct_rules_table,
+             isotope_rules = isotope_rules_table)
+  
+  ppm <- (ppm/10^6 * mz)/M * 10^6
+  
+  if (M < 200) {
+    gr <- FALSE
+  } else {
+    gr <- TRUE
+  }
+  
+  generateMF(M,
+             ppm = ppm,
+             validation = gr) %>%
+    rename(`Theoretical M` = Mass) %>% 
+    mutate(`Measured m/z` = mz,
+           `Measured M` = M,
+           Adduct = adduct,
+           Isotope = isotope) %>% 
+    select(MF,Adduct,Isotope,`Measured m/z`,`Measured M`,`Theoretical M`,`PPM Error`)
+  
+}

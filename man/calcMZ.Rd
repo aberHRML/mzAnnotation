@@ -9,9 +9,9 @@ calcMZ(
   adduct = "[M+H]1+",
   isotope = NA,
   transformation = NA,
-  adductTable = adducts(),
-  isotopeTable = isotopes(),
-  transformationTable = transformations()
+  adduct_rules_table = adduct_rules(),
+  isotope_rules_table = isotope_rules(),
+  transformation_rules_table = transformation_rules()
 )
 }
 \arguments{
@@ -23,11 +23,11 @@ calcMZ(
 
 \item{transformation}{transformation to apply}
 
-\item{adductTable}{adduct table containing available adduct rules. Defaults to \code{adducts()}.}
+\item{adduct_rules_table}{adduct table containing available adduct rules. Defaults to \code{adducts()}.}
 
-\item{isotopeTable}{isotope table containing available isotope rules. Defaults to \code{isotopes()}.}
+\item{isotope_rules_table}{isotope table containing available isotope rules. Defaults to \code{isotopes()}.}
 
-\item{transformationTable}{transformations table containing available transformations rules. Defaults to \code{transformations()}.}
+\item{transformation_rules_table}{transformations table containing available transformations rules. Defaults to \code{transformations()}.}
 }
 \description{
 calculate an m/z for a given M, adduct, isotope and transformation

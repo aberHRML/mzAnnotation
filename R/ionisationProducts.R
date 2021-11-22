@@ -7,16 +7,20 @@
 #' @importFrom dplyr ungroup rowwise
 #' @export
 
-ionisationProducts <- function(SMILES,adductTable = adducts()){
+ionisationProducts <- function(SMILES,adduct_rules_table = adduct_rules()){
   desc <- descriptors(SMILES)
   
-  adductTable %>%
+  adduct_rules_table %>%
     select(Name,Rule) %>%
     bind_cols(desc) %>%
     rowwise() %>%
     mutate(Possible = eval(parse(text = Rule)),
-           `m/z` = calcMZ(Accurate_Mass,Name,adductTable = adductTable),
-           MF = adductTransformMF(MF,Name,Adducts = adductTable)) %>%
+           `m/z` = calcMZ(Accurate_Mass,
+                          Name,
+                          adduct_rules_table = adduct_rules_table),
+           MF = adductTransformMF(MF,
+                                  Name,
+                                  adduct_rules_table = adduct_rules())) %>%
     select(Adduct = Name,`m/z`,MF,Possible) %>%
     ungroup()
 }

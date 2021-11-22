@@ -4,7 +4,7 @@
 \alias{ionisationProducts}
 \title{Ionisation products}
 \usage{
-ionisationProducts(SMILES, adductTable = adducts())
+ionisationProducts(SMILES, adduct_rules_table = adduct_rules())
 }
 \arguments{
 \item{SMILES}{a valid SMILES string}

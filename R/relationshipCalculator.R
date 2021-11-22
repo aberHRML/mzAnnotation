@@ -5,9 +5,9 @@
 #' @param adducts character vector of adducts names to use
 #' @param isotopes character vector of isotopes to use.
 #' @param transformations character vector of transformations to use
-#' @param adductTable table containing adduct formation rules. Defaults to \code{\link{adducts}()}.
-#' @param isotopeTable table containing isotope rules. Defaults to \code{\link{isotopes}()}.
-#' @param transformationTable table containing transformation rules. Defaults to \code{\link{transformations}()}.
+#' @param adduct_rules_table table containing adduct formation rules. Defaults to `adduct_rules()`.
+#' @param isotope_rules_table table containing isotope rules. Defaults to `isotope_rules()`.
+#' @param transformation_rules_table table containing transformation rules. Defaults to `transformation_rules()`.
 #' @examples 
 #' relationshipCalculator(c(132.03023,168.00691))
 #' @author Jasen Finch
@@ -19,7 +19,14 @@
 #' @importFrom tibble rowid_to_column tibble
 #' @importFrom stats setNames
 
-relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), isotopes = NA, transformations = NA, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
+relationshipCalculator <- function(mz, 
+                                   limit = 0.001, 
+                                   adducts = c("[M-H]1-","[M+Cl]1-","[M+K-2H]1-"), 
+                                   isotopes = NA, 
+                                   transformations = NA, 
+                                   adduct_rules_table = adduct_rules(), 
+                                   isotope_rules_table = isotope_rules(), 
+                                   transformation_rules_table = transformation_rules()){
   
   Ms <- expand_grid(`m/z` = mz,
                     Adduct = adducts,
@@ -79,7 +86,13 @@ relationshipCalculator <- function(mz, limit = 0.001, adducts = c("[M-H]1-","[M+
   return(relationships)
 }
 
-calculateMs <- function(mzs, adducts, isotopes, transformations, adductTable = adducts(), isotopeTable = isotopes(), transformationTable = transformations()){
+calculateMs <- function(mzs, 
+                        adducts, 
+                        isotopes, 
+                        transformations, 
+                        adduct_rules_table = adduct_rules(), 
+                        isotope_rules_table = isotope_rules(), 
+                        transformation_rules_table = transformation_rules()){
   
   if (!identical(length(mzs),length(adducts),length(isotopes),length(transformations))){
     stop('Arguments mzs, adducts, isotopes, transformations should be vectors of the same length',
@@ -88,12 +101,12 @@ calculateMs <- function(mzs, adducts, isotopes, transformations, adductTable = a
   
   addRules <- adducts %>% 
     tibble(Adduct = .) %>% 
-    left_join(adductTable ,
+    left_join(adduct_rules_table,
               by = c('Adduct' = 'Name'))
   
   isoRules <- isotopes %>% 
     tibble(Isotope = .) %>% 
-    left_join(isotopeTable, by = "Isotope") %>% 
+    left_join(isotope_rules_table, by = "Isotope") %>% 
     {
       .$`Mass Difference`[is.na(.$`Mass Difference`)] <- 0
       .
@@ -101,7 +114,7 @@ calculateMs <- function(mzs, adducts, isotopes, transformations, adductTable = a
   
   transRules <- transformations %>% 
     tibble(Transformation  = .) %>% 
-    left_join(transformationTable, by = c("Transformation" = "MF Change")) %>% 
+    left_join(transformation_rules_table, by = c("Transformation" = "MF Change")) %>% 
     {
       .$Difference[is.na(.$Difference)] <- 0
       .

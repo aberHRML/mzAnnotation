@@ -10,9 +10,9 @@ relationshipCalculator(
   adducts = c("[M-H]1-", "[M+Cl]1-", "[M+K-2H]1-"),
   isotopes = NA,
   transformations = NA,
-  adductTable = adducts(),
-  isotopeTable = isotopes(),
-  transformationTable = transformations()
+  adduct_rules_table = adduct_rules(),
+  isotope_rules_table = isotope_rules(),
+  transformation_rules_table = transformation_rules()
 )
 }
 \arguments{
@@ -26,11 +26,11 @@ relationshipCalculator(
 
 \item{transformations}{character vector of transformations to use}
 
-\item{adductTable}{table containing adduct formation rules. Defaults to \code{\link{adducts}()}.}
+\item{adduct_rules_table}{table containing adduct formation rules. Defaults to \code{adduct_rules()}.}
 
-\item{isotopeTable}{table containing isotope rules. Defaults to \code{\link{isotopes}()}.}
+\item{isotope_rules_table}{table containing isotope rules. Defaults to \code{isotope_rules()}.}
 
-\item{transformationTable}{table containing transformation rules. Defaults to \code{\link{transformations}()}.}
+\item{transformation_rules_table}{table containing transformation rules. Defaults to \code{transformation_rules()}.}
 }
 \description{
 adduct, isotope and biotransfromation calculation.

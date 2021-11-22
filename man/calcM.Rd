@@ -9,9 +9,9 @@ calcM(
   adduct = "[M+H]1+",
   isotope = NA,
   transformation = NA,
-  adductTable = adducts(),
-  isotopeTable = isotopes(),
-  transformationTable = transformations()
+  adduct_rules_table = adduct_rules(),
+  isotope_rules_table = isotope_rules(),
+  transformation_rules_table = transformation_rules()
 )
 }
 \arguments{
@@ -23,11 +23,11 @@ calcM(
 
 \item{transformation}{transformation to apply}
 
-\item{adductTable}{adduct table containing available adduct rules. Defaults to \code{Adducts}.}
+\item{adduct_rules_table}{tibble containing available adduct formation rules. Defaults to \code{adduct_rules()}.}
 
-\item{isotopeTable}{isotope table containing available isotope rules. Defaults to \code{Isotopes}.}
+\item{isotope_rules_table}{tibble containing available isotopic rules. Defaults to \code{isotope_rules()}.}
 
-\item{transformationTable}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
+\item{transformation_rules_table}{tibble containing available transformation rules. Defaults to \code{transformation_rules()}.}
 }
 \description{
 calculate M for a given m/z, adduct, isotope and transformation

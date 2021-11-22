@@ -2,12 +2,12 @@
 #' @description adduct transform a molecular formula.
 #' @param MF molecular formula to transform.
 #' @param adduct adduct to use for transformation.
-#' @param Adducts Adduct information table to use. Defaults to \code{mzAnnotation::Adducts}.
+#' @param adduct_rules_table Adduct formation rules table to use. Defaults to `adduct_rules()`.
 #' @examples 
 #' adductTransformMF('C6H12O6','[M+H]1+')
 #' @export
 
-adductTransformMF <- function(MF,adduct,Adducts = adducts()){
+adductTransformMF <- function(MF,adduct,adduct_rules_table = adduct_rules()){
 
   tMF <- function(freq,trans,expres){
     if (!is.na(trans)) {
@@ -28,7 +28,7 @@ adductTransformMF <- function(MF,adduct,Adducts = adducts()){
     return(freq)
   }
   
-  adductRule <- Adducts %>% 
+  adductRule <- adduct_rules_table %>% 
     filter(Name == adduct)
   
   freq <- MF %>% count.elements()

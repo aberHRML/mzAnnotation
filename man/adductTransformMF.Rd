@@ -4,14 +4,14 @@
 \alias{adductTransformMF}
 \title{Molecular formula adduct transformation}
 \usage{
-adductTransformMF(MF, adduct, Adducts = adducts())
+adductTransformMF(MF, adduct, adduct_rules_table = adduct_rules())
 }
 \arguments{
 \item{MF}{molecular formula to transform.}
 
 \item{adduct}{adduct to use for transformation.}
 
-\item{Adducts}{Adduct information table to use. Defaults to \code{mzAnnotation::Adducts}.}
+\item{adduct_rules_table}{Adduct formation rules table to use. Defaults to \code{adduct_rules()}.}
 }
 \description{
 adduct transform a molecular formula.

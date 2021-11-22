@@ -9,7 +9,7 @@ generateMF(
   ppm = 1,
   charge = 0,
   validation = TRUE,
-  element_max = c(C = 12, H = 22, N = 0, O = 11, P = 0, S = 0),
+  element_max = suitableMaxElements(mass),
   element_min = c(C = 0, H = 0, N = 0, O = 0, P = 0, S = 0)
 )
 }

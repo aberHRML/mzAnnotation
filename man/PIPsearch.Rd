@@ -38,7 +38,7 @@ PIPsearch(
 
 \item{adduct_rules_table}{adduct formation rules tabl. Defaults to table returned by \code{adducts_rules()}.}
 
-\item{isotopeTable_rules_table}{isotope table containing available isotope rules. Defaults to table returned by \code{isotope_rules()}.}
+\item{isotope_rules_table}{isotope table containing available isotope rules. Defaults to table returned by \code{isotope_rules()}.}
 }
 \description{
 Putative ionisation product search

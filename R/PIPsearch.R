@@ -6,7 +6,7 @@
 #' @param adduct the adduct name to search.
 #' @param isotope the isotope name to search. Defaults to NA for non-isotopic searches.
 #' @param adduct_rules_table adduct formation rules tabl. Defaults to table returned by `adducts_rules()`.
-#' @param isotopeTable_rules_table isotope table containing available isotope rules. Defaults to table returned by `isotope_rules()`.
+#' @param isotope_rules_table isotope table containing available isotope rules. Defaults to table returned by `isotope_rules()`.
 #' @export
 #' @author  Jasen Finch
 #' @importFrom dplyr bind_rows select filter
@@ -34,14 +34,18 @@ setMethod('PIPsearch',signature = 'MetaboliteDatabase',
                    isotope = NA, 
                    adduct_rules_table = adduct_rules(),
                    isotope_rules_table = isotope_rules()){
-  M <- calcM(mz,adduct = adduct,isotope = isotope,adduct_rules_table = adduct_rules_table,isotopeTable = isotopeTable)
+  M <- calcM(mz,
+             adduct = adduct,
+             isotope = isotope,
+             adduct_rules_table = adduct_rules_table,
+             isotope_rules_table =  isotope_rules_table)
   mr <- ppmRange(M,ppm)
   
   res <- db %>%
     filterMR(mr$lower,mr$upper)
   
   if (!is.na(isotope) & nrow(res@accessions[[1]]) > 0) {
-    isoRule <- isotopeTable$Rule[isotopeTable$Isotope == isotope]
+    isoRule <- isotope_rules_table$Rule[isotope_rules_table$Isotope == isotope]
     res <- res %>%
       filterER(isoRule)
   }

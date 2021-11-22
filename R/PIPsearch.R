@@ -1,12 +1,12 @@
 #' Putative ionisation product search
 #' @rdname PIPsearch
-#' @param db object of class \code{MetaboliteDatabase}.
+#' @param db object of class `MetaboliteDatabase`.
 #' @param mz the accurate m/z to search.
 #' @param ppm the parts per million threshold to search.
 #' @param adduct the adduct name to search.
 #' @param isotope the isotope name to search. Defaults to NA for non-isotopic searches.
-#' @param adductTable adduct table containing available adduct rules. Defaults to table returned by \code{adducts()}.
-#' @param isotopeTable isotope table containing available isotope rules. Defaults to table returned by \code{isotopes()}.
+#' @param adduct_rules_table adduct formation rules tabl. Defaults to table returned by `adducts_rules()`.
+#' @param isotopeTable_rules_table isotope table containing available isotope rules. Defaults to table returned by `isotope_rules()`.
 #' @export
 #' @author  Jasen Finch
 #' @importFrom dplyr bind_rows select filter
@@ -14,9 +14,27 @@
 #' @examples
 #' res <- PIPsearch(metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES)),132.03023,5,'[M-H]1-')
 
+setGeneric('PIPsearch',function(db,
+                                mz,
+                                ppm,
+                                adduct,
+                                isotope = NA, 
+                                adduct_rules_table = adduct_rules(),
+                                isotope_rules_table = isotope_rules()) 
+  standardGeneric('PIPsearch')
+)
+
+#' @rdname PIPsearch
+
 setMethod('PIPsearch',signature = 'MetaboliteDatabase',
-          function(db,mz,ppm,adduct,isotope = NA, isotopeTable = isotopes(), adductTable = adducts()){
-  M <- calcM(mz,adduct = adduct,isotope = isotope,adductTable = adductTable,isotopeTable = isotopeTable)
+          function(db,
+                   mz,
+                   ppm,
+                   adduct,
+                   isotope = NA, 
+                   adduct_rules_table = adduct_rules(),
+                   isotope_rules_table = isotope_rules()){
+  M <- calcM(mz,adduct = adduct,isotope = isotope,adduct_rules_table = adduct_rules_table,isotopeTable = isotopeTable)
   mr <- ppmRange(M,ppm)
   
   res <- db %>%
@@ -28,7 +46,7 @@ setMethod('PIPsearch',signature = 'MetaboliteDatabase',
       filterER(isoRule)
   }
   
-  addRule <- adductTable$Rule[adductTable$Name == adduct]
+  addRule <- adduct_rules_table$Rule[adduct_rules_table$Name == adduct]
   
   res <- res %>%
     filterIP(addRule)

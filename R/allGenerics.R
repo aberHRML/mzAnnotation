@@ -42,8 +42,3 @@ setGeneric('calcAdducts',function(db,id,adductTable = adducts()) {
   standardGeneric('calcAdducts')
 })
 
-#' @rdname PIPsearch
-setGeneric('PIPsearch',function(db,mz,ppm,adduct,isotope = NA, isotopeTable = isotopes(), adductTable = adducts()) {
-  standardGeneric('PIPsearch')
-})
-

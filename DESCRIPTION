@@ -41,7 +41,6 @@ Collate: allGenerics.R
     calcMZ.R
     checks.R
     convert.R
-    data.R
     descriptors.R
     elementFrequencies-method.R
     filter-methods.R
@@ -55,5 +54,6 @@ Collate: allGenerics.R
     ppmError.R
     RcppExports.R
     relationshipCalculator.R
+    rules.R
     show-method.R
     transformMF.R

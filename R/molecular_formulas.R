@@ -125,6 +125,12 @@ ipMF <- function(mz,
              adduct_rules = adduct_rules_table,
              isotope_rules = isotope_rules_table)
   
+  if (M < 100 & ppm < 10) {
+    ppm <- 10
+  } else {
+    ppm <- ppm
+  }
+  
   ppm <- (ppm/10^6 * mz)/M * 10^6
   
   if (M < 200) {

@@ -1,4 +1,5 @@
 #' Adduct formation rules
+#' @rdname adducts
 #' @description Formation rules for electrospray ionisation adducts
 #' @format A tibble containing 58 rows and 6 columns
 #' \describe{
@@ -15,8 +16,15 @@
 #' }
 #' @export
 
-adducts <- function(){
+adduct_rules <- function(){
   return(Adducts)
+}
+
+#' @rdname adducts
+#' @export
+
+adduct_names <- function(){
+  return(Adducts$Name)
 }
 
 #' Elemental information
@@ -29,6 +37,7 @@ elements <- function(){
 }
 
 #' Isotopic rules
+#' @rdname isotopes
 #' @description Isotope rules
 #' @format A tibble containing 8 rows and 3 columns.
 #' \describe{
@@ -38,11 +47,19 @@ elements <- function(){
 #' }
 #' @export
 
-isotopes <- function(){
+isotope_rules <- function(){
   return(Isotopes)
 }
 
+#' @rdname isotopes
+#' @export
+
+isotope_names <- function(){
+  return(Isotopes$Isotope)
+}
+
 #' Transformation rules
+#' @rdname transformations
 #' @description Transformation rules
 #' @format A tibble containing 12 rows and 9 columns.
 #' \describe{
@@ -58,6 +75,13 @@ isotopes <- function(){
 #' }
 #' @export
 
-transformations <- function(){
+transformation_rules <- function(){
   return(Transformations)
+}
+
+#' @rdname transformations
+#' @export
+
+transformation_names <- function(){
+  return(Transformations$Name)
 }

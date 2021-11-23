@@ -2,7 +2,7 @@
 #' @description transform a molecular formula
 #' @param MF molecular formula to transform
 #' @param transformation transformation to apply
-#' @param transformationTable transformations table containing available transformations rules. Defaults to \code{Transformations}.
+#' @param transformation_rules_table transformations table containing available transformations rules. Defaults to `transformation_rules()`.
 #' @details \code{NA} will be returned if \code{MF} cannot be transformed.
 #' @examples 
 #' transformMF('C4H5O5')
@@ -11,11 +11,14 @@
 #' @importFrom stringr str_c str_replace
 #' @export
 
-transformMF <- function(MF, transformation = 'M - [O] + [NH2]', transformationTable = transformations()){
+transformMF <- function(MF, 
+                        transformation = 'M - [O] + [NH2]', 
+                        transformation_rules_table = transformation_rules()){
   if (!is.na(transformation)) {
     elements <- c('C','H','O','N','P','S')
     
-    transformation <- filter(transformationTable,`MF Change` == transformation) %>%
+    transformation <- filter(transformation_rules_table,
+                             `MF Change` == transformation) %>%
       select(C:S)
     
     MF <- count.elements(MF)

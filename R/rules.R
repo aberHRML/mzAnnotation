@@ -83,5 +83,5 @@ transformation_rules <- function(){
 #' @export
 
 transformation_names <- function(){
-  return(Transformations$Name)
+  return(Transformations$`MF Change`)
 }

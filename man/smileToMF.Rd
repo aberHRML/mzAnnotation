@@ -13,5 +13,5 @@ smileToMF(smile)
 convert a smile to a molecular formula
 }
 \examples{
-smileToMF(aminoAcids$SMILES[1])
+smileToMF(amino_acids$SMILES[1])
 }

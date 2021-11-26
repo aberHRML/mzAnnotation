@@ -44,7 +44,7 @@ PIPsearch(
 Putative ionisation product search
 }
 \examples{
-res <- PIPsearch(metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES)),132.03023,5,'[M-H]1-')
+res <- PIPsearch(metaboliteDB(amino_acids,descriptors(amino_acids$SMILES)),132.03023,5,'[M-H]1-')
 }
 \author{
 Jasen Finch

@@ -19,6 +19,6 @@ Filter MetaboliteDatabase based on an ionisation rule
 }
 \examples{
 rule <- adducts()$Rule[52]
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 db <- filterIP(db,rule)
 }

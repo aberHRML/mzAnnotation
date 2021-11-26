@@ -5,7 +5,7 @@
 #' @param connection If \code{type = 'remote'} this should be a valid database connection as returned by \code{DBI::dbconnect()}.
 #' @param type set to either \code{'local'} for in-memory databases or \code{remote} for SQL database connections.
 #' @examples 
-#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 #' @importFrom dplyr tbl
 #' @importFrom purrr map_chr
 #' @importFrom methods new

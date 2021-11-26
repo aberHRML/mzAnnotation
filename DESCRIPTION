@@ -35,7 +35,7 @@ LinkingTo: Rcpp
 Collate: allGenerics.R
     allClasses.R
     adductTransfromMF.R
-    aminoAcids.R
+    amino_acids.R
     calcAccurateMass.R
     calcAdducts.R
     calcM.R

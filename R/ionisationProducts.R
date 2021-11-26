@@ -3,7 +3,7 @@
 #' @param SMILES a valid SMILES string
 #' @param adductTable table of adduct rules. Defaults to adducts()
 #' @examples 
-#' ionisationProducts(aminoAcids$SMILES[1])
+#' ionisationProducts(amino_acids$SMILES[1])
 #' @importFrom dplyr ungroup rowwise
 #' @export
 

@@ -19,5 +19,5 @@ metaboliteDB(accessions, descriptors, connection = NULL, type = "local")
 Build a metabolite database ready for use.
 }
 \examples{
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 }

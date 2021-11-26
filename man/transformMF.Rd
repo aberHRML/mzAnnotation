@@ -7,7 +7,7 @@
 transformMF(
   MF,
   transformation = "M - [O] + [NH2]",
-  transformationTable = transformations()
+  transformation_rules_table = transformation_rules()
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ transformMF(
 
 \item{transformation}{transformation to apply}
 
-\item{transformationTable}{transformations table containing available transformations rules. Defaults to \code{Transformations}.}
+\item{transformation_rules_table}{transformations table containing available transformations rules. Defaults to \code{transformation_rules()}.}
 }
 \description{
 transform a molecular formula

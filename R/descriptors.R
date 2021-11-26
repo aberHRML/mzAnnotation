@@ -5,8 +5,8 @@
 #' @importFrom purrr map_dbl map_int map_chr map
 #' @export
 #' @examples
-#' data(aminoAcids)
-#' descriptors(aminoAcids$SMILES)
+#' data(amino_acids)
+#' descriptors(amino_acids$SMILES)
 
 descriptors <- function(SMILES){
   desc <- c('HBA1',

@@ -74,7 +74,7 @@ res
 -   Putative ionisation product searches
 
 ``` r
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 res <- PIPsearch(db = db,
                  mz = 132.03023,
                  ppm = 5,

@@ -5,7 +5,7 @@
 #' @param id accession id
 #' @param adduct_rules_table table of adduct rules. Defaults to adducts()
 #' @examples 
-#' db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 #' add <- calcAdducts(db,1)
 #' @importFrom purrr map_df
 #' @importFrom tibble deframe

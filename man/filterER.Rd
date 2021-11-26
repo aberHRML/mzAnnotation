@@ -18,6 +18,6 @@ filterER(db, rule)
 Filter a MetaboliteDatabase based on an elemental rule.
 }
 \examples{
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 db <- filterER(db,'S>0')
 }

@@ -13,6 +13,6 @@ descriptors(SMILES)
 Molecular descriptors
 }
 \examples{
-data(aminoAcids)
-descriptors(aminoAcids$SMILES)
+data(amino_acids)
+descriptors(amino_acids$SMILES)
 }

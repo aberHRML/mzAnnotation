@@ -15,5 +15,5 @@ ionisationProducts(SMILES, adduct_rules_table = adduct_rules())
 Calculate ionisation products for a given SMILES.
 }
 \examples{
-ionisationProducts(aminoAcids$SMILES[1])
+ionisationProducts(amino_acids$SMILES[1])
 }

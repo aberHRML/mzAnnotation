@@ -18,6 +18,6 @@ filterACCESSIONS(db, ids)
 Filter a MetaboliteDatabase based on given accession IDs.
 }
 \examples{
-db <- metaboliteDB(aminoAcids,descriptors(aminoAcids$SMILES))
+db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 db <- filterACCESSIONS(db,c(1,2))
 }

@@ -9,4 +9,4 @@
 #' \item{SMILES}{}
 #' }
 
-'aminoAcids'
+'amino_acids'

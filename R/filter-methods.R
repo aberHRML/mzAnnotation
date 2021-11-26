@@ -56,7 +56,7 @@ setMethod('filterER',signature = 'MetaboliteDatabase',
 #' @param db S4 object of class MetaboliteDatabase
 #' @param rule Character containing ionisation rule.
 #' @examples 
-#' rule <- adducts()$Rule[52]
+#' rule <- adduct_rules()$Rule[52]
 #' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 #' db <- filterIP(db,rule)
 #' @export

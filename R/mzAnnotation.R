@@ -9,5 +9,6 @@ globalVariables(c('Name','ID','MF','Accurate Mass','Smile 1','Adduct',
                   'Negative_Charge','Positive_Charge','SMILES','Total_Charge',
                   'NHH','COO','ACCESSION_ID','Accurate_Mass','Measured m/z',
                   'HBA1','TPSA','.','Possible','Rule','x','Transformation','ID1',
-                  'ID2','M','M1','M2','m/z1','m/z2','fill'
+                  'ID2','M','M1','M2','m/z1','m/z2','fill','Mass','Theoretical M',
+                  'Measured M','Score'
 ))

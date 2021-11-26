@@ -1,7 +1,7 @@
 #' Ionisation products
 #' @description Calculate ionisation products for a given SMILES.
 #' @param SMILES a valid SMILES string
-#' @param adductTable table of adduct rules. Defaults to adducts()
+#' @param adduct_rules_table table of adduct rules. Defaults to adducts()
 #' @examples 
 #' ionisationProducts(amino_acids$SMILES[1])
 #' @importFrom dplyr ungroup rowwise

@@ -9,7 +9,7 @@ ionisationProducts(SMILES, adduct_rules_table = adduct_rules())
 \arguments{
 \item{SMILES}{a valid SMILES string}
 
-\item{adductTable}{table of adduct rules. Defaults to adducts()}
+\item{adduct_rules_table}{table of adduct rules. Defaults to adducts()}
 }
 \description{
 Calculate ionisation products for a given SMILES.

@@ -82,12 +82,13 @@ generateMF <- function(mass,
 #' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @examples 
 #' ipMF(118.08626,adduct = '[M+H]1+')
+#' @importFrom dplyr arrange
 #' @export
 
 ipMF <- function(mz,
                  adduct = "[M+H]1+",
                  isotope = NA,
-                 ppm = 1, 
+                 ppm = 5, 
                  adduct_rules_table = adduct_rules(),
                  isotope_rules_table = isotope_rules()){
   
@@ -105,15 +106,9 @@ ipMF <- function(mz,
   
   ppm <- (ppm/10^6 * mz)/M * 10^6
   
-  if (M < 200) {
-    gr <- FALSE
-  } else {
-    gr <- TRUE
-  }
-  
   mfs <- generateMF(M,
                     ppm = ppm,
-                    validation = gr) 
+                    validation = FALSE) 
   
   if (nrow(mfs) > 0){
     mfs <- mfs %>%
@@ -136,7 +131,7 @@ ipMF <- function(mz,
              `Measured M`,
              `Theoretical m/z`,
              `Theoretical M`,
-             `PPM Error`,
+             `PPM error`,
              Score) %>% 
       arrange(Score)
   } else {
@@ -146,7 +141,7 @@ ipMF <- function(mz,
                   `Measured m/z` = numeric(),
                   `Measured M` = numeric(),
                   `Theoretical M` = numeric(),
-                  `PPM Error` = numeric(),
+                  `PPM error` = numeric(),
                   Score = numeric())
   }
   

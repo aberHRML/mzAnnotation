@@ -36,8 +36,8 @@ suitableElementRanges <- function(mass){
 #' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
 #' @examples
 #' generateMF(342.11621,
-#'            element_ranges = list(C = c(12),
-#'                                  H = c(22),
+#'            element_ranges = list(C = c(0,12),
+#'                                  H = c(0,22),
 #'                                  O = c(0,11)))
 
 generateMF <- function(mass, 
@@ -47,7 +47,7 @@ generateMF <- function(mass,
                        validation = FALSE){
   
   element_ranges <- element_ranges %>%
-  names() %>% 
+    names() %>% 
     map(~{
       c(.x,element_ranges[[.x]])
     })
@@ -56,11 +56,11 @@ generateMF <- function(mass,
     {.$upper - .$lower} %>% 
     {./2}
   
-  molecular_formulas <- rcdk::generate.formula(mass,
-                                               window = window,
-                                               elements = element_ranges,
-                                               validation = validation,
-                                               charge = charge)	 %>% 
+  molecular_formulas <- generate.formula(mass,
+                                         window = window,
+                                         elements = element_ranges,
+                                         validation = validation,
+                                         charge = charge)	 %>% 
     map(~{
       tibble(MF = .x@string,
              Mass = round(.x@mass,
@@ -158,6 +158,7 @@ ipMF <- function(mz,
 #' @param mf Molecular formula
 #' @examples
 #' MFscore('C12H22O11')
+#' @importFrom CHNOSZ count.elements
 #' @export
 
 MFscore <- function(mf){

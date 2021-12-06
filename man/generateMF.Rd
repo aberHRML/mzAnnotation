@@ -31,8 +31,8 @@ Molecular formula generation
 }
 \examples{
 generateMF(342.11621,
-           element_ranges = list(C = c(12),
-                                 H = c(22),
+           element_ranges = list(C = c(0,12),
+                                 H = c(0,22),
                                  O = c(0,11)))
 }
 \author{

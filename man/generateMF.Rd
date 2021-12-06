@@ -8,9 +8,8 @@ generateMF(
   mass,
   ppm = 1,
   charge = 0,
-  validation = TRUE,
-  element_max = suitableMaxElements(mass),
-  element_min = c(C = 0, H = 0, N = 0, O = 0, P = 0, S = 0)
+  element_ranges = suitableElementRanges(mass),
+  validation = FALSE
 )
 }
 \arguments{
@@ -20,11 +19,9 @@ generateMF(
 
 \item{charge}{charge}
 
+\item{element_ranges}{named list of element}
+
 \item{validation}{\code{boolean}, apply validation rules}
-
-\item{element_max}{numeric \code{vector} of maximum elemental composition}
-
-\item{element_min}{numeric \code{vector} of minimum elemental composition}
 }
 \value{
 A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
@@ -32,13 +29,11 @@ A \code{tibble} containing the generated MFs, their theoretical mass and their P
 \description{
 Molecular formula generation
 }
-\details{
-this uses the HR2 molecular formula generator available at \url{http://maltese.dbs.aber.ac.uk:8888/hrmet/supp/rhrmet.html}.
-}
 \examples{
-res <- generateMF(342.11621,
-                  element_max = c(C = 12,H = 22,N = 0,
-                                O = 11,P = 0,S = 0))
+generateMF(342.11621,
+           element_ranges = list(C = c(12),
+                                 H = c(22),
+                                 O = c(0,11)))
 }
 \author{
 Jasen Finch

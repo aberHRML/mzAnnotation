@@ -10,22 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// HR2
-std::vector<std::vector<std::string> > HR2(double measured_mass, std::vector<int> max, std::vector<int> min, double tolerance, double charge, bool applygr);
-RcppExport SEXP _mzAnnotation_HR2(SEXP measured_massSEXP, SEXP maxSEXP, SEXP minSEXP, SEXP toleranceSEXP, SEXP chargeSEXP, SEXP applygrSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type measured_mass(measured_massSEXP);
-    Rcpp::traits::input_parameter< std::vector<int> >::type max(maxSEXP);
-    Rcpp::traits::input_parameter< std::vector<int> >::type min(minSEXP);
-    Rcpp::traits::input_parameter< double >::type tolerance(toleranceSEXP);
-    Rcpp::traits::input_parameter< double >::type charge(chargeSEXP);
-    Rcpp::traits::input_parameter< bool >::type applygr(applygrSEXP);
-    rcpp_result_gen = Rcpp::wrap(HR2(measured_mass, max, min, tolerance, charge, applygr));
-    return rcpp_result_gen;
-END_RCPP
-}
 // cnvrt
 std::string cnvrt(std::string input, const char* inputType, const char* outputType);
 RcppExport SEXP _mzAnnotation_cnvrt(SEXP inputSEXP, SEXP inputTypeSEXP, SEXP outputTypeSEXP) {
@@ -99,7 +83,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_mzAnnotation_HR2", (DL_FUNC) &_mzAnnotation_HR2, 6},
     {"_mzAnnotation_cnvrt", (DL_FUNC) &_mzAnnotation_cnvrt, 3},
     {"_mzAnnotation_smileToMF", (DL_FUNC) &_mzAnnotation_smileToMF, 1},
     {"_mzAnnotation_smileToAccurateMass", (DL_FUNC) &_mzAnnotation_smileToAccurateMass, 1},

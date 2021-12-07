@@ -22,6 +22,125 @@ suitableElementRanges <- function(mass){
   return(maxi)
 }
 
+#' Calculate the rings plus double bonds equivalent
+#' @description Calculate the rings plus double bonds equivalent (RDBE) for molecular formulas.
+#' @param MF vector of molecular formula
+#' @param valences named list of element valences
+#' @return A vector of RDBE values.
+#' @examples rdbe(c('C12H22O11','C12H22NO11'))
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr group_split
+#' @export
+
+rdbe <- function(MF,valences = list(C = 4,
+                                   H = 1,
+                                   N = 3,
+                                   O = 2,
+                                   P = 3,
+                                   S = 4)){
+  valences <- valences %>% 
+    as_tibble() %>% 
+    gather(element,valence) %>% 
+    mutate(valence = valence - 2)
+  
+  element_frequencies <- MF %>% 
+    elementFrequencies() %>% 
+    gather(element,
+                  frequency,
+                  -MF) %>% 
+    drop_na() %>% 
+    left_join(valences,by = 'element')
+  
+  mfs <- MF
+  
+  element_frequencies %>% 
+    group_by(MF) %>% 
+    mutate(value = frequency * valence,
+           MF = factor(MF,levels = mfs)) %>%
+    ungroup() %>% 
+    group_split(MF) %>% 
+    map_dbl(~{
+      .x$value %>% 
+        sum() %>% 
+        {. + 2} %>% 
+        {./2}
+    })
+}
+
+#' LEWIS and SENIOR checks
+#' @rdname lewis_senior
+#' @description LEWIS molecular formula valence test and SENIOR test for the existence of molecular graphs. 
+#' @param MF molecular formula
+#' @param valences named list of element valences
+#' @return Boolean vector of check results for each molecular formula.
+#' @examples 
+#' lewis(c('C12H22O11','C12H22NO11'))
+#' senior(c('C12H22O11','C12H22NO11'))
+#' @export
+
+lewis <- function(MF,valences = list(C = 4,
+                                     H = 1,
+                                     N = 3,
+                                     O = 2,
+                                     P = 3,
+                                     S = 4)){
+  tibble(RDBE = rdbe(MF,
+                     valences = valences)) %>% 
+    rowwise() %>% 
+    mutate(remainder = RDBE %% 1,
+           LEWIS =  ifelse(
+             all(
+               remainder >= 0,
+               remainder != 0.5
+             ),
+             TRUE,
+             FALSE)) %>% 
+    .$LEWIS
+}
+
+#' @rdname lewis_senior
+#' @export
+
+senior <- function(MF,valences = list(C = 4,
+                                      H = 1,
+                                      N = 3,
+                                      O = 2,
+                                      P = 3,
+                                      S = 4)){
+  valences <- valences %>% 
+    tibble::as_tibble() %>% 
+    tidyr::gather(element,valence)
+  
+  element_frequencies <- MF %>% 
+    elementFrequencies() %>% 
+    tidyr::gather(element,frequency) %>% 
+    dplyr::left_join(valences,by = 'element') %>% 
+    dplyr::mutate(total_valence = frequency * valence)
+  
+  sum_valence <- sum(element_frequencies$total_valence)
+  
+  odd_valence_total <- element_frequencies %>% 
+    dplyr::filter((valence %% 2) != 0) %>% 
+    .$frequency %>% 
+    sum()
+  
+  twice_maximum_valence <- max(element_frequencies$valence) * 2
+  
+  twice_atoms_minus_1 <- element_frequencies$frequency %>% 
+    sum() %>% 
+    {. * 2 - 1}
+  
+  ifelse(
+    all(
+      (sum_valence %% 2) == 0 | (odd_valence_total %% 2) == 0,
+      sum_valence >= twice_maximum_valence,
+      sum_valence >= twice_atoms_minus_1
+    ),
+    TRUE,
+    FALSE
+  )
+}
+
 
 #' Molecular formula generation
 #' @description Molecular formula generation

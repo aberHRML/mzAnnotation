@@ -38,8 +38,7 @@ Collate: allGenerics.R
     amino_acids.R
     calcAccurateMass.R
     calcAdducts.R
-    calcM.R
-    calcMZ.R
+    calc.R
     checks.R
     convert.R
     descriptors.R

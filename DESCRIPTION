@@ -53,7 +53,7 @@ Collate: allGenerics.R
     PIPsearch.R
     ppmError.R
     RcppExports.R
-    https://github.com/jasenfinch/notifierrelationshipCalculator.R
+    relationshipCalculator.R
     rules.R
     show-method.R
     transformMF.R

@@ -38,8 +38,7 @@ Collate: allGenerics.R
     amino_acids.R
     calcAccurateMass.R
     calcAdducts.R
-    calcM.R
-    calcMZ.R
+    calc.R
     checks.R
     convert.R
     descriptors.R
@@ -54,7 +53,7 @@ Collate: allGenerics.R
     PIPsearch.R
     ppmError.R
     RcppExports.R
-    relationshipCalculator.R
+    https://github.com/jasenfinch/notifierrelationshipCalculator.R
     rules.R
     show-method.R
     transformMF.R

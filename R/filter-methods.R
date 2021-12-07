@@ -35,7 +35,7 @@ setMethod('filterMR',signature = 'MetaboliteDatabase',
 
 setMethod('filterER',signature = 'MetaboliteDatabase',
           function(db,rule){
-            ef <- elementFrequencies(db)
+            ef <- elementFreq(db)
             if (str_extract(rule,'[:alpha:]') %in% colnames(ef)) {
               ef <- ef %>%
                 filter(eval(parse(text = rule)))   

@@ -42,7 +42,7 @@ Collate: allGenerics.R
     checks.R
     convert.R
     descriptors.R
-    elementFrequencies-method.R
+    elements.R
     filter-methods.R
     molecular_formulas.R
     get-methods.R

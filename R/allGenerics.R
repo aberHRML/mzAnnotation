@@ -18,10 +18,6 @@ setGeneric("filterACCESSIONS", function(db,ids) {
   standardGeneric("filterACCESSIONS")
 })
 
-setGeneric("elementFrequencies", function(db) {
-  standardGeneric("elementFrequencies")
-})
-
 #' @rdname filterMF
 setGeneric('filterMF', function(db,mf){
   standardGeneric('filterMF')

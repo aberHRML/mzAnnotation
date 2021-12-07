@@ -3,6 +3,7 @@
 #' @param MF a vector of molecular formulas
 #' @return A tibble containing element frequencies.
 #' @examples elementFrequencies(c('H2O','C12H22O11'))
+#' @importFrom purrr map_dfr
 #' @export
 
 elementFrequencies <- function(MF){

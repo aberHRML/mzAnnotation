@@ -8,7 +8,7 @@ ipMF(
   mz,
   adduct = "[M+H]1+",
   isotope = NA,
-  ppm = 1,
+  ppm = 5,
   adduct_rules_table = adduct_rules(),
   isotope_rules_table = isotope_rules()
 )

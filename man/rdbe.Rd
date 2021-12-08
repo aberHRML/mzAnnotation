@@ -4,10 +4,13 @@
 \alias{rdbe}
 \title{Calculate the rings plus double bonds equivalent}
 \usage{
-rdbe(MF, valences = list(C = 4, H = 1, N = 3, O = 2, P = 3, S = 4))
+rdbe(
+  element_frequencies,
+  valences = list(C = 4, H = 1, N = 3, O = 2, P = 3, S = 4)
+)
 }
 \arguments{
-\item{MF}{vector of molecular formula}
+\item{element_frequencies}{table of element frequencies for a set of molecular formulas as returned by \code{elementFrequencies()}.}
 
 \item{valences}{named list of element valences}
 }
@@ -18,5 +21,6 @@ A vector of RDBE values.
 Calculate the rings plus double bonds equivalent (RDBE) for molecular formulas.
 }
 \examples{
-rdbe(c('C12H22O11','C12H22NO11'))
+element_frequencies <- elementFrequencies(c('C12H22O11','C12H22NO11'))
+rdbe(element_frequencies)
 }

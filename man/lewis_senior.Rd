@@ -5,12 +5,18 @@
 \alias{senior}
 \title{LEWIS and SENIOR checks}
 \usage{
-lewis(MF, valences = list(C = 4, H = 1, N = 3, O = 2, P = 3, S = 4))
+lewis(
+  element_frequencies,
+  valences = list(C = 4, H = 1, N = 3, O = 2, P = 3, S = 4)
+)
 
-senior(MF, valences = list(C = 4, H = 1, N = 3, O = 2, P = 3, S = 4))
+senior(
+  element_frequencies,
+  valences = list(C = 4, H = 1, N = 3, O = 2, P = 3, S = 4)
+)
 }
 \arguments{
-\item{MF}{molecular formula}
+\item{element_frequencies}{table of element frequencies for a set of molecular formulas as returned by \code{elementFrequencies()}.}
 
 \item{valences}{named list of element valences}
 }
@@ -21,6 +27,7 @@ Boolean vector of check results for each molecular formula.
 LEWIS molecular formula valence test and SENIOR test for the existence of molecular graphs.
 }
 \examples{
-lewis(c('C12H22O11','C12H22NO11'))
-senior(c('C12H22O11','C12H22NO11'))
+element_frequencies <- elementFrequencies(c('C12H22O11','C12H22NO11'))
+lewis(element_frequencies)
+senior(element_frequencies)
 }

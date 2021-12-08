@@ -114,14 +114,14 @@ senior <- function(element_frequencies,
     as_tibble() %>% 
     gather(element,valence)
   
+  mfs <- element_frequencies$MF
+  
   element_frequencies <- element_frequencies %>%  
     gather(element,frequency,-MF) %>% 
     mutate(frequency = replace_na(frequency,0)) %>% 
     left_join(valences,by = 'element') %>% 
     mutate(total_valence = frequency * valence) %>% 
     group_by(MF)
-  
-  mfs <- MF
   
   element_frequencies %>% 
     summarise(sum_valence = sum(total_valence)) %>% 

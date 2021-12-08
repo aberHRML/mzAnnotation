@@ -193,37 +193,50 @@ generateMF <- function(mass,
                                          window = window,
                                          elements = element_ranges,
                                          validation = FALSE,
-                                         charge = charge)	 %>% 
-    map(~{
-      
-      tibble(MF = .x@string,
-             Mass = round(.x@mass,
-                          5)) %>% 
+                                         charge = charge)
+  
+  if (length(molecular_formulas) > 0){
+    molecular_formulas <- molecular_formulas %>% 
+      map(~{
+        
+        tibble(MF = .x@string,
+               Mass = round(.x@mass,
+                            5)) %>% 
           mutate(`PPM error` = ppmError(mass,Mass))
-    }) %>% 
-    bind_rows()
-  
-  mf_checks <- molecular_formulas$MF %>% 
-    elementFrequencies() %>% 
-    tibble(
-      RDBE = rdbe(.),
-      LEWIS = lewis(.),
-      SENIOR = senior(.)
-    ) %>% 
-    select(MF,RDBE,LEWIS,SENIOR)
-  
-  molecular_formulas <- molecular_formulas %>% 
-    left_join(mf_checks,
-              by = 'MF')
-  
-  if (isTRUE(LEWIS)){
+      }) %>% 
+      bind_rows()
+    
+    mf_checks <- molecular_formulas$MF %>% 
+      elementFrequencies() %>% 
+      tibble(
+        RDBE = rdbe(.),
+        LEWIS = lewis(.),
+        SENIOR = senior(.)
+      ) %>% 
+      select(MF,RDBE,LEWIS,SENIOR)
+    
     molecular_formulas <- molecular_formulas %>% 
-      filter(LEWIS == TRUE)
-  }
-  
-  if (isTRUE(SENIOR)){
-    molecular_formulas <- molecular_formulas %>% 
-      filter(SENIOR == TRUE)
+      left_join(mf_checks,
+                by = 'MF')
+    
+    if (isTRUE(LEWIS)){
+      molecular_formulas <- molecular_formulas %>% 
+        filter(LEWIS == TRUE)
+    }
+    
+    if (isTRUE(SENIOR)){
+      molecular_formulas <- molecular_formulas %>% 
+        filter(SENIOR == TRUE)
+    }
+  } else {
+    molecular_formulas <- tibble(
+      MF = character(),
+      Mass = numeric(),
+      `PPM error` = numeric(),
+      RDBE = numeric(),
+      LEWIS = logical(),
+      SENIOR = logical()
+    )
   }
   
   return(molecular_formulas)
@@ -301,6 +314,7 @@ ipMF <- function(mz,
                   Isotope = character(),
                   `Measured m/z` = numeric(),
                   `Measured M` = numeric(),
+                  `Theoretical m/z` = numeric(),
                   `Theoretical M` = numeric(),
                   `PPM error` = numeric(),
                   Score = numeric())

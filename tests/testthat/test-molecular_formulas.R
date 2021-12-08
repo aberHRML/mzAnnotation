@@ -6,12 +6,12 @@ test_that('generateMF works',{
   
   expect_s3_class(res,"tbl_df")
   expect_equal(nrow(res),4)
-  expect_equal(ncol(res),3)
-  expect_identical(colnames(res),c( "MF","Mass","PPM Error"))
+  expect_equal(ncol(res),6)
+  expect_identical(colnames(res),c( "MF","Mass","PPM error",'RDBE','LEWIS','SENIOR'))
 })
 
 test_that('generateMF returns correctly when no MFs are generated',{
-  expect_s3_class(generateMF(1),"tbl_df")
+  expect_s3_class(generateMF(111),"tbl_df")
 })
 
 test_that('ipMF works',{

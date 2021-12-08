@@ -19,6 +19,7 @@ Imports:
     dplyr,
     magrittr,
     purrr,
+    rcdk,
     stringr,
     tidyr,
     methods,

@@ -25,8 +25,6 @@ generateMF(
 \item{LEWIS}{return only molecular formulas that pass the LEWIS check}
 
 \item{SENIOR}{return only molecular formulas that pass the SENiOR check}
-
-\item{validation}{\code{boolean}, apply validation rules}
 }
 \value{
 A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.

@@ -158,7 +158,6 @@ senior <- function(MF,valences = list(C = 4,
 #' @param mass accurate mass
 #' @param ppm ppm tolerance
 #' @param charge charge
-#' @param validation \code{boolean}, apply validation rules
 #' @param element_ranges named list of element
 #' @param LEWIS return only molecular formulas that pass the LEWIS check
 #' @param SENIOR return only molecular formulas that pass the SENiOR check

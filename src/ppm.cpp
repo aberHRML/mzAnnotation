@@ -23,7 +23,7 @@ List ppmRange(double mz,double ppm) {
 //' Calculate PPM error
 //' @description Calculate ppmError between a measured and theoretical m/z
 //' @param measured measured m/z
-//' @param theoretical theoretical m/z
+//' @param theoretical m/z
 //' @examples ppmError(118.08626,118.08647)
 //' @export
 // [[Rcpp::export]]

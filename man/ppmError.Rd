@@ -9,7 +9,7 @@ ppmError(measured, theoretical)
 \arguments{
 \item{measured}{measured m/z}
 
-\item{theoretical}{theoretical m/z}
+\item{theoretical}{m/z}
 }
 \description{
 Calculate ppmError between a measured and theoretical m/z

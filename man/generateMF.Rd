@@ -9,7 +9,8 @@ generateMF(
   ppm = 1,
   charge = 0,
   element_ranges = suitableElementRanges(mass),
-  validation = FALSE
+  LEWIS = TRUE,
+  SENIOR = TRUE
 )
 }
 \arguments{
@@ -20,6 +21,10 @@ generateMF(
 \item{charge}{charge}
 
 \item{element_ranges}{named list of element}
+
+\item{LEWIS}{return only molecular formulas that pass the LEWIS check}
+
+\item{SENIOR}{return only molecular formulas that pass the SENiOR check}
 
 \item{validation}{\code{boolean}, apply validation rules}
 }

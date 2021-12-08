@@ -30,14 +30,15 @@ suitableElementRanges <- function(mass){
 #' @examples rdbe(c('C12H22O11','C12H22NO11'))
 #' @importFrom tibble as_tibble
 #' @importFrom dplyr group_split
+#' @importFrom tidyr replace_na
 #' @export
 
 rdbe <- function(MF,valences = list(C = 4,
-                                   H = 1,
-                                   N = 3,
-                                   O = 2,
-                                   P = 3,
-                                   S = 4)){
+                                    H = 1,
+                                    N = 3,
+                                    O = 2,
+                                    P = 3,
+                                    S = 4)){
   valences <- valences %>% 
     as_tibble() %>% 
     gather(element,valence) %>% 
@@ -46,9 +47,9 @@ rdbe <- function(MF,valences = list(C = 4,
   element_frequencies <- MF %>% 
     elementFrequencies() %>% 
     gather(element,
-                  frequency,
-                  -MF) %>% 
-    drop_na() %>% 
+           frequency,
+           -MF) %>% 
+    mutate(frequency = replace_na(frequency,0)) %>% 
     left_join(valences,by = 'element')
   
   mfs <- MF
@@ -90,7 +91,7 @@ lewis <- function(MF,valences = list(C = 4,
     mutate(remainder = RDBE %% 1,
            LEWIS =  ifelse(
              all(
-               remainder >= 0,
+               RDBE >= 0,
                remainder != 0.5
              ),
              TRUE,
@@ -108,37 +109,47 @@ senior <- function(MF,valences = list(C = 4,
                                       P = 3,
                                       S = 4)){
   valences <- valences %>% 
-    tibble::as_tibble() %>% 
-    tidyr::gather(element,valence)
+    as_tibble() %>% 
+    gather(element,valence)
   
   element_frequencies <- MF %>% 
     elementFrequencies() %>% 
-    tidyr::gather(element,frequency) %>% 
-    dplyr::left_join(valences,by = 'element') %>% 
-    dplyr::mutate(total_valence = frequency * valence)
+    gather(element,frequency,-MF) %>% 
+    mutate(frequency = replace_na(frequency,0)) %>% 
+    left_join(valences,by = 'element') %>% 
+    mutate(total_valence = frequency * valence) %>% 
+    group_by(MF)
   
-  sum_valence <- sum(element_frequencies$total_valence)
+  mfs <- MF
   
-  odd_valence_total <- element_frequencies %>% 
-    dplyr::filter((valence %% 2) != 0) %>% 
-    .$frequency %>% 
-    sum()
-  
-  twice_maximum_valence <- max(element_frequencies$valence) * 2
-  
-  twice_atoms_minus_1 <- element_frequencies$frequency %>% 
-    sum() %>% 
-    {. * 2 - 1}
-  
-  ifelse(
-    all(
-      (sum_valence %% 2) == 0 | (odd_valence_total %% 2) == 0,
-      sum_valence >= twice_maximum_valence,
-      sum_valence >= twice_atoms_minus_1
-    ),
-    TRUE,
-    FALSE
-  )
+  element_frequencies %>% 
+      summarise(sum_valence = sum(total_valence)) %>% 
+      select(MF,sum_valence) %>% 
+    left_join(element_frequencies %>%
+                filter((valence %% 2) != 0) %>% 
+                summarise(odd_valence_total = sum(frequency)),
+              by = 'MF') %>% 
+    left_join(element_frequencies %>% 
+                filter(frequency > 0) %>% 
+                summarise(twice_maximum_valence = max(valence) * 2),
+              by = 'MF') %>% 
+    left_join(element_frequencies %>% 
+                summarise(twice_atoms_minus_1 = sum(frequency) %>% 
+                            {. * 2 - 1}),
+              by = 'MF') %>% 
+    rowwise() %>% 
+    mutate(SENIOR = ifelse(
+      all(
+        (sum_valence %% 2) == 0 | (odd_valence_total %% 2) == 0,
+        sum_valence >= twice_maximum_valence,
+        sum_valence >= twice_atoms_minus_1
+      ),
+      TRUE,
+      FALSE
+    )) %>% 
+    mutate(MF = factor(MF,levels = mfs)) %>% 
+    arrange(MF) %>% 
+    .$SENIOR
 }
 
 
@@ -149,6 +160,8 @@ senior <- function(MF,valences = list(C = 4,
 #' @param charge charge
 #' @param validation \code{boolean}, apply validation rules
 #' @param element_ranges named list of element
+#' @param LEWIS return only molecular formulas that pass the LEWIS check
+#' @param SENIOR return only molecular formulas that pass the SENiOR check
 #' @author Jasen Finch
 #' @importFrom rcdk generate.formula
 #' @export
@@ -163,7 +176,8 @@ generateMF <- function(mass,
                        ppm = 1, 
                        charge = 0, 
                        element_ranges = suitableElementRanges(mass),
-                       validation = FALSE){
+                       LEWIS = TRUE,
+                       SENIOR = TRUE){
   
   element_ranges <- element_ranges %>%
     names() %>% 
@@ -178,15 +192,29 @@ generateMF <- function(mass,
   molecular_formulas <- generate.formula(mass,
                                          window = window,
                                          elements = element_ranges,
-                                         validation = validation,
+                                         validation = FALSE,
                                          charge = charge)	 %>% 
     map(~{
       tibble(MF = .x@string,
              Mass = round(.x@mass,
                           5)) %>% 
-        mutate(`PPM error` = ppmError(mass,Mass))
+        mutate(`PPM error` = ppmError(mass,Mass),
+               RDBE = rdbe(MF),
+               LEWIS = lewis(MF),
+               SENIOR = senior(MF)
+        )
     }) %>% 
     bind_rows()
+  
+  if (isTRUE(LEWIS)){
+    molecular_formulas <- molecular_formulas %>% 
+      filter(LEWIS == TRUE)
+  }
+  
+  if (isTRUE(SENIOR)){
+    molecular_formulas <- molecular_formulas %>% 
+      filter(SENIOR == TRUE)
+  }
   
   return(molecular_formulas)
 }
@@ -197,6 +225,8 @@ generateMF <- function(mass,
 #' @param adduct ionisation product adduct
 #' @param isotope ionisation product isotope
 #' @param ppm ppm error tolerance threshold
+#' @param LEWIS return only molecular formulas that pass the LEWIS check
+#' @param SENIOR return only molecular formulas that pass the SENiOR check
 #' @param adduct_rules_table tibble containing available adduct formation rules. Defaults to `adduct_rules()`.
 #' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @examples 
@@ -208,6 +238,8 @@ ipMF <- function(mz,
                  adduct = "[M+H]1+",
                  isotope = NA,
                  ppm = 5, 
+                 LEWIS = TRUE,
+                 SENIOR = TRUE,
                  adduct_rules_table = adduct_rules(),
                  isotope_rules_table = isotope_rules()){
   
@@ -226,8 +258,7 @@ ipMF <- function(mz,
   ppm <- (ppm/10^6 * mz)/M * 10^6
   
   mfs <- generateMF(M,
-                    ppm = ppm,
-                    validation = FALSE) 
+                    ppm = ppm) 
   
   if (nrow(mfs) > 0){
     mfs <- mfs %>%
@@ -252,6 +283,7 @@ ipMF <- function(mz,
              `Theoretical M`,
              `PPM error`,
              Score) %>% 
+      ungroup() %>% 
       arrange(Score)
   } else {
     mfs <- tibble(MF = character(),

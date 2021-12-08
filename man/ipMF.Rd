@@ -9,6 +9,8 @@ ipMF(
   adduct = "[M+H]1+",
   isotope = NA,
   ppm = 5,
+  LEWIS = TRUE,
+  SENIOR = TRUE,
   adduct_rules_table = adduct_rules(),
   isotope_rules_table = isotope_rules()
 )
@@ -21,6 +23,10 @@ ipMF(
 \item{isotope}{ionisation product isotope}
 
 \item{ppm}{ppm error tolerance threshold}
+
+\item{LEWIS}{return only molecular formulas that pass the LEWIS check}
+
+\item{SENIOR}{return only molecular formulas that pass the SENiOR check}
 
 \item{adduct_rules_table}{tibble containing available adduct formation rules. Defaults to \code{adduct_rules()}.}
 

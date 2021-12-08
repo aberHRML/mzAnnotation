@@ -81,6 +81,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ppmError
+double ppmError(double measured, double theoretical);
+RcppExport SEXP _mzAnnotation_ppmError(SEXP measuredSEXP, SEXP theoreticalSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type measured(measuredSEXP);
+    Rcpp::traits::input_parameter< double >::type theoretical(theoreticalSEXP);
+    rcpp_result_gen = Rcpp::wrap(ppmError(measured, theoretical));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_cnvrt", (DL_FUNC) &_mzAnnotation_cnvrt, 3},
@@ -89,6 +101,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_smartsSearch", (DL_FUNC) &_mzAnnotation_smartsSearch, 2},
     {"_mzAnnotation_descriptor", (DL_FUNC) &_mzAnnotation_descriptor, 2},
     {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},
+    {"_mzAnnotation_ppmError", (DL_FUNC) &_mzAnnotation_ppmError, 2},
     {NULL, NULL, 0}
 };
 

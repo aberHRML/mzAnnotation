@@ -50,3 +50,13 @@ ppmRange <- function(mz, ppm) {
     .Call('_mzAnnotation_ppmRange', PACKAGE = 'mzAnnotation', mz, ppm)
 }
 
+#' Calculate PPM error
+#' @description Calculate ppmError between a measured and theoretical m/z
+#' @param measured measured m/z
+#' @param theoretical theoretical m/z
+#' @examples ppmError(118.08626,118.08647)
+#' @export
+ppmError <- function(measured, theoretical) {
+    .Call('_mzAnnotation_ppmError', PACKAGE = 'mzAnnotation', measured, theoretical)
+}
+

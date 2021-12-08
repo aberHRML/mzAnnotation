@@ -52,7 +52,6 @@ Collate: allGenerics.R
     metaboliteDB.R
     mzAnnotation.R
     PIPsearch.R
-    ppmError.R
     RcppExports.R
     relationshipCalculator.R
     rules.R

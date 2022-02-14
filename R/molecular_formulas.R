@@ -31,7 +31,7 @@ suitableElementRanges <- function(mass){
 #' element_frequencies <- elementFrequencies(c('C12H22O11','C12H22NO11'))
 #' rdbe(element_frequencies)
 #' @importFrom tibble as_tibble
-#' @importFrom dplyr group_split
+#' @importFrom dplyr distinct
 #' @importFrom tidyr replace_na
 #' @export
 
@@ -54,17 +54,21 @@ rdbe <- function(element_frequencies,
     mutate(frequency = replace_na(frequency,0)) %>% 
     left_join(valences,by = 'element')
   
-  element_frequencies %>% 
-    group_by(MF) %>% 
+  rdbe_values <- element_frequencies %>% 
+    group_by(MF,element) %>% 
     mutate(value = frequency * valence) %>%
     ungroup() %>% 
-    group_split(MF) %>% 
-    map_dbl(~{
-      .x$value %>% 
-        sum() %>% 
+    group_by(MF) %>% 
+    summarise(rdbe = sum(value) %>% 
         {. + 2} %>% 
         {./2}
-    })
+    )
+  element_frequencies %>% 
+    select(MF) %>% 
+    dplyr::distinct() %>% 
+    left_join(rdbe_values,by = 'MF') %>% 
+    select(rdbe) %>% 
+    deframe()
 }
 
 #' LEWIS and SENIOR checks

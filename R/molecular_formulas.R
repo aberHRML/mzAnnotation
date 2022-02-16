@@ -164,9 +164,6 @@ senior <- function(element_frequencies,
 #' @param ppm ppm tolerance
 #' @param charge charge
 #' @param element_ranges named list of element
-#' @param LEWIS return only molecular formulas that pass the LEWIS check
-#' @param SENIOR return only molecular formulas that pass the SENiOR check
-#' @author Jasen Finch
 #' @importFrom rcdk generate.formula
 #' @export
 #' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
@@ -209,37 +206,11 @@ generateMF <- function(mass,
           mutate(`PPM error` = ppmError(mass,Mass))
       }) %>% 
       bind_rows()
-    
-    mf_checks <- molecular_formulas$MF %>% 
-      elementFrequencies() %>% 
-      tibble(
-        RDBE = rdbe(.),
-        LEWIS = lewis(.),
-        SENIOR = senior(.)
-      ) %>% 
-      select(MF,RDBE,LEWIS,SENIOR)
-    
-    molecular_formulas <- molecular_formulas %>% 
-      left_join(mf_checks,
-                by = 'MF')
-    
-    if (isTRUE(LEWIS)){
-      molecular_formulas <- molecular_formulas %>% 
-        filter(LEWIS == TRUE)
-    }
-    
-    if (isTRUE(SENIOR)){
-      molecular_formulas <- molecular_formulas %>% 
-        filter(SENIOR == TRUE)
-    }
   } else {
     molecular_formulas <- tibble(
       MF = character(),
       Mass = numeric(),
-      `PPM error` = numeric(),
-      RDBE = numeric(),
-      LEWIS = logical(),
-      SENIOR = logical()
+      `PPM error` = numeric()
     )
   }
   

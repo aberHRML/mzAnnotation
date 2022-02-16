@@ -85,8 +85,6 @@ generateMF <- function(mass,
 #' @param adduct ionisation product adduct
 #' @param isotope ionisation product isotope
 #' @param ppm ppm error tolerance threshold
-#' @param LEWIS return only molecular formulas that pass the LEWIS check
-#' @param SENIOR return only molecular formulas that pass the SENiOR check
 #' @param adduct_rules_table tibble containing available adduct formation rules. Defaults to `adduct_rules()`.
 #' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @examples 
@@ -98,8 +96,6 @@ ipMF <- function(mz,
                  adduct = "[M+H]1+",
                  isotope = NA,
                  ppm = 5, 
-                 LEWIS = TRUE,
-                 SENIOR = TRUE,
                  adduct_rules_table = adduct_rules(),
                  isotope_rules_table = isotope_rules()){
   
@@ -132,8 +128,7 @@ ipMF <- function(mz,
                                         adduct_rules_table = adduct_rules_table,
                                         isotope_rules_table = isotope_rules_table),
              Adduct = adduct,
-             Isotope = isotope,
-             Score = MFscore(MF)) %>% 
+             Isotope = isotope) %>% 
       select(MF,
              Adduct,
              Isotope,
@@ -141,10 +136,19 @@ ipMF <- function(mz,
              `Measured M`,
              `Theoretical m/z`,
              `Theoretical M`,
-             `PPM error`,
-             Score) %>% 
-      ungroup() %>% 
-      arrange(Score)
+             `PPM error`) %>% 
+      ungroup()
+    
+    gr_scores <- mfs$MF %>% 
+      goldenRules() %>% 
+      goldenRulesScore()
+    
+    mfs <- mfs %>% 
+      left_join(select(gr_scores,MF,
+                       `Plausibility (%)`), 
+                by = "MF") %>% 
+      mutate(`PPM error` = abs(`PPM error`)) %>% 
+      arrange(desc(`Plausibility (%)`),`PPM error`)
   } else {
     mfs <- tibble(MF = character(),
                   Adduct = character(),
@@ -154,7 +158,7 @@ ipMF <- function(mz,
                   `Theoretical m/z` = numeric(),
                   `Theoretical M` = numeric(),
                   `PPM error` = numeric(),
-                  Score = numeric())
+                  `Plausibility (%)` = numeric())
   }
   
   return(mfs)

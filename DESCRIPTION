@@ -20,6 +20,7 @@ Imports:
     magrittr,
     purrr,
     rcdk,
+    rlang,
     stringr,
     tidyr,
     methods,
@@ -44,6 +45,7 @@ Collate: allGenerics.R
     convert.R
     descriptors.R
     elements.R
+    golden_rules.R
     filter-methods.R
     molecular_formulas.R
     get-methods.R
@@ -54,6 +56,7 @@ Collate: allGenerics.R
     PIPsearch.R
     ppmError.R
     RcppExports.R
+    reexports.R
     relationshipCalculator.R
     rules.R
     show-method.R

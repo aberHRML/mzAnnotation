@@ -1,0 +1,262 @@
+#' Heteroatom ratio check
+#' @description Heteroatom ratio checks based on rule #5 of the Seven Golden Rules by Kind et al 2007.
+#' @param element_ratios a tibble containing molecular formula elemental ratios
+#' @param range the ratio threshold ranges as defined by rule #5 of the Seven Golden Rules by Kind et al 2007
+#' @return A tibble containing results of the heteroatom ratio checks.
+#' @examples 
+#' elementFrequencies(c('H2O','C12H22O11')) %>% 
+#'   elementRatios() %>% 
+#'   heteroatomRatioCheck()
+#' @importFrom purrr flatten_chr
+#' @importFrom dplyr group_split
+#' @importFrom rlang parse_expr eval_tidy
+#' @export
+
+heteroatomRatioCheck <- function(element_ratios, 
+                                 range = c('common',
+                                           'extended',
+                                           'extreme')){
+  range_types <- c('common',
+                   'extended',
+                   'extreme')
+  
+  range_type <- match.arg(range,
+                          choices = range_types)
+  
+  thresholds <- tibble(range = range_types %>% 
+                         map(rep,times = 6) %>% 
+                         flatten_chr(),
+                       ratio = rep(c(rep('H/C',2),'N/C','O/C','P/C','S/C'),3),
+                       operator = c(rep(c('>',rep('<',5)),2),'<',rep('>',5)),
+                       threshold = c(0.2,3.1,1.3,1.2,0.3,0.8,
+                                     0.1,6,4,3,2,3,
+                                     0.1,6,1.3,1.2,0.3,0.8)) %>% 
+    filter(range == range_type) %>%
+    mutate(name = paste0(ratio,' ',
+                         operator,
+                         ' ',threshold),
+           expr = paste0('element_ratios[["',ratio,'"]] ',
+                         operator,
+                         ' ',threshold)
+    )
+  
+  ratio_checks <- thresholds %>% 
+    rowwise() %>% 
+    group_split() %>% 
+    map_dfc(~{
+      result <- .x$expr %>% 
+        parse_expr() %>% 
+        eval_tidy()
+      
+      if (length(result > 0)) result <- result else result <- NA
+      
+      checks <- tibble(
+        !!.x$name := result
+      )
+      
+      return(checks)
+    }) %>% 
+    bind_cols(select(element_ratios,MF)) %>% 
+    select(MF,everything())
+  
+  return(ratio_checks)
+}
+
+#' Element probability check
+#' @description Element probability checks based on rule #6 of the Seven Golden Rules by Kind et al 2007.
+#' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
+#' @return A tibble containing results of the heteroatom ratio checks. The column headers refer to elemental counts needed to apply the heuristic rule. See Table 3 in Kind et al 2007 for definitions of the heuristic rules applied.
+#' @examples 
+#' elementFrequencies(c('H2O','C12H22O11')) %>% 
+#'   elementProbabilityCheck()
+#' @export
+
+elementProbabilityCheck <- function(element_frequencies){
+  
+  check_names <- c(rep('NOPS all >= 1',4),
+                   rep('NOP all >= 3',3),
+                   rep('OPS all >= 1',3),
+                   rep('PSN all >= 1',3),
+                   rep('NOS all >= 6',3))
+  
+  element_checks <- tibble(
+    name = check_names,
+    element = c('N','O','P','S',
+                'N','O','P',
+                'O','P','S',
+                'P','S','N',
+                'N','O','S'),
+    operator = '>=',
+    count = c(rep(1,4),
+              rep(3,3),
+              rep(1,3),
+              rep(1,3),
+              rep(6,3))
+  ) %>% 
+    dplyr::mutate(check = paste0(element,' ',
+                                 operator,' ',
+                                 count),
+                  expr = paste0('element_frequencies[["',element,'"]]',
+                                ' ',operator, ' ',
+                                count))
+  
+  probability_checks <- check_names %>% 
+    unique() %>% 
+    map_dfc(~{
+      element_freq_checks <- element_checks %>% 
+        filter(name == .x) %>% 
+        rowwise() %>% 
+        group_split() %>% 
+        map_dfc(~{
+          result <- .x$expr %>% 
+            parse_expr() %>% 
+            eval_tidy()
+          
+          if (length(result) > 0) result <- result 
+          else result <- NA
+          
+          checks <- tibble(
+            !!.x$check := result)
+          
+        }) 
+      
+      if (nrow(element_freq_checks) > 0){
+        element_freq_checks %>% 
+          rowid_to_column(var = 'row') %>% 
+          gather(check,result,-row) %>% 
+          group_by(row) %>% 
+          summarise(!!.x := all(result)) %>% 
+          select(-row)
+      } else {
+        NULL
+      }
+    }) %>% 
+    rowid_to_column(var = 'row') %>% 
+    gather(name,probability_check,-row)
+  
+  heuristics <- element_checks %>% 
+    mutate(
+      operator = '<',
+      count = c(10,20,4,3,
+                11,22,6,
+                14,3,3,
+                3,3,4,
+                19,14,8
+      ),
+      check = paste0(element,' ',
+                     operator,' ',
+                     count),
+      expr = paste0('element_frequencies[["',element,'"]]',
+                    ' ',operator, ' ',
+                    count)
+    )
+  
+  heuristic_checks <- check_names %>% 
+    unique() %>% 
+    map_dfc(~{
+      heuristic_checks <- heuristics %>% 
+        filter(name == .x) %>% 
+        rowwise() %>% 
+        group_split() %>% 
+        map_dfc(~{
+          checks <- tibble(
+            !!.x$check := .x$expr %>% 
+              parse_expr() %>% 
+              eval_tidy()
+          )    
+          
+          if (nrow(checks) > 0) checks else NULL
+        }) 
+      
+      if (nrow(heuristic_checks) > 0){
+        heuristic_checks  %>% 
+          rowid_to_column(var = 'row') %>% 
+          gather(check,result,-row) %>% 
+          group_by(row) %>% 
+          summarise(!!.x := all(result)) %>% 
+          select(-row)
+      } else {
+        NULL
+      }
+    }) %>% 
+    rowid_to_column(var = 'row') %>% 
+    gather(name,heuristic_check,-row)
+  
+  check_results <- left_join(probability_checks,
+                             heuristic_checks, 
+                             by = c("row", "name")) %>% 
+    mutate(heuristic_check = replace(heuristic_check,
+                                     probability_check == FALSE,
+                                     NA) %>% 
+             replace(is.na(probability_check),
+                     NA)) %>% 
+    group_by(row,name) %>% 
+    summarise(result = all(heuristic_check),.groups = 'drop') %>% 
+    spread(name,result) %>% 
+    select(-row) %>% 
+    bind_cols(select(element_frequencies,MF)) %>% 
+    select(MF,everything())
+  
+  return(check_results)
+}
+
+#' Golden rule tests for molecular formlas
+#' @description Heuristic tests for moleucla formulas based on the golden rules 2, 4, 5 and 6 from Kind et al 2007.
+#' @param MF a vector of molecular formulas
+#' @return A tibble containing golden rule heuristic check results.
+#' @examples 
+#' goldenRules(c('H2O','C12H22O11'))
+#' @export
+
+goldenRules <- function(MF){
+  element_frequencies <- elementFrequencies(MF)
+  element_ratios <- elementRatios(element_frequencies)
+  
+  golden_rules <- tibble(
+    MF = MF,
+    LEWIS = lewis(element_frequencies),
+    SENIOR = senior(element_frequencies),
+  ) %>% 
+    bind_cols(heteroatomRatioCheck(element_ratios) %>% 
+                select(-MF)) %>% 
+    bind_cols(elementProbabilityCheck(element_frequencies) %>% 
+                select(-MF))
+  
+  return(golden_rules)
+}
+
+#' Molecular formula plausibility scores
+#' @description Percentage plausibility scores based on rules 2, 4, 5 and 6 Kind et al 2007.
+#' @param golden_rules a tibble containing golden rule heuristic checks results as from `goldenRules()`
+#' @return A tibble containing golden rules plausibility scores.
+#' @export
+
+goldenRulesScore <- function(golden_rules){
+  
+  rule_types <- tibble(
+    check = colnames(golden_rules)[-1]
+  ) %>% 
+    mutate(rule = check,
+           rule = replace(rule,rule == 'LEWIS','LEWIS and SENIOR'),
+           rule = replace(rule,rule == 'SENIOR','LEWIS and SENIOR'),
+           rule = replace(rule,grepl('/',rule),'Heteroatom ratios'),
+           rule = replace(rule,grepl('all',rule),'Element probabilities'))
+  
+  golden_rules %>% 
+    gather(check,result,-MF) %>% 
+    left_join(rule_types, 
+              by = "check") %>% 
+    mutate(result = replace(result,
+                            result == TRUE,
+                            1) %>% 
+             replace(is.na(result),
+                     1)) %>%
+    group_by(MF,rule) %>% 
+    summarise(score = sum(result)/dplyr::n(),
+              .groups = 'drop') %>% 
+    spread(rule,score) %>% 
+    mutate(`Plausibility (%)` = (`LEWIS and SENIOR` +
+                                   `Heteroatom ratios` +
+                                   `Element probabilities`) / 3 * 100) %>% 
+    select(MF,`LEWIS and SENIOR`,`Heteroatom ratios`,`Element probabilities`,`Plausibility (%)`)
+}

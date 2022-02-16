@@ -393,10 +393,14 @@ goldenRules <- function(MF){
     LEWIS = lewis(element_frequencies),
     SENIOR = senior(element_frequencies),
   ) %>% 
-    bind_cols(heteroatomRatioCheck(element_ratios) %>% 
-                select(-MF)) %>% 
-    bind_cols(elementProbabilityCheck(element_frequencies) %>% 
-                select(-MF))
+    left_join(heteroatomRatioCheck(element_ratios),
+              by = 'MF') %>% 
+    left_join(elementProbabilityCheck(element_frequencies),
+              by = 'MF') %>% 
+    left_join(heteroatomProportion(element_frequencies) %>%
+                mutate(`1 - heteroatom proportion` = 1 - `heteroatom proportion`) %>% 
+                select(MF,`1 - heteroatom proportion`),
+              by = 'MF')
   
   return(golden_rules)
 }
@@ -405,6 +409,9 @@ goldenRules <- function(MF){
 #' @description Percentage plausibility scores based on rules 2, 4, 5 and 6 Kind et al 2007.
 #' @param golden_rules a tibble containing golden rule heuristic checks results as from `goldenRules()`
 #' @return A tibble containing golden rules plausibility scores.
+#' @examples 
+#' goldenRules(c('H2O','C12H22O11')) %>% 
+#'   goldenRulesScore()
 #' @export
 
 goldenRulesScore <- function(golden_rules){
@@ -433,6 +440,12 @@ goldenRulesScore <- function(golden_rules){
     spread(rule,score) %>% 
     mutate(`Plausibility (%)` = (`LEWIS and SENIOR` +
                                    `Heteroatom ratios` +
-                                   `Element probabilities`) / 3 * 100) %>% 
-    select(MF,`LEWIS and SENIOR`,`Heteroatom ratios`,`Element probabilities`,`Plausibility (%)`)
+                                   `Element probabilities` +
+                                   `1 - heteroatom proportion`) / 4 * 100) %>% 
+    select(MF,
+           `LEWIS and SENIOR`,
+           `Heteroatom ratios`,
+           `Element probabilities`,
+           `1 - heteroatom proportion`,
+           `Plausibility (%)`)
 }

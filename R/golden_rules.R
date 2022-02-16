@@ -335,6 +335,47 @@ elementProbabilityCheck <- function(element_frequencies){
   return(check_results)
 }
 
+#' The proportion of hetoratoms in molecular formulas
+#' @description Calculate the proportions of heteroatoms in molecular formulas.
+#' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
+#' @param heteroatoms a vector of elements to count as heteroatoms. Oxygen is included a default as this is often advantageous for molecular formulas of biological origin.
+#' @return A tibble contianing the 
+#' @examples
+#' elementFrequencies(c('H2O','C12H22O11')) %>% 
+#'   heteroatomProportion()
+#' @export
+
+heteroatomProportion <- function(element_frequencies,
+                                    heteroatoms = c('C','H','O')){
+  element_totals <- element_frequencies %>% 
+    gather(element,
+           count,
+           -MF) %>% 
+    group_by(MF) %>% 
+    summarise(total_atoms = sum(count,na.rm = TRUE))
+  
+  heteroatom_counts <- element_frequencies %>% 
+    gather(element,
+           count,
+           -MF) %>% 
+    filter(!(element %in% heteroatoms))
+  
+  
+  if (nrow(heteroatom_counts) == 0) {
+    heteroatom_counts <- tibble(
+      MF = element_frequencies$MF,
+      heteroatoms = 0
+    )
+    } else {
+      heteroatom_counts <- heteroatom_counts %>% 
+        group_by(MF) %>% 
+        summarise(heteroatoms = sum(count,na.rm = TRUE))
+    }
+   heteroatom_counts %>% 
+    left_join(element_totals,by = 'MF') %>% 
+    mutate(`heteroatom proportion` = heteroatoms/total_atoms)
+}
+
 #' Golden rule tests for molecular formlas
 #' @description Heuristic tests for moleucla formulas based on the golden rules 2, 4, 5 and 6 from Kind et al 2007.
 #' @param MF a vector of molecular formulas

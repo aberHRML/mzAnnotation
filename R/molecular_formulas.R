@@ -176,9 +176,7 @@ senior <- function(element_frequencies,
 generateMF <- function(mass, 
                        ppm = 1, 
                        charge = 0, 
-                       element_ranges = suitableElementRanges(mass),
-                       LEWIS = TRUE,
-                       SENIOR = TRUE){
+                       element_ranges = suitableElementRanges(mass)){
   
   element_ranges <- element_ranges %>%
     names() %>% 

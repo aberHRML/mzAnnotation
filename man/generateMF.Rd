@@ -8,9 +8,7 @@ generateMF(
   mass,
   ppm = 1,
   charge = 0,
-  element_ranges = suitableElementRanges(mass),
-  LEWIS = TRUE,
-  SENIOR = TRUE
+  element_ranges = suitableElementRanges(mass)
 )
 }
 \arguments{

@@ -5,7 +5,7 @@ test_that('generateMF works',{
   res <- generateMF(342.11621)
   
   expect_s3_class(res,"tbl_df")
-  expect_equal(nrow(res),24)
+  expect_equal(nrow(res),25)
   expect_equal(ncol(res),3)
   expect_identical(colnames(res),c( "MF","Mass","PPM error"))
 })

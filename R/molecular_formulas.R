@@ -1,27 +1,3 @@
-#' Calculate suitable elemental frequency ranges
-#' @description Calculate elemental frequency ranges for a given mass which are suitable for molecular formula generation.
-#' @param mass accurate mass
-#' @return named numeric vector of element frequencies
-#' @examples
-#' suitableElementRanges(342.11621)
-#' @export
-
-suitableElementRanges <- function(mass){
-  carb <- round(mass/12)
-  Hs <- round(carb * 2)
-  NO <- round(carb / 2)
-  PS <- round(carb / 4)
-  
-  maxi <- list(C = c(0,carb),
-               H = c(0,Hs),
-               N = c(0,NO),
-               O = c(0,NO),
-               P = c(0,PS),
-               S = c(0,PS))
-  
-  return(maxi)
-}
-
 #' Molecular formula generation
 #' @description Molecular formula generation
 #' @param mass accurate mass

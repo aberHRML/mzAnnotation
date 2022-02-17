@@ -3,7 +3,7 @@ using namespace Rcpp;
 
 //' Elemental information
 //' @description Elemental information
-//' @format A tibble containing 31 rows and 5 columns.
+//' @return A tibble containing 31 rows and 5 columns.
 //' @export
 // [[Rcpp::export]]
 

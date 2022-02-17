@@ -3,11 +3,11 @@
 \name{elements}
 \alias{elements}
 \title{Elemental information}
-\format{
-A tibble containing 31 rows and 5 columns.
-}
 \usage{
 elements()
+}
+\value{
+A tibble containing 31 rows and 5 columns.
 }
 \description{
 Elemental information

@@ -27,15 +27,6 @@ adduct_names <- function(){
   return(Adducts$Name)
 }
 
-#' Elemental information
-#' @description Elemental information
-#' @format A tibble containing 31 rows and 5 columns.
-#' @export
-
-elements <- function(){
-  return(Elements)
-}
-
 #' Isotopic rules
 #' @rdname isotopes
 #' @description Isotope rules

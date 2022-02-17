@@ -4,7 +4,6 @@
 #' @param ppm ppm tolerance
 #' @param charge charge
 #' @param element_ranges named list of element
-#' @importFrom rcdk generate.formula
 #' @export
 #' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
 #' @examples
@@ -18,39 +17,11 @@ generateMF <- function(mass,
                        charge = 0, 
                        element_ranges = suitableElementRanges(mass)){
   
-  element_ranges <- element_ranges %>%
-    names() %>% 
-    map(~{
-      c(.x,element_ranges[[.x]])
-    })
-  
-  window <- ppmRange(mass,ppm) %>% 
-    {.$upper - .$lower} %>% 
-    {./2}
-  
-  molecular_formulas <- generate.formula(mass,
-                                         window = window,
-                                         elements = element_ranges,
-                                         validation = FALSE,
-                                         charge = charge)
-  
-  if (length(molecular_formulas) > 0){
-    molecular_formulas <- molecular_formulas %>% 
-      map(~{
-        
-        tibble(MF = .x@string,
-               Mass = round(.x@mass,
-                            5)) %>% 
-          mutate(`PPM error` = ppmError(mass,Mass))
-      }) %>% 
-      bind_rows()
-  } else {
-    molecular_formulas <- tibble(
-      MF = character(),
-      Mass = numeric(),
-      `PPM error` = numeric()
-    )
-  }
+  molecular_formulas <- generate(mass,ppm,charge,element_ranges) %>% 
+    as_tibble() %>% 
+    mutate(Mass = round(Mass,5),
+           `PPM error` = ppmError(mass,Mass)) %>% 
+    arrange(`PPM error`)
   
   return(molecular_formulas)
 }

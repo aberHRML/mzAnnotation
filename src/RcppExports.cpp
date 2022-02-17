@@ -80,13 +80,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // suitableElementRanges
-List suitableElementRanges(double mass);
+List suitableElementRanges(float mass);
 RcppExport SEXP _mzAnnotation_suitableElementRanges(SEXP massSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type mass(massSEXP);
+    Rcpp::traits::input_parameter< float >::type mass(massSEXP);
     rcpp_result_gen = Rcpp::wrap(suitableElementRanges(mass));
+    return rcpp_result_gen;
+END_RCPP
+}
+// generate
+DataFrame generate(double measured_mass, double ppm, int charge, List element_ranges);
+RcppExport SEXP _mzAnnotation_generate(SEXP measured_massSEXP, SEXP ppmSEXP, SEXP chargeSEXP, SEXP element_rangesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type measured_mass(measured_massSEXP);
+    Rcpp::traits::input_parameter< double >::type ppm(ppmSEXP);
+    Rcpp::traits::input_parameter< int >::type charge(chargeSEXP);
+    Rcpp::traits::input_parameter< List >::type element_ranges(element_rangesSEXP);
+    rcpp_result_gen = Rcpp::wrap(generate(measured_mass, ppm, charge, element_ranges));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -102,18 +116,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ppmError
-double ppmError(double measured, double theoretical);
-RcppExport SEXP _mzAnnotation_ppmError(SEXP measuredSEXP, SEXP theoreticalSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type measured(measuredSEXP);
-    Rcpp::traits::input_parameter< double >::type theoretical(theoreticalSEXP);
-    rcpp_result_gen = Rcpp::wrap(ppmError(measured, theoretical));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_cnvrt", (DL_FUNC) &_mzAnnotation_cnvrt, 3},
@@ -123,8 +125,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_descriptor", (DL_FUNC) &_mzAnnotation_descriptor, 2},
     {"_mzAnnotation_elements", (DL_FUNC) &_mzAnnotation_elements, 0},
     {"_mzAnnotation_suitableElementRanges", (DL_FUNC) &_mzAnnotation_suitableElementRanges, 1},
+    {"_mzAnnotation_generate", (DL_FUNC) &_mzAnnotation_generate, 4},
     {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},
-    {"_mzAnnotation_ppmError", (DL_FUNC) &_mzAnnotation_ppmError, 2},
     {NULL, NULL, 0}
 };
 

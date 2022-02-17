@@ -19,3 +19,15 @@ List ppmRange(double mz,double ppm) {
   res.attr("names") = CharacterVector::create("lower","upper");
   return(res);
 }
+
+//' Calculate PPM error
+//' @description Calculate the parts per million error between a measured and theoretical *m/z*.
+//' @param measured measured *m/z*
+//' @param theoretical theoretical *m/z*
+//' @examples ppmError(118.08626,118.08647)
+//' @export
+// [[Rcpp::export]]
+
+double ppmError (double measured,double theoretical) {
+  (measured - theoretical) / theoretical * pow(10,-6);
+}

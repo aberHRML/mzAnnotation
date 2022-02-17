@@ -15,3 +15,7 @@ A tibble containing golden rules plausibility scores.
 \description{
 Percentage plausibility scores based on rules 2, 4, 5 and 6 Kind et al 2007.
 }
+\examples{
+goldenRules(c('H2O','C12H22O11')) \%>\% 
+  goldenRulesScore()
+}

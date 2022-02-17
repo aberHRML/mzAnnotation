@@ -4,20 +4,27 @@
 #' @param ppm ppm tolerance
 #' @param charge charge
 #' @param element_ranges named list of element
-#' @export
 #' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
 #' @examples
 #' generateMF(342.11621,
 #'            element_ranges = list(C = c(0,12),
 #'                                  H = c(0,22),
 #'                                  O = c(0,11)))
+#' @importFrom magrittr set_names
+#' @export
 
 generateMF <- function(mass, 
                        ppm = 1, 
                        charge = 0, 
                        element_ranges = suitableElementRanges(mass)){
   
-  molecular_formulas <- generate(mass,ppm,charge,element_ranges) %>% 
+  elements_symbols <- c('C','H','N','O','P','S')
+  default_element_ranges <- map(seq_along(elements_symbols),
+                                ~ rep(0,2)) %>% 
+    set_names(elements_symbols)
+  default_element_ranges[names(element_ranges)] <- element_ranges
+  
+  molecular_formulas <- generate(mass,ppm,charge,default_element_ranges) %>% 
     as_tibble() %>% 
     mutate(Mass = round(Mass,5),
            `PPM error` = ppmError(mass,Mass)) %>% 

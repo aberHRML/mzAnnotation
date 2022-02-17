@@ -204,6 +204,7 @@ heteroatomRatioCheck <- function(element_ratios,
 #' @examples 
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
 #'   elementProbabilityCheck()
+#' @importFrom rlang .data
 #' @export
 
 elementProbabilityCheck <- function(element_frequencies){
@@ -228,12 +229,12 @@ elementProbabilityCheck <- function(element_frequencies){
               rep(1,3),
               rep(6,3))
   ) %>% 
-    dplyr::mutate(check = paste0(element,' ',
-                                 operator,' ',
-                                 count),
-                  expr = paste0('element_frequencies[["',element,'"]]',
-                                ' ',operator, ' ',
-                                count))
+    dplyr::mutate(check = paste0(.data$element,' ',
+                                 .data$operator,' ',
+                                 .data$count),
+                  expr = paste0('element_frequencies[["',.data$element,'"]]',
+                                ' ',.data$operator, ' ',
+                                .data$count))
   
   probability_checks <- check_names %>% 
     unique() %>% 
@@ -278,12 +279,12 @@ elementProbabilityCheck <- function(element_frequencies){
                 3,3,4,
                 19,14,8
       ),
-      check = paste0(element,' ',
-                     operator,' ',
-                     count),
-      expr = paste0('element_frequencies[["',element,'"]]',
-                    ' ',operator, ' ',
-                    count)
+      check = paste0(.data$element,' ',
+                     .data$operator,' ',
+                     .data$count),
+      expr = paste0('element_frequencies[["',.data$element,'"]]',
+                    ' ',.data$operator, ' ',
+                    .data$count)
     )
   
   heuristic_checks <- check_names %>% 
@@ -320,17 +321,17 @@ elementProbabilityCheck <- function(element_frequencies){
   check_results <- left_join(probability_checks,
                              heuristic_checks, 
                              by = c("row", "name")) %>% 
-    mutate(heuristic_check = replace(heuristic_check,
-                                     probability_check == FALSE,
+    mutate(heuristic_check = replace(.data$heuristic_check,
+                                     .data$probability_check == FALSE,
                                      NA) %>% 
-             replace(is.na(probability_check),
+             replace(is.na(.data$probability_check),
                      NA)) %>% 
-    group_by(row,name) %>% 
-    summarise(result = all(heuristic_check),.groups = 'drop') %>% 
+    group_by(row,.data$name) %>% 
+    summarise(result = all(.data$heuristic_check),.groups = 'drop') %>% 
     spread(name,result) %>% 
     select(-row) %>% 
-    bind_cols(select(element_frequencies,MF)) %>% 
-    select(MF,everything())
+    bind_cols(select(element_frequencies,.data$MF)) %>% 
+    select(.data$MF,everything())
   
   return(check_results)
 }
@@ -351,14 +352,14 @@ heteroatomProportion <- function(element_frequencies,
     gather(element,
            count,
            -MF) %>% 
-    group_by(MF) %>% 
-    summarise(total_atoms = sum(count,na.rm = TRUE))
+    group_by(.data$MF) %>% 
+    summarise(total_atoms = sum(.data$count,na.rm = TRUE))
   
   heteroatom_counts <- element_frequencies %>% 
     gather(element,
            count,
            -MF) %>% 
-    filter(!(element %in% heteroatoms))
+    filter(!(.data$element %in% heteroatoms))
   
   
   if (nrow(heteroatom_counts) == 0) {
@@ -369,11 +370,11 @@ heteroatomProportion <- function(element_frequencies,
     } else {
       heteroatom_counts <- heteroatom_counts %>% 
         group_by(MF) %>% 
-        summarise(heteroatoms = sum(count,na.rm = TRUE))
+        summarise(heteroatoms = sum(.data$count,na.rm = TRUE))
     }
    heteroatom_counts %>% 
     left_join(element_totals,by = 'MF') %>% 
-    mutate(`heteroatom proportion` = heteroatoms/total_atoms)
+    mutate(`heteroatom proportion` = heteroatoms/.data$total_atoms)
 }
 
 #' Golden rule tests for molecular formlas
@@ -398,8 +399,8 @@ goldenRules <- function(MF){
     left_join(elementProbabilityCheck(element_frequencies),
               by = 'MF') %>% 
     left_join(heteroatomProportion(element_frequencies) %>%
-                mutate(`1 - heteroatom proportion` = 1 - `heteroatom proportion`) %>% 
-                select(MF,`1 - heteroatom proportion`),
+                mutate(`1 - heteroatom proportion` = 1 - .data$`heteroatom proportion`) %>% 
+                select(MF,.data$`1 - heteroatom proportion`),
               by = 'MF')
   
   return(golden_rules)
@@ -419,11 +420,11 @@ goldenRulesScore <- function(golden_rules){
   rule_types <- tibble(
     check = colnames(golden_rules)[-1]
   ) %>% 
-    mutate(rule = check,
-           rule = replace(rule,rule == 'LEWIS','LEWIS and SENIOR'),
-           rule = replace(rule,rule == 'SENIOR','LEWIS and SENIOR'),
-           rule = replace(rule,grepl('/',rule),'Heteroatom ratios'),
-           rule = replace(rule,grepl('all',rule),'Element probabilities'))
+    mutate(rule = .data$check,
+           rule = replace(.data$rule,.data$rule == 'LEWIS','LEWIS and SENIOR'),
+           rule = replace(.data$rule,.data$rule == 'SENIOR','LEWIS and SENIOR'),
+           rule = replace(.data$rule,grepl('/',.data$rule),'Heteroatom ratios'),
+           rule = replace(.data$rule,grepl('all',.data$rule),'Element probabilities'))
   
   golden_rules %>% 
     gather(check,result,-MF) %>% 

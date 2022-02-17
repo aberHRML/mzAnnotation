@@ -34,7 +34,7 @@ elementRatios <- function(element_frequencies,
                           elements = c('C','H','N','O','P','S')){
   elements %>% 
     expand_grid(x = .,y = .) %>% 
-    filter(x != y) %>% 
+    filter(.data$x != .data$y) %>% 
     split(1:nrow(.)) %>% 
     map_dfc(~{
       ratio <- paste0(.x$x,

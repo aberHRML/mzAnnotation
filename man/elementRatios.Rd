@@ -8,6 +8,8 @@ elementRatios(element_frequencies, elements = c("C", "H", "N", "O", "P", "S"))
 }
 \arguments{
 \item{element_frequencies}{a tibble containing element frequencies as returned by \code{elementFrequencies()}}
+
+\item{elements}{a character vector of elements for which to calculate ratios}
 }
 \value{
 A tibble containing element frequency ratios.

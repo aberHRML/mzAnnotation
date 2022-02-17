@@ -69,6 +69,27 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// elements
+DataFrame elements();
+RcppExport SEXP _mzAnnotation_elements() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(elements());
+    return rcpp_result_gen;
+END_RCPP
+}
+// suitableElementRanges
+List suitableElementRanges(double mass);
+RcppExport SEXP _mzAnnotation_suitableElementRanges(SEXP massSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type mass(massSEXP);
+    rcpp_result_gen = Rcpp::wrap(suitableElementRanges(mass));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ppmRange
 List ppmRange(double mz, double ppm);
 RcppExport SEXP _mzAnnotation_ppmRange(SEXP mzSEXP, SEXP ppmSEXP) {
@@ -81,6 +102,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ppmError
+double ppmError(double measured, double theoretical);
+RcppExport SEXP _mzAnnotation_ppmError(SEXP measuredSEXP, SEXP theoreticalSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type measured(measuredSEXP);
+    Rcpp::traits::input_parameter< double >::type theoretical(theoreticalSEXP);
+    rcpp_result_gen = Rcpp::wrap(ppmError(measured, theoretical));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_cnvrt", (DL_FUNC) &_mzAnnotation_cnvrt, 3},
@@ -88,7 +121,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_mzAnnotation_smileToAccurateMass", (DL_FUNC) &_mzAnnotation_smileToAccurateMass, 1},
     {"_mzAnnotation_smartsSearch", (DL_FUNC) &_mzAnnotation_smartsSearch, 2},
     {"_mzAnnotation_descriptor", (DL_FUNC) &_mzAnnotation_descriptor, 2},
+    {"_mzAnnotation_elements", (DL_FUNC) &_mzAnnotation_elements, 0},
+    {"_mzAnnotation_suitableElementRanges", (DL_FUNC) &_mzAnnotation_suitableElementRanges, 1},
     {"_mzAnnotation_ppmRange", (DL_FUNC) &_mzAnnotation_ppmRange, 2},
+    {"_mzAnnotation_ppmError", (DL_FUNC) &_mzAnnotation_ppmError, 2},
     {NULL, NULL, 0}
 };
 

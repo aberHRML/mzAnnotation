@@ -29,5 +29,6 @@ List ppmRange(double mz,double ppm) {
 // [[Rcpp::export]]
 
 double ppmError (double measured,double theoretical) {
-  (measured - theoretical) / theoretical * pow(10,-6);
+  double error = (measured - theoretical) / theoretical * pow(10,-6);
+  return(error);
 }

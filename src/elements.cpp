@@ -33,7 +33,7 @@ DataFrame elements () {
   
   DataFrame element_table = DataFrame::create(Named("Element") = element,
                                               Named("AtomicMass") = atomic_mass,
-                                              Named("RelatvieAbundance") = relative_abundance,
+                                              Named("RelativeAbundance") = relative_abundance,
                                               Named("Abundance") = abundance);
   
   return(element_table);

@@ -40,6 +40,29 @@ descriptor <- function(smile, desc) {
     .Call('_mzAnnotation_descriptor', PACKAGE = 'mzAnnotation', smile, desc)
 }
 
+#' Elemental information
+#' @description Elemental information
+#' @return A tibble containing 31 rows and 5 columns.
+#' @export
+elements <- function() {
+    .Call('_mzAnnotation_elements', PACKAGE = 'mzAnnotation')
+}
+
+#' Calculate suitable elemental frequency ranges
+#' @description Calculate elemental frequency ranges for a given mass which are suitable for molecular formula generation.
+#' @param mass accurate mass
+#' @return named numeric vector of element frequencies
+#' @examples
+#' suitableElementRanges(342.11621)
+#' @export
+suitableElementRanges <- function(mass) {
+    .Call('_mzAnnotation_suitableElementRanges', PACKAGE = 'mzAnnotation', mass)
+}
+
+generate <- function(measured_mass, ppm, charge, element_ranges) {
+    .Call('_mzAnnotation_generate', PACKAGE = 'mzAnnotation', measured_mass, ppm, charge, element_ranges)
+}
+
 #' Calculate a PPM error range
 #' @description Calculate the upper and lower ppm boundaries for a given m/z
 #' @param mz the m/z for which to calculate the range
@@ -48,15 +71,5 @@ descriptor <- function(smile, desc) {
 #' @export
 ppmRange <- function(mz, ppm) {
     .Call('_mzAnnotation_ppmRange', PACKAGE = 'mzAnnotation', mz, ppm)
-}
-
-#' Calculate PPM error
-#' @description Calculate ppmError between a measured and theoretical m/z
-#' @param measured measured m/z
-#' @param theoretical m/z
-#' @examples ppmError(118.08626,118.08647)
-#' @export
-ppmError <- function(measured, theoretical) {
-    .Call('_mzAnnotation_ppmError', PACKAGE = 'mzAnnotation', measured, theoretical)
 }
 

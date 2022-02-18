@@ -8,9 +8,7 @@ generateMF(
   mass,
   ppm = 1,
   charge = 0,
-  element_ranges = suitableElementRanges(mass),
-  LEWIS = TRUE,
-  SENIOR = TRUE
+  element_ranges = suitableElementRanges(mass)
 )
 }
 \arguments{
@@ -21,10 +19,6 @@ generateMF(
 \item{charge}{charge}
 
 \item{element_ranges}{named list of element}
-
-\item{LEWIS}{return only molecular formulas that pass the LEWIS check}
-
-\item{SENIOR}{return only molecular formulas that pass the SENiOR check}
 }
 \value{
 A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
@@ -37,7 +31,4 @@ generateMF(342.11621,
            element_ranges = list(C = c(0,12),
                                  H = c(0,22),
                                  O = c(0,11)))
-}
-\author{
-Jasen Finch
 }

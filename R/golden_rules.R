@@ -300,6 +300,9 @@ elementProbabilityCheck <- function(element_frequencies){
               parse_expr() %>% 
               eval_tidy()
           )    
+          
+          if (nrow(checks) == 0) NULL
+          else checks
         }) 
       
       if (nrow(heuristic_checks) > 0){

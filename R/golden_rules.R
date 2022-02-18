@@ -300,8 +300,6 @@ elementProbabilityCheck <- function(element_frequencies){
               parse_expr() %>% 
               eval_tidy()
           )    
-          
-          if (nrow(checks) > 0) checks else NULL
         }) 
       
       if (nrow(heuristic_checks) > 0){
@@ -312,7 +310,7 @@ elementProbabilityCheck <- function(element_frequencies){
           summarise(!!.x := all(result)) %>% 
           select(-row)
       } else {
-        NULL
+        tibble(!!.x := NA)
       }
     }) %>% 
     rowid_to_column(var = 'row') %>% 

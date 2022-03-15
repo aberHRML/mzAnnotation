@@ -3,7 +3,7 @@
 #' @param mass accurate mass
 #' @param ppm ppm tolerance
 #' @param charge charge
-#' @param element_ranges named list of element
+#' @param element_ranges named list of element ranges
 #' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
 #' @examples
 #' generateMF(342.11621,
@@ -86,6 +86,7 @@ isotopePossible <- function(MF,
 #' @param adduct ionisation product adduct
 #' @param isotope ionisation product isotope
 #' @param ppm ppm error tolerance threshold
+#' @param element_ranges named list of element ranges
 #' @param adduct_rules_table tibble containing available adduct formation rules. Defaults to `adduct_rules()`.
 #' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @examples 
@@ -97,6 +98,7 @@ ipMF <- function(mz,
                  adduct = "[M+H]1+",
                  isotope = NA,
                  ppm = 5, 
+                 element_ranges = suitableElementRanges(mz),
                  adduct_rules_table = adduct_rules(),
                  isotope_rules_table = isotope_rules()){
   
@@ -115,7 +117,8 @@ ipMF <- function(mz,
   ppm <- (ppm/10^6 * mz)/M * 10^6
   
   mfs <- generateMF(M,
-                    ppm = ppm) 
+                    ppm = ppm,
+                    element_ranges = element_ranges) 
   
   if (nrow(mfs) > 0){
     mfs <- mfs %>%

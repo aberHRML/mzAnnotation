@@ -18,7 +18,7 @@ generateMF(
 
 \item{charge}{charge}
 
-\item{element_ranges}{named list of element}
+\item{element_ranges}{named list of element ranges}
 }
 \value{
 A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.

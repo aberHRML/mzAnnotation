@@ -9,6 +9,7 @@ ipMF(
   adduct = "[M+H]1+",
   isotope = NA,
   ppm = 5,
+  element_ranges = suitableElementRanges(mz),
   adduct_rules_table = adduct_rules(),
   isotope_rules_table = isotope_rules()
 )
@@ -21,6 +22,8 @@ ipMF(
 \item{isotope}{ionisation product isotope}
 
 \item{ppm}{ppm error tolerance threshold}
+
+\item{element_ranges}{named list of element ranges}
 
 \item{adduct_rules_table}{tibble containing available adduct formation rules. Defaults to \code{adduct_rules()}.}
 

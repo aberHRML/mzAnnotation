@@ -20,6 +20,15 @@ test_that('ipMF works',{
   expect_s3_class(res,"tbl_df")
 })
 
+test_that('ipMF returns correctly when no molecular formulas are generated',{
+  res <- ipMF(118.08630,
+              adduct = '[M+H]1+',
+              ppm = 0.1)
+  
+  expect_equal(nrow(res),0)
+})
+
+
 test_that('ipMF works for mass below 100',{
   res <- ipMF(99,adduct = '[M+H]1+')
   
@@ -38,23 +47,5 @@ test_that('isotopePossible throws error if incorrect isotope specified',{
   expect_error(isotopePossible('H2O',isotope = 'incorrect'))
 })
 
-test_that('MF score calculated for MF neither containing N or O',{
-  expect_equal(MFscore('CH'),0.9)
-})
 
-test_that('MF score calculated for MF containing no O',{
-  expect_equal(MFscore('CHN'),2.9)
-})
-
-test_that('MF score calculated for MF containing no N',{
-  expect_equal(MFscore('CHO'),1.3)
-})
-
-test_that('MF score calculated for MF containing P but no O',{
-  expect_equal(MFscore('CHP'),2.9)
-})
-
-test_that('MF score calculated for MF containing S but no O',{
-  expect_equal(MFscore('CHS'),3.9)
-})
 

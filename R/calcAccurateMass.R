@@ -5,6 +5,7 @@
 #' @param elementTable element information table. Defaults to \code{\link{elements}()}.
 #' @examples 
 #' calcAccurateMass('C4H5O5',charge = 0)
+#' @importFrom CHNOSZ count.elements
 #' @export
 
 calcAccurateMass <- function(MF,charge = 0, elementTable = elements()) {

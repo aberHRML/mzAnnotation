@@ -46,6 +46,3 @@ test_that('ipMF works for mass over 200',{
 test_that('isotopePossible throws error if incorrect isotope specified',{
   expect_error(isotopePossible('H2O',isotope = 'incorrect'))
 })
-
-
-

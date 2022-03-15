@@ -5,6 +5,7 @@
 #' @param adduct_rules_table Adduct formation rules table to use. Defaults to `adduct_rules()`.
 #' @examples 
 #' adductTransformMF('C6H12O6','[M+H]1+')
+#' @importFrom CHNOSZ count.elements
 #' @export
 
 adductTransformMF <- function(MF,adduct,adduct_rules_table = adduct_rules()){

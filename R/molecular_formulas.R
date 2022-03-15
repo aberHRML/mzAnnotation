@@ -33,6 +33,53 @@ generateMF <- function(mass,
   return(molecular_formulas)
 }
 
+#' Molecular formula isotopic possiblity
+#' @description Check if an isotope is possible for a vector of molecular formulas.
+#' @param MF a character vector of molecular formulas
+#' @param isotope the isotope to check
+#' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
+#' @return A boolean vector specifying if the specified isotope is possible for the molecular formulas.
+#' @examples isotopePossible(c('C12H22O11','H2O'))
+#' @importFrom stringr str_remove_all
+#' @export
+
+isotopePossible <- function(MF,
+                             isotope = '13C',
+                             isotope_rules_table = isotope_rules()){
+  
+  if (!is.na(isotope)){
+    if (!(isotope %in% isotope_rules_table$Isotope)){
+      stop('Specified isotope not found in isotopic rules table.',
+           call. = FALSE)
+    }
+    
+    element <- isotope %>% 
+      str_remove_all('[0-9]')
+    
+    isotope_rule <- isotope_rules_table %>% 
+      filter(Isotope == isotope) %>% 
+      .$Rule %>% 
+      parse_expr()
+    
+    element_frequencies <- MF %>% 
+      elementFrequencies() 
+    
+    if (!(element %in% colnames(element_frequencies))){
+      element_frequencies <- element_frequencies %>% 
+        mutate(!!element := NA)
+    }
+    
+    
+    element_frequencies %>% 
+      mutate(possible = !!isotope_rule %>% 
+             replace_na(FALSE)
+             ) %>% 
+      select(MF,possible) %>% 
+      .$possible 
+  }
+  else NA
+}
+
 #' Ionisation product molecular formula generation
 #' @description Generate molecular formulas for a given ionisation product accurate *m/z*.
 #' @param mz Accurate *m/z*
@@ -82,7 +129,13 @@ ipMF <- function(mz,
                                         adduct_rules_table = adduct_rules_table,
                                         isotope_rules_table = isotope_rules_table),
              Adduct = adduct,
-             Isotope = isotope) %>% 
+             Isotope = isotope,
+             isotope_possible = isotopePossible(MF,
+                                                Isotope,
+                                                isotope_rules_table)
+    ) %>%
+      filter(isTRUE(isotope_possible) | 
+               is.na(isotope_possible)) %>% 
       select(MF,
              Adduct,
              Isotope,

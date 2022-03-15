@@ -27,9 +27,15 @@ test_that('ipMF works for mass below 100',{
 })
 
 test_that('ipMF works for mass over 200',{
-  res <- ipMF(202,adduct = '[M+H]1+')
+  res <- ipMF(202,
+              adduct = '[M+H]1+',
+              isotope = '13C')
   
   expect_s3_class(res,"tbl_df")
+})
+
+test_that('isotopePossible throws error if incorrect isotope specified',{
+  expect_error(isotopePossible('H2O',isotope = 'incorrect'))
 })
 
 test_that('MF score calculated for MF neither containing N or O',{

@@ -102,6 +102,16 @@ ipMF <- function(mz,
                  adduct_rules_table = adduct_rules(),
                  isotope_rules_table = isotope_rules()){
   
+  empty <- tibble(MF = character(),
+                  Adduct = character(),
+                  Isotope = character(),
+                  `Measured m/z` = numeric(),
+                  `Measured M` = numeric(),
+                  `Theoretical m/z` = numeric(),
+                  `Theoretical M` = numeric(),
+                  `PPM error` = numeric(),
+                  `Plausibility (%)` = numeric())
+  
   M <- calcM(mz,
              adduct,
              isotope,
@@ -138,7 +148,12 @@ ipMF <- function(mz,
                                                 isotope_rules_table)
     ) %>%
       filter(isTRUE(isotope_possible) | 
-               is.na(isotope_possible)) %>% 
+               is.na(isotope_possible)) 
+  }
+  else return(empty)
+  
+  if (nrow(mfs) > 0){
+    mfs <- mfs %>% 
       select(MF,
              Adduct,
              Isotope,
@@ -159,17 +174,8 @@ ipMF <- function(mz,
                 by = "MF") %>% 
       mutate(`PPM error` = abs(`PPM error`)) %>% 
       arrange(desc(`Plausibility (%)`),`PPM error`)
-  } else {
-    mfs <- tibble(MF = character(),
-                  Adduct = character(),
-                  Isotope = character(),
-                  `Measured m/z` = numeric(),
-                  `Measured M` = numeric(),
-                  `Theoretical m/z` = numeric(),
-                  `Theoretical M` = numeric(),
-                  `PPM error` = numeric(),
-                  `Plausibility (%)` = numeric())
   }
+  else return(empty)
   
   return(mfs)
 }

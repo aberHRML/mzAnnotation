@@ -193,6 +193,10 @@ transformationPossible <- function(from,
                                    to,
                                    transformation,
                                    transformation_rules_table = transformation_rules()){
+  checkTransformation(
+    transformation,
+    transformation_rules_table
+  )
   
   product_MF <- transformMF(from,
                             transformation,
@@ -200,7 +204,7 @@ transformationPossible <- function(from,
   
   possible <- product_MF == to
   
-  possible <- ifelse(is.na(possible),FALSE,TRUE)
+  possible <- ifelse(is.na(possible),FALSE,possible)
   
   return(possible)
 }

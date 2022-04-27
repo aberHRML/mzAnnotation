@@ -179,3 +179,28 @@ ipMF <- function(mz,
   
   return(mfs)
 }
+
+#' Transformation check
+#' @description Check if a transformation between two molecular formulas is possible
+#' @param from molecular formula to be transformed
+#' @param to molecular formula product of the transformation
+#' @param transformation transformation to apply. As found in column `MF Change` of the table supplied to the arguement `transformation_rules_table`.
+#' @param transformation_rules_table the transformation rules table. Defaults to the returned value of `transformation_rules()`. Alternative tables should be supplied in the same format.
+#' @return TRUE/FALSE depending whether the transformation is possible
+#' @export
+
+transformationPossible <- function(from,
+                                   to,
+                                   transformation,
+                                   transformation_rules_table = transformation_rules()){
+  
+  product_MF <- transformMF(from,
+                            transformation,
+                            transformation_rules_table)
+  
+  possible <- product_MF == to
+  
+  possible <- ifelse(is.na(possible),FALSE,TRUE)
+  
+  return(possible)
+}

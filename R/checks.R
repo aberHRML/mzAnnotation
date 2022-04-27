@@ -52,3 +52,13 @@ checkDescriptorsTable <- function(tab){
   result <- TRUE
   return(result)
 }
+
+checkTransformation <- function(transformation,
+                                transformation_rules_table = transformation_rules()){
+  checkTransformationTable(transformation_rules_table)
+  
+  if (!(transformation %in% transformation_rules_table$`MF Change`)){
+    stop('Specified transformation not found in transformation rules table.',
+         call. = FALSE)
+  }
+}

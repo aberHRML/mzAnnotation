@@ -80,7 +80,8 @@ relationshipCalculator <- function(mz,
     relationships <- relationships %>% 
       inner_join(unique_rel,
                  by = c("ID1", "ID2")) %>% 
-      select(-contains('ID')) 
+      select(-contains('ID')) %>% 
+      filter(!(!is.na(Transformation1) & !is.na(Transformation2)))
   }
   
   return(relationships)

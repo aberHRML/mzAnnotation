@@ -2,7 +2,8 @@
 #' @param SMILES a character vector of valid SMILES
 #' @importFrom dplyr mutate
 #' @importFrom parallel makeCluster parLapply stopCluster
-#' @importFrom purrr map_dbl map_int map_chr map
+#' @importFrom purrr map
+#' @importFrom furrr future_map_dbl future_map_int future_map_chr furrr_options
 #' @export
 #' @examples
 #' data(amino_acids)
@@ -19,11 +20,12 @@ descriptors <- function(SMILES){
   descs <- desc %>%
     map(~{
       descType <- .
-      map_dbl(SMILES,~{
+      future_map_dbl(SMILES,~{
         m <- .
         m %>%
           descriptor(descType)
-      })
+      },
+      .options = furrr_options(seed = TRUE))
     })
   names(descs) <- desc
   
@@ -49,11 +51,12 @@ descriptors <- function(SMILES){
     split(1:nrow(Fgroups)) %>%
     map(~{
       string <- .$String
-      g <- map_int(SMILES,~{
+      g <- future_map_int(SMILES,~{
         s <- .
         s %>%
           smartsSearch(string)
-      }) %>%
+      },
+      .options = furrr_options(seed = TRUE)) %>%
         as_tibble()
       names(g) <- .$Name
       return(g)
@@ -62,8 +65,10 @@ descriptors <- function(SMILES){
   
   desc <- bind_cols(SMILES = SMILES,descs,groups) %>%
     mutate(Total_Charge = -Negative_Charge + Positive_Charge,
-           MF = map_chr(SMILES,smileToMF),
-           `Accurate_Mass` = map_dbl(SMILES,smileToAccurateMass) %>% round(5)
+           MF = future_map_chr(SMILES,smileToMF,
+                               .options = furrr_options(seed = TRUE)),
+           `Accurate_Mass` = future_map_dbl(SMILES,smileToAccurateMass,
+                                            .options = furrr_options(seed = TRUE)) %>% round(5)
            ) %>%
     
     select(SMILES,MF,Accurate_Mass,Negative_Charge,Positive_Charge,Total_Charge,HBA1:TPSA,NHH:COO)

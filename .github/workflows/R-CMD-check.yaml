@@ -95,9 +95,7 @@ jobs:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
           OPEN_BABEL_SRC: D:/a/openbabel3-build/src
           OPEN_BABEL_BIN: D:/a/openbabel3-build/bin
-        run: |
-          Sys.getenv('PATH') 
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
         
       - name: Test coverage

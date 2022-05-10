@@ -86,7 +86,6 @@ isotopePossible <- function(MF,
 #' @param adduct ionisation product adduct
 #' @param isotope ionisation product isotope
 #' @param ppm ppm error tolerance threshold
-#' @param element_ranges named list of element ranges
 #' @param adduct_rules_table tibble containing available adduct formation rules. Defaults to `adduct_rules()`.
 #' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @examples 
@@ -97,8 +96,7 @@ isotopePossible <- function(MF,
 ipMF <- function(mz,
                  adduct = "[M+H]1+",
                  isotope = NA,
-                 ppm = 5, 
-                 element_ranges = suitableElementRanges(mz),
+                 ppm = 5,
                  adduct_rules_table = adduct_rules(),
                  isotope_rules_table = isotope_rules()){
   
@@ -128,7 +126,7 @@ ipMF <- function(mz,
   
   mfs <- generateMF(M,
                     ppm = ppm,
-                    element_ranges = element_ranges) 
+                    element_ranges = suitableElementRanges(M)) 
   
   if (nrow(mfs) > 0){
     mfs <- mfs %>%

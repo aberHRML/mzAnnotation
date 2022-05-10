@@ -30,6 +30,7 @@ LazyData: true
 Suggests: testthat,
     covr,
     zlibbioc
+Remotes: bioc::zlibbioc
 LinkingTo: Rcpp
 Collate: allGenerics.R
     allClasses.R

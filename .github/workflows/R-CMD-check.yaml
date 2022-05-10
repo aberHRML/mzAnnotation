@@ -61,7 +61,7 @@ jobs:
             'https://github.com/girke-lab/ChemmineOB/releases/download/3.1.1/openbabel3r42.zip',
             'D:/a/openbabel3r42.zip')
           untar('D:/a/openbabel3r42.zip',
-            exdir = 'D:/a/openbabel3r42')
+            exdir = 'D:/a')
 
         shell: Rscript {0}
       

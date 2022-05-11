@@ -50,7 +50,7 @@ test_that('isotopePossible throws error if incorrect isotope specified',{
 test_that('transformationPossible works',{
   result <- transformationPossible(
     'CO2',
-    'CONH2',
+    'CH2NO',
     transformation_rules()$`MF Change`[1])
   expect_true(result)
 })

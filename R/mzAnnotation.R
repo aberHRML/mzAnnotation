@@ -15,5 +15,5 @@ globalVariables(c('Name','ID','MF','Accurate Mass','Smile 1','Adduct',
                   'twice_atoms_minus_1','name','probability_check','heuristic_check','result',
                   'check','rule','score','LEWIS and SENIOR','Heteroatom ratios','Element probabilities',
                   '1 - heteroatom proportion','Plausibility (%)','count','ratio','operator','threshold',
-                  'value','Transformation1','Transformation2','isotope_possible','possible'
+                  'value','Transformation1','Transformation2','isotope_possible','possible',':='
 ))

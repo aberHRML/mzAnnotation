@@ -39,6 +39,7 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
           rtools-version: "42"
+          update-rtools: true
       
       - name: Install Windows system dependencies
         if: runner.os == 'Windows'

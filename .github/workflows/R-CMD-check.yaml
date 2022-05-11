@@ -27,6 +27,8 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      OPEN_BABEL_SRC: D:/a/openbabel3r42/src
+      OPEN_BABEL_BIN: D:/a/openbabel3r42/bin
 
     steps:
       - uses: actions/checkout@v2
@@ -72,8 +74,5 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
-        env:
-          OPEN_BABEL_SRC: D:/a/openbabel3r42/src
-          OPEN_BABEL_BIN: D:/a/openbabel3r42/bin
 
       - uses: r-lib/actions/check-r-package@v1

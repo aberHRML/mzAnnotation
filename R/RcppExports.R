@@ -9,20 +9,20 @@ cnvrt <- function(input, inputType, outputType) {
 #' @description convert a smile to a molecular formula
 #' @param smile a valid SMILE
 #' @examples
-#' smileToMF(amino_acids$SMILES[1])
+#' smilesToMF(amino_acids$SMILES[1])
 #' @export
-smileToMF <- function(smile) {
-    .Call('_mzAnnotation_smileToMF', PACKAGE = 'mzAnnotation', smile)
+smilesToMF <- function(smile) {
+    .Call('_mzAnnotation_smilesToMF', PACKAGE = 'mzAnnotation', smile)
 }
 
 #' Convert SMILES to accurate mass
 #' @description convert a smile to an accurate mass
 #' @param smile a valid SMILE
 #' @examples
-#' smileToAccurateMass(amino_acids$SMILES[1])
+#' smilesToAccurateMass(amino_acids$SMILES[1])
 #' @export
-smileToAccurateMass <- function(smile) {
-    .Call('_mzAnnotation_smileToAccurateMass', PACKAGE = 'mzAnnotation', smile)
+smilesToAccurateMass <- function(smile) {
+    .Call('_mzAnnotation_smilesToAccurateMass', PACKAGE = 'mzAnnotation', smile)
 }
 
 #' SMARTS substructure search

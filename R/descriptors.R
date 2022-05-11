@@ -65,9 +65,9 @@ descriptors <- function(SMILES){
   
   desc <- bind_cols(SMILES = SMILES,descs,groups) %>%
     mutate(Total_Charge = -Negative_Charge + Positive_Charge,
-           MF = future_map_chr(SMILES,smileToMF,
+           MF = future_map_chr(SMILES,smilesToMF,
                                .options = furrr_options(seed = TRUE)),
-           `Accurate_Mass` = future_map_dbl(SMILES,smileToAccurateMass,
+           `Accurate_Mass` = future_map_dbl(SMILES,smilesToAccurateMass,
                                             .options = furrr_options(seed = TRUE)) %>% round(5)
            ) %>%
     

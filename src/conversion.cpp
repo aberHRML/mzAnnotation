@@ -26,10 +26,10 @@ std::string cnvrt(std::string input,const char* inputType,const char* outputType
 //' @description convert a smile to a molecular formula
 //' @param smile a valid SMILE
 //' @examples
-//' smileToMF(amino_acids$SMILES[1])
+//' smilesToMF(amino_acids$SMILES[1])
 //' @export
 // [[Rcpp::export]]
-std::string smileToMF(std::string smile){
+std::string smilesToMF(std::string smile){
   std::string res;
   OBMol mol;
   OBConversion conv;
@@ -45,10 +45,10 @@ std::string smileToMF(std::string smile){
 //' @description convert a smile to an accurate mass
 //' @param smile a valid SMILE
 //' @examples
-//' smileToAccurateMass(amino_acids$SMILES[1])
+//' smilesToAccurateMass(amino_acids$SMILES[1])
 //' @export
 // [[Rcpp::export]]
-double smileToAccurateMass(std::string smile){
+double smilesToAccurateMass(std::string smile){
   double res;
   OBMol mol;
   OBConversion conv;

@@ -62,3 +62,4 @@ Collate: allGenerics.R
     rules.R
     show-method.R
     transformMF.R
+    zzz.R

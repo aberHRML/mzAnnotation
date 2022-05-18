@@ -133,21 +133,21 @@ senior <- function(element_frequencies,
     .$SENIOR
 }
 
-#' Heteroatom ratio check
-#' @description Heteroatom ratio checks based on rule #5 of the Seven Golden Rules by Kind et al 2007.
+#' Element ratio checks
+#' @description Element ratio checks based on rules #4 and #5 of the Seven Golden Rules by Kind et al 2007.
 #' @param element_ratios a tibble containing molecular formula elemental ratios
-#' @param range the ratio threshold ranges as defined by rule #5 of the Seven Golden Rules by Kind et al 2007
-#' @return A tibble containing results of the heteroatom ratio checks.
+#' @param range the ratio threshold ranges as defined by rules #5 and #5 of the Seven Golden Rules by Kind et al 2007
+#' @return A tibble containing results of the element ratio checks.
 #' @examples 
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
 #'   elementRatios() %>% 
-#'   heteroatomRatioCheck()
+#'   elementRatioCheck()
 #' @importFrom purrr flatten_chr
 #' @importFrom dplyr group_split
 #' @importFrom rlang parse_expr eval_tidy
 #' @export
 
-heteroatomRatioCheck <- function(element_ratios, 
+elementRatioCheck <- function(element_ratios, 
                                  range = c('common',
                                            'extended',
                                            'extreme')){
@@ -197,17 +197,17 @@ heteroatomRatioCheck <- function(element_ratios,
   return(ratio_checks)
 }
 
-#' Element probability check
-#' @description Element probability checks based on rule #6 of the Seven Golden Rules by Kind et al 2007.
+#' Element count checks
+#' @description Element count checks based on rule #6 of the Seven Golden Rules by Kind et al 2007.
 #' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
-#' @return A tibble containing results of the heteroatom ratio checks. The column headers refer to elemental counts needed to apply the heuristic rule. See Table 3 in Kind et al 2007 for definitions of the heuristic rules applied.
+#' @return A tibble containing results of the element count checks.
 #' @examples 
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
-#'   elementProbabilityCheck()
+#'   elementCountCheck()
 #' @importFrom rlang .data
 #' @export
 
-elementProbabilityCheck <- function(element_frequencies){
+elementCountCheck <- function(element_frequencies){
   
   check_names <- c(rep('NOPS all >= 1',4),
                    rep('NOP all >= 3',3),
@@ -334,6 +334,16 @@ elementProbabilityCheck <- function(element_frequencies){
     bind_cols(select(element_frequencies,.data$MF)) %>% 
     select(.data$MF,everything())
   
+  heuristic_names <- heuristics %>% 
+    select(name,check) %>% 
+    group_by(name) %>% 
+    summarise(label = paste(check,collapse = ', ')) %>% 
+    mutate(label = paste(name,label,sep = '; ')) %>% 
+    .$label
+  
+  check_results <- check_results %>% 
+    set_colnames(c('MF',heuristic_names))
+  
   return(check_results)
 }
 
@@ -395,9 +405,9 @@ goldenRules <- function(MF){
     LEWIS = lewis(element_frequencies),
     SENIOR = senior(element_frequencies),
   ) %>% 
-    left_join(heteroatomRatioCheck(element_ratios),
+    left_join(elementRatioCheck(element_ratios),
               by = 'MF') %>% 
-    left_join(elementProbabilityCheck(element_frequencies),
+    left_join(elementCountCheck(element_frequencies),
               by = 'MF') %>% 
     left_join(heteroatomProportion(element_frequencies) %>%
                 mutate(`1 - heteroatom proportion` = 1 - .data$`heteroatom proportion`) %>% 

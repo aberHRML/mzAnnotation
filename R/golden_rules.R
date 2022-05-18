@@ -347,18 +347,16 @@ elementCountCheck <- function(element_frequencies){
   return(check_results)
 }
 
-#' The proportion of hetoratoms in molecular formulas
-#' @description Calculate the proportions of heteroatoms in molecular formulas.
+#' The proportion of C, H and O atoms in molecular formulas
+#' @description Calculate the proportion of C, H and O in molecular formulas.
 #' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
-#' @param heteroatoms a vector of elements to count as heteroatoms. Oxygen is included a default as this is often advantageous for molecular formulas of biological origin.
 #' @return A tibble contianing the 
 #' @examples
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
-#'   heteroatomProportion()
+#'   CHOproportion()
 #' @export
 
-heteroatomProportion <- function(element_frequencies,
-                                    heteroatoms = c('C','H','O')){
+CHOproportion <- function(element_frequencies){
   element_totals <- element_frequencies %>% 
     gather(element,
            count,
@@ -366,26 +364,26 @@ heteroatomProportion <- function(element_frequencies,
     group_by(.data$MF) %>% 
     summarise(total_atoms = sum(.data$count,na.rm = TRUE))
   
-  heteroatom_counts <- element_frequencies %>% 
+  CHO_counts <- element_frequencies %>% 
     gather(element,
            count,
            -MF) %>% 
-    filter(!(.data$element %in% heteroatoms))
+    filter(.data$element %in% c('C','H','O'))
   
   
-  if (nrow(heteroatom_counts) == 0) {
-    heteroatom_counts <- tibble(
+  if (nrow(CHO_counts) == 0) {
+    CHO_counts <- tibble(
       MF = element_frequencies$MF,
-      heteroatoms = 0
+      CHO = 0
     )
     } else {
-      heteroatom_counts <- heteroatom_counts %>% 
+      CHO_counts <- CHO_counts %>% 
         group_by(MF) %>% 
-        summarise(heteroatoms = sum(.data$count,na.rm = TRUE))
+        summarise(CHO = sum(.data$count,na.rm = TRUE))
     }
-   heteroatom_counts %>% 
+   CHO_counts %>% 
     left_join(element_totals,by = 'MF') %>% 
-    mutate(`heteroatom proportion` = heteroatoms/.data$total_atoms)
+    mutate(`CHO proportion` = CHO/.data$total_atoms)
 }
 
 #' Golden rule tests for molecular formlas
@@ -409,9 +407,8 @@ goldenRules <- function(MF){
               by = 'MF') %>% 
     left_join(elementCountCheck(element_frequencies),
               by = 'MF') %>% 
-    left_join(heteroatomProportion(element_frequencies) %>%
-                mutate(`1 - heteroatom proportion` = 1 - .data$`heteroatom proportion`) %>% 
-                select(MF,.data$`1 - heteroatom proportion`),
+    left_join(CHOproportion(element_frequencies) %>% 
+                select(MF,`CHO proportion`),
               by = 'MF')
   
   return(golden_rules)
@@ -434,8 +431,8 @@ goldenRulesScore <- function(golden_rules){
     mutate(rule = .data$check,
            rule = replace(.data$rule,.data$rule == 'LEWIS','LEWIS and SENIOR'),
            rule = replace(.data$rule,.data$rule == 'SENIOR','LEWIS and SENIOR'),
-           rule = replace(.data$rule,grepl('/',.data$rule),'Heteroatom ratios'),
-           rule = replace(.data$rule,grepl('all',.data$rule),'Element probabilities'))
+           rule = replace(.data$rule,grepl('/',.data$rule),'Element ratios'),
+           rule = replace(.data$rule,grepl('all',.data$rule),'Element counts'))
   
   golden_rules %>% 
     gather(check,result,-MF) %>% 
@@ -451,13 +448,13 @@ goldenRulesScore <- function(golden_rules){
               .groups = 'drop') %>% 
     spread(rule,score) %>% 
     mutate(`Plausibility (%)` = (`LEWIS and SENIOR` +
-                                   `Heteroatom ratios` +
-                                   `Element probabilities` +
-                                   `1 - heteroatom proportion`) / 4 * 100) %>% 
+                                   `Element ratios` +
+                                   `Element counts` +
+                                   `CHO proportion`) / 4 * 100) %>% 
     select(MF,
            `LEWIS and SENIOR`,
-           `Heteroatom ratios`,
-           `Element probabilities`,
-           `1 - heteroatom proportion`,
+           `Element ratios`,
+           `Element counts`,
+           `CHO proportion`,
            `Plausibility (%)`)
 }

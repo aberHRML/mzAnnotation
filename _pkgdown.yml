@@ -1,1 +1,4 @@
 url: https://jasenfinch.github.io/mzAnnotation/
+template:
+  bootstrap: 5
+

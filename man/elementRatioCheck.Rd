@@ -2,23 +2,20 @@
 % Please edit documentation in R/golden_rules.R
 \name{elementRatioCheck}
 \alias{elementRatioCheck}
-\title{Heteroatom ratio check}
+\title{Element ratio checks}
 \usage{
-elementRatioCheck(
-  element_ratios,
-  range = c("common", "extended", "extreme")
-)
+elementRatioCheck(element_ratios, range = c("common", "extended", "extreme"))
 }
 \arguments{
 \item{element_ratios}{a tibble containing molecular formula elemental ratios}
 
-\item{range}{the ratio threshold ranges as defined by rule #5 of the Seven Golden Rules by Kind et al 2007}
+\item{range}{the ratio threshold ranges as defined by rules #5 and #5 of the Seven Golden Rules by Kind et al 2007}
 }
 \value{
-A tibble containing results of the heteroatom ratio checks.
+A tibble containing results of the element ratio checks.
 }
 \description{
-Heteroatom ratio checks based on rule #5 of the Seven Golden Rules by Kind et al 2007.
+Element ratio checks based on rules #4 and #5 of the Seven Golden Rules by Kind et al 2007.
 }
 \examples{
 elementFrequencies(c('H2O','C12H22O11')) \%>\% 

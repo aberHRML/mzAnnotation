@@ -2,7 +2,7 @@
 % Please edit documentation in R/golden_rules.R
 \name{elementCountCheck}
 \alias{elementCountCheck}
-\title{Element probability check}
+\title{Element count checks}
 \usage{
 elementCountCheck(element_frequencies)
 }
@@ -10,10 +10,10 @@ elementCountCheck(element_frequencies)
 \item{element_frequencies}{a tibble containing element frequencies as returned by \code{elementFrequencies()}}
 }
 \value{
-A tibble containing results of the heteroatom ratio checks. The column headers refer to elemental counts needed to apply the heuristic rule. See Table 3 in Kind et al 2007 for definitions of the heuristic rules applied.
+A tibble containing results of the element count checks.
 }
 \description{
-Element probability checks based on rule #6 of the Seven Golden Rules by Kind et al 2007.
+Element count checks based on rule #6 of the Seven Golden Rules by Kind et al 2007.
 }
 \examples{
 elementFrequencies(c('H2O','C12H22O11')) \%>\% 

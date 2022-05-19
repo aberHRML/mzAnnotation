@@ -205,6 +205,7 @@ elementRatioCheck <- function(element_ratios,
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
 #'   elementCountCheck()
 #' @importFrom rlang .data
+#' @importFrom magrittr set_colnames
 #' @export
 
 elementCountCheck <- function(element_frequencies){

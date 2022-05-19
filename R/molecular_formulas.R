@@ -116,16 +116,10 @@ ipMF <- function(mz,
              adduct_rules_table = adduct_rules_table,
              isotope_rules_table = isotope_rules_table)
   
-  if (M < 100 & ppm < 10) {
-    ppm <- 10
-  } else {
-    ppm <- ppm
-  }
-  
-  ppm <- (ppm/10^6 * mz)/M * 10^6
+  ppm_M <- (ppm/10^6 * mz)/M * 10^6
   
   mfs <- generateMF(M,
-                    ppm = ppm,
+                    ppm = ppm_M,
                     element_ranges = suitableElementRanges(M)) 
   
   if (nrow(mfs) > 0){
@@ -143,10 +137,13 @@ ipMF <- function(mz,
              Isotope = isotope,
              isotope_possible = isotopePossible(MF,
                                                 Isotope,
-                                                isotope_rules_table)
+                                                isotope_rules_table),
+             `PPM error` = ppmError(`Measured m/z`,
+                                    `Theoretical m/z`)
     ) %>%
       filter(isTRUE(isotope_possible) | 
-               is.na(isotope_possible)) 
+               is.na(isotope_possible),
+             `PPM error` < ppm) 
   }
   else return(empty)
   

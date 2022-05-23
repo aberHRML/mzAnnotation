@@ -40,16 +40,42 @@ filterMF(db, mf)
 \S4method{filterMF}{MetaboliteDatabase}(db, mf)
 }
 \arguments{
-\item{db}{S4 object of class MetaboliteDatabase}
+\item{db}{S4 object of class \code{MetaboliteDatabase}}
 
 \item{lower}{lower mass boundary}
 
 \item{upper}{upper mass boundary}
+
+\item{rule}{a filtering expression}
+
+\item{IDs}{a numeric vector of entry IDs}
+
+\item{mf}{a molecular formula to filter}
+}
+\value{
+An S4 object of class \code{MetaboliteDatabase}.
 }
 \description{
-Filter a MetaboliteDatabase for a given mass range.
+Utilities for working with metabolite databases.
 }
 \examples{
-db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
-db <- filterMR(db,100,120)
+metabolite_database <- metaboliteDB(amino_acids)
+
+## Return the number of database entries
+nEntries(metabolite_database)
+
+## Filter database entries
+filterEntries(metabolite_database,c(1:5))
+
+## Filter database using a mass range
+filterMR(metabolite_database,100,120)
+
+## Filter the database by an element frequency rule
+filterER(metabolite_database,C > 2)
+
+## Filter the database by an ionisation product rule
+filterIP(metabolite_database,HBA2>0 & Total_Charge==0)
+
+## Filter a database by a molecular formula
+filterMF(metabolite_database,"C3H7NO2")
 }

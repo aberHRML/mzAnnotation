@@ -103,15 +103,34 @@ setMethod('descriptors<-',signature = 'MetaboliteDatabase',
 
 #' Metabolite database utilities
 #' @rdname utilities
-#' @description Filter a MetaboliteDatabase for a given mass range.
-#' @param db S4 object of class MetaboliteDatabase
+#' @description Utilities for working with metabolite databases.
+#' @param db S4 object of class `MetaboliteDatabase`
+#' @param IDs a numeric vector of entry IDs
+#' @param mf a molecular formula to filter
+#' @param rule a filtering expression
 #' @param lower lower mass boundary
 #' @param upper upper mass boundary
+#' @return An S4 object of class `MetaboliteDatabase`.
 #' @examples 
 #' metabolite_database <- metaboliteDB(amino_acids)
 #' 
+#' ## Return the number of database entries
+#' nEntries(metabolite_database)
+#' 
+#' ## Filter database entries
+#' filterEntries(metabolite_database,c(1:5))
+#' 
 #' ## Filter database using a mass range
 #' filterMR(metabolite_database,100,120)
+#' 
+#' ## Filter the database by an element frequency rule
+#' filterER(metabolite_database,C > 2)
+#' 
+#' ## Filter the database by an ionisation product rule
+#' filterIP(metabolite_database,HBA2>0 & Total_Charge==0)
+#' 
+#' ## Filter a database by a molecular formula
+#' filterMF(metabolite_database,"C3H7NO2")
 #' @export
 
 setGeneric("nEntries", function(db) {
@@ -367,6 +386,8 @@ setMethod('PIPsearch',signature = 'MetaboliteDatabase',
 setGeneric("elementFreq", function(db) {
   standardGeneric("elementFreq")
 })
+
+#' @importFrom dplyr everything
 
 setMethod('elementFreq',signature = 'MetaboliteDatabase',
           function(db){

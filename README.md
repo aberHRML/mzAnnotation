@@ -8,8 +8,8 @@
 [![DOI](https://zenodo.org/badge/33083554.svg)](https://zenodo.org/badge/latestdoi/33083554)
 <!-- badges: end -->
 
-An R package containing tools for putative annotation of accurate m/z
-from electrospray ionisation mass spectrometry data.
+An R package containing tools to aid the putative annotation of accurate m/z
+from electrospray ionisation mass spectrometry (ESI-MS) data.
 
 ### Installation
 

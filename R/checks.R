@@ -21,7 +21,7 @@ checkAdductTable <- function(tab,
   checkTableNames(tab,type,correct_names)
 }
 
-checkIsotopeTable <- function(tab
+checkIsotopeTable <- function(tab,
                               type = 'isotope',
                               correct_names = colnames(isotope_rules())){
   checkTableNames(tab,type,correct_names)

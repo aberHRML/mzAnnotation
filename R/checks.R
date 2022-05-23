@@ -5,7 +5,7 @@ checkTableNames <- function(tab,type,correct_names){
 
   if (!all(correct_names %in% table_names)) {
     stop('Columns '
-         ,paste0(columns$column[!(columns$column %in% table_names)],collapse = ', '),
+         ,paste0(correct_names[!(correct_names %in% table_names)],collapse = ', '),
          ' not found in ',
          type,
          ' rules table!',

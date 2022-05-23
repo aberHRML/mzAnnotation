@@ -12,11 +12,10 @@ setClass(
 
 setMethod('show',signature = 'MetaboliteDatabase',
           function(object){
-            type <- object@type
-            accessions <- object %>%
+            entries <- object %>%
               entries() %>%
               nrow()
-            cat('\n',type,' MetaboliteDatabase object containing ',accessions,' accessions\n\n',sep = '')
+            cat('\nMetaboliteDatabase object containing ',entries,' entries\n\n',sep = '')
           }
 )
 
@@ -36,10 +35,15 @@ metaboliteDB <- function(entries){
   
   metabolite_descriptors <- chemicalDescriptors(entries$SMILES)
   
+  entries <- as_tibble(entries)
+  
   db <- new(
     'MetaboliteDatabase',
-    entries = as_tibble(entries),
-    descriptors = as_tibble(metabolite_descriptors)
+    entries = entries,
+    descriptors = bind_cols(
+      select(entries,ID),
+      as_tibble(metabolite_descriptors)
+    )
   )
   
   return(db)
@@ -52,9 +56,8 @@ metaboliteDB <- function(entries){
 #' 
 #' @export
 
-setGeneric('entries',function(db) {
-  standardGeneric('entries')
-})
+setGeneric('entries',function(db)
+  standardGeneric('entries'))
 
 #' @rdname accessors
 
@@ -64,12 +67,21 @@ setMethod('entries',signature = 'MetaboliteDatabase',
           }
 )
 
+setGeneric('entries<-',function(db,value)
+  standardGeneric('entries<-'))
+
+setMethod('entries<-',signature = 'MetaboliteDatabase',
+          function(db,value){
+            db@entries <- value
+            return(db)
+          }
+)
+
 #' @rdname accessors
 #' @export
 
-setGeneric('descriptors',function(db) {
-  standardGeneric('descriptors')
-})
+setGeneric('descriptors',function(db) 
+  standardGeneric('descriptors'))
 
 #' @rdname accessors
 
@@ -79,7 +91,17 @@ setMethod('descriptors',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Filter a mass range
+setGeneric('descriptors<-',function(db,value)
+  standardGeneric('descriptors<-'))
+
+setMethod('descriptors<-',signature = 'MetaboliteDatabase',
+          function(db,value){
+            db@descriptors <- value
+            return(db)
+          }
+)
+
+#' Metabolite database utilities
 #' @rdname utilities
 #' @description Filter a MetaboliteDatabase for a given mass range.
 #' @param db S4 object of class MetaboliteDatabase
@@ -90,6 +112,21 @@ setMethod('descriptors',signature = 'MetaboliteDatabase',
 #' db <- filterMR(db,100,120)
 #' @export
 
+setGeneric("nEntries", function(db) {
+  standardGeneric("nEntries")
+})
+
+#' @rdname utilities
+
+setMethod('nEntries',signature = 'MetaboliteDatabase',
+          function(db){
+          nrow(entries(db))
+          }
+)
+
+#' @rdname utilities
+#' @export
+
 setGeneric("filterMR", function(db,lower,upper) {
   standardGeneric("filterMR")
 })
@@ -98,14 +135,15 @@ setGeneric("filterMR", function(db,lower,upper) {
 
 setMethod('filterMR',signature = 'MetaboliteDatabase',
           function(db,lower,upper){
-            desc <- db@descriptors[[1]]
-            desc <- desc %>%
-              filter(Accurate_Mass > lower & Accurate_Mass < upper)
-            acc <- db@accessions[[1]]
-            acc <- acc %>%
+            desc <- descriptors(db) %>%
+              filter(Accurate_Mass > lower,
+                     Accurate_Mass < upper)
+            
+            acc <- entries(db) %>%
               filter(SMILES %in% desc$SMILES)
-            db@descriptors <- list(desc)
-            db@accessions <- list(acc)
+            
+            descriptors(db) <- desc
+            entries(db) <- acc
             return(db)
           }
 )
@@ -118,20 +156,27 @@ setGeneric("filterER", function(db,rule) {
 })
 
 #' @rdname utilities
+#' @importFrom rlang enexpr expr_text
+#' @importFrom stringr str_extract_all
 
 setMethod('filterER',signature = 'MetaboliteDatabase',
           function(db,rule){
+            
+            rule <- enexpr(rule)
+            
             ef <- elementFreq(db)
-            if (str_extract(rule,'[:alpha:]') %in% colnames(ef)) {
+            
+            if (all(str_extract_all(expr_text(rule),'[:alpha:]')[[1]] %in% 
+                    colnames(ef))) {
               ef <- ef %>%
-                filter(eval(parse(text = rule)))   
+                filter(!!rule)   
             } else {
               ef[0,]
             }
-            db@descriptors[[1]] <- db@descriptors[[1]] %>%
-              filter(ID %in% ef$ID)
-            db@accessions[[1]] <- db@accessions[[1]] %>%
-              filter(ID %in% ef$ID)
+           
+            db <- filterEntries(db,
+                                IDs = ef)
+            
             return(db)
           }
 )
@@ -147,14 +192,16 @@ setGeneric("filterIP", function(db,rule) {
 
 setMethod('filterIP',signature = 'MetaboliteDatabase',
           function(db,rule){
-            desc <- db@descriptors[[1]]
-            desc <- desc %>%
-              filter(eval(parse(text = rule)))
-            acc <- db@accessions[[1]]
-            acc <- acc %>%
-              filter(SMILES %in% desc$SMILES)
-            db@descriptors <- list(desc)
-            db@accessions <- list(acc)
+            
+            rule <- enexpr(rule)
+            
+            desc <- descriptors(db) %>%
+              filter(!!rule)
+            
+            db <- filterEntries(
+              db,
+              desc$ID)
+            
             return(db)
           }
 )
@@ -162,20 +209,22 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
 #' @rdname utilities
 #' @export
 
-setGeneric("filterACCESSIONS", function(db,ids) {
-  standardGeneric("filterACCESSIONS")
+setGeneric("filterEntries", function(db,IDs) {
+  standardGeneric("filterEntries")
 })
 
 #' @rdname utilities
 
-setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
-          function(db,ids){
-            db@accessions[[1]] <- db %>%
+setMethod('filterEntries',signature = 'MetaboliteDatabase',
+          function(db,IDs){
+            entries(db) <- db %>%
               entries() %>%
-              filter(ID %in% ids)
-            db@descriptors[[1]] <- db %>%
-              getDescriptors() %>%
-              filter(ID %in% ids)
+              filter(ID %in% IDs)
+            
+            descriptors(db) <- db %>%
+              descriptors() %>%
+              filter(ID %in% IDs)
+            
             return(db)
           }
 )
@@ -191,29 +240,31 @@ setGeneric('filterMF', function(db,mf){
 
 setMethod('filterMF',signature = 'MetaboliteDatabase',
           function(db,mf){
-            db@descriptors[[1]] <- db@descriptors[[1]] %>%
-              filter(MF %in% mf)
+            mfs <- descriptors(db) %>% 
+              filter(MF == mf)
             
-            db@accessions[[1]] <- db@accessions[[1]] %>%
-              filter(ID %in% db@descriptors[[1]]$ID)
+            db <- filterEntries(
+              db,
+              mfs$ID
+            )
             
             return(db)
           }
 )
 
-#' @rdname utilities
+#' @rdname products
 #' @export
 
 setGeneric('calcAdducts',function(db,id,adduct_rules_table = adduct_rules())
   standardGeneric('calcAdducts'))
 
-#' @rdname utilities
+#' @rdname products
 
 setMethod('calcAdducts',signature = 'MetaboliteDatabase',
           function(db,id,adduct_rules_table = adduct_rules()){
             
             smiles <- db %>%
-              getDescriptors() %>%
+              descriptors() %>%
               filter(ID == id) %>%
               select(SMILES) %>%
               deframe()
@@ -222,27 +273,28 @@ setMethod('calcAdducts',signature = 'MetaboliteDatabase',
               ionisationProducts(adduct_rules_table = adduct_rules_table)
           })
 
-#' @rdname utilities
+#' @rdname products
 #' @importFrom dplyr bind_rows select filter
 #' @export
 
 setGeneric('PIPsearch',function(db,
                                 mz,
-                                ppm,
                                 adduct,
+                                ppm = 6,
                                 isotope = NA, 
                                 adduct_rules_table = adduct_rules(),
                                 isotope_rules_table = isotope_rules()) 
   standardGeneric('PIPsearch')
 )
 
-#' @rdname utilities
+#' @rdname products
+#' @importFrom rlang expr
 
 setMethod('PIPsearch',signature = 'MetaboliteDatabase',
           function(db,
                    mz,
-                   ppm,
                    adduct,
+                   ppm = 6,
                    isotope = NA, 
                    adduct_rules_table = adduct_rules(),
                    isotope_rules_table = isotope_rules()){
@@ -256,19 +308,24 @@ setMethod('PIPsearch',signature = 'MetaboliteDatabase',
             res <- db %>%
               filterMR(mr$lower,mr$upper)
             
-            if (!is.na(isotope) & nrow(res@accessions[[1]]) > 0) {
-              isoRule <- isotope_rules_table$Rule[isotope_rules_table$Isotope == isotope]
+            if (!is.na(isotope) & nEntries(res) > 0) {
+              isoRule <- isotope_rules_table$Rule[isotope_rules_table$Isotope == isotope] %>% 
+                parse_expr()
+              
               res <- res %>%
-                filterER(isoRule)
+                filterER(!!isoRule)
             }
             
-            addRule <- adduct_rules_table$Rule[adduct_rules_table$Name == adduct]
+            addRule <- adduct_rules_table$Rule[adduct_rules_table$Name == adduct] %>% 
+              parse_expr()
             
             res <- res %>%
-              filterIP(addRule)
+              filterIP(!!addRule)
             
             res <- res %>%
-              {left_join(.@accessions[[1]],.@descriptors[[1]],by = c("ID", "SMILES"))} %>%
+              {left_join(entries(.),
+                         descriptors(.),
+                         by = c("ID", "SMILES"))} %>%
               select(ID:Accurate_Mass) %>%
               mutate(Isotope = isotope,
                      Adduct = adduct,
@@ -279,20 +336,20 @@ setMethod('PIPsearch',signature = 'MetaboliteDatabase',
             return(res)
           })
 
-#' @rdname utilities
+#' @rdname products
 #' @export
 
 setGeneric("elementFreq", function(db) {
   standardGeneric("elementFreq")
 })
 
-#' @rdname utilities
+#' @rdname products
 #' @importFrom dplyr everything
 
 setMethod('elementFreq',signature = 'MetaboliteDatabase',
           function(db){
             MFs <- db %>%
-              getDescriptors() %>%
+              descriptors() %>%
               .$MF %>%
               unique() %>%
               map(~{
@@ -303,13 +360,13 @@ setMethod('elementFreq',signature = 'MetaboliteDatabase',
                   as_tibble()
               })
             names(MFs) <- db %>%
-              getDescriptors() %>%
+              descriptors() %>%
               .$MF %>% 
               unique()
             MFs <- MFs %>% 
               bind_rows(.id = 'MF') %>%
               right_join(db %>%
-                           getDescriptors() %>%
+                           descriptors() %>%
                            select(ID,MF), by = "MF") %>%
               select(ID,everything())
             return(MFs)

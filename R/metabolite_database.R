@@ -108,8 +108,10 @@ setMethod('descriptors<-',signature = 'MetaboliteDatabase',
 #' @param lower lower mass boundary
 #' @param upper upper mass boundary
 #' @examples 
-#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
-#' db <- filterMR(db,100,120)
+#' metabolite_database <- metaboliteDB(amino_acids)
+#' 
+#' ## Filter database using a mass range
+#' filterMR(metabolite_database,100,120)
 #' @export
 
 setGeneric("nEntries", function(db) {
@@ -252,7 +254,32 @@ setMethod('filterMF',signature = 'MetaboliteDatabase',
           }
 )
 
+#' Metabolite database ionisation product searches
 #' @rdname products
+#' @description Methods for metabolite database ionisation product searches
+#' @param db S4 object of class `MetaboliteDatabase`
+#' @param id Database entry ID
+#' @param mz search mass to charge ratio
+#' @param adduct search adduct
+#' @param ppm search ppm error
+#' @param isotope search isotope
+#' @param adduct_rules_table table containing adduct formation rules. Defaults to `adduct_rules()`.
+#' @param isotope_rules_table table containing isotope rules. Defaults to `isotope_rules()`.
+#' @return 
+#' A tibble containing the relevant product search results depending on the method used
+#' @examples 
+#' metabolite_database <- metaboliteDB(amino_acids)
+#' 
+#' ## Perform a putative ionisation product search
+#' PIPsearch(
+#'   metabolite_database,
+#'   mz = 133.03358,
+#'   adduct = '[M-H]1-',
+#'   isotope = '13C')
+#' 
+#' ## Calculate adduct m/z for a database entry
+#' calcAdducts(metabolite_database,1)
+#' 
 #' @export
 
 setGeneric('calcAdducts',function(db,id,adduct_rules_table = adduct_rules())
@@ -336,15 +363,10 @@ setMethod('PIPsearch',signature = 'MetaboliteDatabase',
             return(res)
           })
 
-#' @rdname products
-#' @export
 
 setGeneric("elementFreq", function(db) {
   standardGeneric("elementFreq")
 })
-
-#' @rdname products
-#' @importFrom dplyr everything
 
 setMethod('elementFreq',signature = 'MetaboliteDatabase',
           function(db){

@@ -14,6 +14,7 @@ globalVariables(c('Name','ID','MF','Accurate Mass','Smile 1','Adduct',
                   'total_valence','sum_valence','odd_valence_total','twice_maximum_valence',
                   'twice_atoms_minus_1','name','probability_check','heuristic_check','result',
                   'check','rule','score','LEWIS and SENIOR','Heteroatom ratios','Element probabilities',
-                  '1 - heteroatom proportion','Plausibility (%)','count','ratio','operator','threshold',
-                  'value','Transformation1','Transformation2','isotope_possible','possible',':='
+                  'CHO proportion','Plausibility (%)','count','ratio','operator','threshold',
+                  'value','Transformation1','Transformation2','isotope_possible','possible',':=',
+                  'CHO','Element counts','Element ratios','label'
 ))

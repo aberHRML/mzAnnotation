@@ -6,7 +6,7 @@
 #' @examples 
 #' element_frequencies <- elementFrequencies(c('C12H22O11','C12H22NO11'))
 #' rdbe(element_frequencies)
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble deframe
 #' @importFrom dplyr distinct
 #' @importFrom tidyr replace_na
 #' @export
@@ -41,7 +41,7 @@ rdbe <- function(element_frequencies,
     )
   element_frequencies %>% 
     select(MF) %>% 
-    dplyr::distinct() %>% 
+    distinct() %>% 
     left_join(rdbe_values,by = 'MF') %>% 
     select(rdbe) %>% 
     deframe()

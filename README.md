@@ -9,7 +9,7 @@
 <!-- badges: end -->
 
 An R package containing tools to aid the putative annotation of accurate m/z
-from electrospray ionisation mass spectrometry (ESI-MS) data.
+from high resolution electrospray ionisation mass spectrometry (ESI-MS) data.
 
 ### Installation
 

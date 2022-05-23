@@ -1,15 +1,14 @@
-#' Molecular descriptors
+#' Chemical descriptors
 #' @param SMILES a character vector of valid SMILES
 #' @importFrom dplyr mutate
-#' @importFrom parallel makeCluster parLapply stopCluster
 #' @importFrom purrr map
 #' @importFrom furrr future_map_dbl future_map_int future_map_chr furrr_options
 #' @export
 #' @examples
 #' data(amino_acids)
-#' descriptors(amino_acids$SMILES)
+#' chemicalDescriptors(amino_acids$SMILES)
 
-descriptors <- function(SMILES){
+chemicalDescriptors <- function(SMILES){
   desc <- c('HBA1',
             'HBA2',
             'HBD',

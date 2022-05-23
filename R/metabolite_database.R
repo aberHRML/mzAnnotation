@@ -39,7 +39,7 @@ metaboliteDB <- function(entries){
   db <- new(
     'MetaboliteDatabase',
     entries = as_tibble(entries),
-    descrtors = as_tibble(metabolite_descriptors)
+    descriptors = as_tibble(metabolite_descriptors)
   )
   
   return(db)

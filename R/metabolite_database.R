@@ -80,7 +80,7 @@ setMethod('descriptors',signature = 'MetaboliteDatabase',
 )
 
 #' Filter a mass range
-#' @rdname filterMR
+#' @rdname utilities
 #' @description Filter a MetaboliteDatabase for a given mass range.
 #' @param db S4 object of class MetaboliteDatabase
 #' @param lower lower mass boundary
@@ -94,7 +94,7 @@ setGeneric("filterMR", function(db,lower,upper) {
   standardGeneric("filterMR")
 })
 
-#' @rdname filterMR
+#' @rdname utilities
 
 setMethod('filterMR',signature = 'MetaboliteDatabase',
           function(db,lower,upper){
@@ -110,21 +110,14 @@ setMethod('filterMR',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Filter using an elemental rule
-#' @rdname filterER
-#' @description Filter a MetaboliteDatabase based on an elemental rule.
-#' @param db S4 object of class MetaboliteDatabase
-#' @param rule elemental rule given as a string
-#' @examples 
-#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
-#' db <- filterER(db,'S>0')
+#' @rdname utilities
 #' @export
 
 setGeneric("filterER", function(db,rule) {
   standardGeneric("filterER")
 })
 
-#' @rdname filterER
+#' @rdname utilities
 
 setMethod('filterER',signature = 'MetaboliteDatabase',
           function(db,rule){
@@ -143,22 +136,14 @@ setMethod('filterER',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Filter using an ionisation rule
-#' @rdname filterIP
-#' @description Filter MetaboliteDatabase based on an ionisation rule
-#' @param db S4 object of class MetaboliteDatabase
-#' @param rule Character containing ionisation rule.
-#' @examples 
-#' rule <- adduct_rules()$Rule[52]
-#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
-#' db <- filterIP(db,rule)
+#' @rdname utilities
 #' @export
 
 setGeneric("filterIP", function(db,rule) {
   standardGeneric("filterIP")
 })
 
-#' @rdname filterIP
+#' @rdname utilities
 
 setMethod('filterIP',signature = 'MetaboliteDatabase',
           function(db,rule){
@@ -174,21 +159,14 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Filter accessions
-#' @rdname filterACCESSIONS
-#' @description Filter a MetaboliteDatabase based on given accession IDs.
-#' @param db S4 object of class MetaboliteDatabase
-#' @param ids vector of accession IDs
-#' @examples 
-#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
-#' db <- filterACCESSIONS(db,c(1,2))
+#' @rdname utilities
 #' @export
 
 setGeneric("filterACCESSIONS", function(db,ids) {
   standardGeneric("filterACCESSIONS")
 })
 
-#' @rdname filterACCESSIONS
+#' @rdname utilities
 
 setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
           function(db,ids){
@@ -202,21 +180,14 @@ setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Filter a molecular formula
-#' @rdname filterMF
-#' @description Filter a MetaboliteDatabase based on given molecular formulas
-#' @param db S4 object of class MetaboliteDatabase
-#' @param mf character vector of molecular formulas
-#' @examples 
-#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
-#' db <- filterMF(db,c('C3H7NO2','C5H10N2O3'))
+#' @rdname utilities
 #' @export
 
 setGeneric('filterMF', function(db,mf){
   standardGeneric('filterMF')
 })
 
-#' @rdname filterMF
+#' @rdname utilities
 
 setMethod('filterMF',signature = 'MetaboliteDatabase',
           function(db,mf){
@@ -230,23 +201,13 @@ setMethod('filterMF',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Calculate adducts
-#' @rdname calcAdducts
-#' @description Calculate ionisation products for given database accession.
-#' @param db object of class \code{MetaboliteDatabase}
-#' @param id accession id
-#' @param adduct_rules_table table of adduct rules. Defaults to adducts()
-#' @examples 
-#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
-#' add <- calcAdducts(db,1)
-#' @importFrom purrr map_df
-#' @importFrom tibble deframe
+#' @rdname utilities
 #' @export
 
 setGeneric('calcAdducts',function(db,id,adduct_rules_table = adduct_rules())
   standardGeneric('calcAdducts'))
 
-#' @rdname calcAdducts
+#' @rdname utilities
 
 setMethod('calcAdducts',signature = 'MetaboliteDatabase',
           function(db,id,adduct_rules_table = adduct_rules()){
@@ -261,21 +222,9 @@ setMethod('calcAdducts',signature = 'MetaboliteDatabase',
               ionisationProducts(adduct_rules_table = adduct_rules_table)
           })
 
-#' Putative ionisation product search
-#' @rdname PIPsearch
-#' @param db object of class `MetaboliteDatabase`.
-#' @param mz the accurate m/z to search.
-#' @param ppm the parts per million threshold to search.
-#' @param adduct the adduct name to search.
-#' @param isotope the isotope name to search. Defaults to NA for non-isotopic searches.
-#' @param adduct_rules_table adduct formation rules tabl. Defaults to table returned by `adducts_rules()`.
-#' @param isotope_rules_table isotope table containing available isotope rules. Defaults to table returned by `isotope_rules()`.
-#' @export
-#' @author  Jasen Finch
+#' @rdname utilities
 #' @importFrom dplyr bind_rows select filter
-#' @importFrom magrittr %>%
-#' @examples
-#' res <- PIPsearch(metaboliteDB(amino_acids,descriptors(amino_acids$SMILES)),132.03023,5,'[M-H]1-')
+#' @export
 
 setGeneric('PIPsearch',function(db,
                                 mz,
@@ -287,7 +236,7 @@ setGeneric('PIPsearch',function(db,
   standardGeneric('PIPsearch')
 )
 
-#' @rdname PIPsearch
+#' @rdname utilities
 
 setMethod('PIPsearch',signature = 'MetaboliteDatabase',
           function(db,
@@ -330,10 +279,14 @@ setMethod('PIPsearch',signature = 'MetaboliteDatabase',
             return(res)
           })
 
+#' @rdname utilities
+#' @export
+
 setGeneric("elementFreq", function(db) {
   standardGeneric("elementFreq")
 })
 
+#' @rdname utilities
 #' @importFrom dplyr everything
 
 setMethod('elementFreq',signature = 'MetaboliteDatabase',

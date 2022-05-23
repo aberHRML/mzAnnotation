@@ -52,7 +52,7 @@ PIPsearch(
 A tibble containing the relevant product search results depending on the method used
 }
 \description{
-Methods for metabolite database product searches
+Methods for metabolite database ionisation product searches
 }
 \examples{
 metabolite_database <- metaboliteDB(amino_acids)

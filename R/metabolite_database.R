@@ -1,9 +1,14 @@
 
-setClass('MetaboliteDatabase',
-         slots = list(
-           entries = 'tbl_df',
-           descriptors = 'tbl_df'
-         ))
+setClass(
+  'MetaboliteDatabase',
+  slots = list(
+    entries = 'tbl_df',
+    descriptors = 'tbl_df'
+  ),
+  prototype = list(
+    entries = tibble(),
+    descriptors = tibble()
+  ))
 
 #' Create a metabolite database
 #' @description Build a metabolite database ready for use.
@@ -17,29 +22,31 @@ setClass('MetaboliteDatabase',
 
 metaboliteDB <- function(entries){
   
-  if (nrow(entries) != nrow(descriptors)) {
-    stop('Number of rows in accessions and descriptors do not match',
-         call. = FALSE)  
-  }
-  
   db <- new(
     'MetaboliteDatabase',
-    entries = as_tibble(entries),
-    descriptors = as_tibble(descriptors)
+    entries = as_tibble(entries)
   )
+  
+  descriptors(db) <- chemicalDescriptors(entries$SMILES)
   
   return(db)
 }
 
-#' Retrieve accessions
-#' @rdname getAccessions
+#' Retrieve entries
+#' @rdname accessors
 #' @description return accession data table from MetaboliteDatabase object
 #' @param db MetaboliteDatabase
 #' @export
 
-setMethod('getAccessions',signature = 'MetaboliteDatabase',
+setGeneric('entries',function(db) {
+  standardGeneric('entries')
+})
+
+#' @rdname accessors
+
+setMethod('entries',signature = 'MetaboliteDatabase',
           function(db){
-            db@accessions[[1]]
+            db@entries
           }
 )
 
@@ -145,7 +152,7 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
 setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
           function(db,ids){
             db@accessions[[1]] <- db %>%
-              getAccessions() %>%
+              entries() %>%
               filter(ID %in% ids)
             db@descriptors[[1]] <- db %>%
               getDescriptors() %>%

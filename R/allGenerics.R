@@ -23,11 +23,6 @@ setGeneric('filterMF', function(db,mf){
   standardGeneric('filterMF')
 })
 
-#' @rdname getAccessions
-setGeneric('getAccessions',function(db) {
-  standardGeneric('getAccessions')
-})
-
 #' @rdname getDescriptors
 setGeneric('getDescriptors',function(db) {
   standardGeneric('getDescriptors')

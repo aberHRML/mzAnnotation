@@ -8,7 +8,7 @@ setMethod('show',signature = 'MetaboliteDatabase',
           function(object){
             type <- object@type
             accessions <- object %>%
-              getAccessions() %>%
+              entries() %>%
               nrow()
             cat('\n',type,' MetaboliteDatabase object containing ',accessions,' accessions\n\n',sep = '')
           }

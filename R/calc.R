@@ -19,6 +19,10 @@ calcM <- function(mz,
                   isotope_rules_table = isotope_rules(), 
                   transformation_rules_table = transformation_rules()){
   
+  checkAdductTable(adduct_rules_table)
+  checkIsotopeTable(isotope_rules_table)
+  checkTransformationTable(transformation_rules_table)
+  
   addRule <- filter(adduct_rules_table,Name == adduct)
   
   M <- ((mz - addRule$Add) * addRule$Charge) 
@@ -57,6 +61,10 @@ calcMZ <- function(M,
                    adduct_rules_table = adduct_rules(), 
                    isotope_rules_table = isotope_rules(), 
                    transformation_rules_table = transformation_rules()){
+  
+  checkAdductTable(adduct_rules_table)
+  checkIsotopeTable(isotope_rules_table)
+  checkTransformationTable(transformation_rules_table)
   
   addRule <- filter(adduct_rules_table,Name == adduct)
   

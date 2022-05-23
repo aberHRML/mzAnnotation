@@ -14,6 +14,9 @@
 transformMF <- function(MF, 
                         transformation = 'M - [O] + [NH2]', 
                         transformation_rules_table = transformation_rules()){
+  
+  checkTransformationTable(transformation_rules_table)
+  
   if (!is.na(transformation)) {
     elements <- c('C','H','O','N','P','S')
     

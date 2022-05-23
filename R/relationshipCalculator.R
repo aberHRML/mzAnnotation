@@ -95,6 +95,10 @@ calculateMs <- function(mzs,
                         isotope_rules_table = isotope_rules(), 
                         transformation_rules_table = transformation_rules()){
   
+  checkAdductTable(adduct_rules_table)
+  checkIsotopeTable(isotope_rules_table)
+  checkTransformationTable(transformation_rules_table)
+  
   if (!identical(length(mzs),length(adducts),length(isotopes),length(transformations))){
     stop('Arguments mzs, adducts, isotopes, transformations should be vectors of the same length',
          call. = FALSE) 

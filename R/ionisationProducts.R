@@ -8,6 +8,7 @@
 #' @export
 
 ionisationProducts <- function(SMILES,adduct_rules_table = adduct_rules()){
+  
   desc <- chemicalDescriptors(SMILES)
   
   adduct_rules_table %>%

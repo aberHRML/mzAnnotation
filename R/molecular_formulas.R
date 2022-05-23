@@ -47,6 +47,8 @@ isotopePossible <- function(MF,
                              isotope = '13C',
                              isotope_rules_table = isotope_rules()){
   
+  checkIsotopeTable(isotope_rules_table)
+  
   if (!is.na(isotope)){
     if (!(isotope %in% isotope_rules_table$Isotope)){
       stop('Specified isotope not found in isotopic rules table.',
@@ -188,6 +190,7 @@ transformationPossible <- function(from,
                                    to,
                                    transformation,
                                    transformation_rules_table = transformation_rules()){
+  
   checkTransformation(
     transformation,
     transformation_rules_table

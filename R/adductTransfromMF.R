@@ -10,6 +10,8 @@
 
 adductTransformMF <- function(MF,adduct,adduct_rules_table = adduct_rules()){
 
+  checkAdductTable(adduct_rules_table)
+
   tMF <- function(freq,trans,expres){
     if (!is.na(trans)) {
      expAt <- trans %>% count.elements()

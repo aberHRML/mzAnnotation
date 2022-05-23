@@ -10,11 +10,21 @@ setClass(
     descriptors = tibble()
   ))
 
+setMethod('show',signature = 'MetaboliteDatabase',
+          function(object){
+            type <- object@type
+            accessions <- object %>%
+              entries() %>%
+              nrow()
+            cat('\n',type,' MetaboliteDatabase object containing ',accessions,' accessions\n\n',sep = '')
+          }
+)
+
 #' Create a metabolite database
 #' @description Build a metabolite database ready for use.
 #' @param entries tibble containing accession information. If \code{type = 'remote'} this should be the name of the table containing the accession information within the SQL database.
 #' @examples 
-#' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
+#' db <- metaboliteDB(amino_acids)
 #' @importFrom dplyr tbl
 #' @importFrom purrr map_chr
 #' @importFrom methods new
@@ -22,20 +32,24 @@ setClass(
 
 metaboliteDB <- function(entries){
   
+  checkEntries(entries)
+  
+  metabolite_descriptors <- chemicalDescriptors(entries$SMILES)
+  
   db <- new(
     'MetaboliteDatabase',
-    entries = as_tibble(entries)
+    entries = as_tibble(entries),
+    descrtors = as_tibble(metabolite_descriptors)
   )
-  
-  descriptors(db) <- chemicalDescriptors(entries$SMILES)
   
   return(db)
 }
 
-#' Retrieve entries
+#' Retrieve database entries
 #' @rdname accessors
-#' @description return accession data table from MetaboliteDatabase object
-#' @param db MetaboliteDatabase
+#' @description Get or set tables in a `MetaboliteDatabase` class object.
+#' @param db object of S4 class `MetaboliteDatabase`
+#' 
 #' @export
 
 setGeneric('entries',function(db) {
@@ -50,15 +64,18 @@ setMethod('entries',signature = 'MetaboliteDatabase',
           }
 )
 
-#' Retrieve descriptors
-#' @rdname getDescriptors
-#' @description return descriptor data table from MetaboliteDatabase object
-#' @param db MetaboliteDatabase
+#' @rdname accessors
 #' @export
 
-setMethod('getDescriptors',signature = 'MetaboliteDatabase',
+setGeneric('descriptors',function(db) {
+  standardGeneric('descriptors')
+})
+
+#' @rdname accessors
+
+setMethod('descriptors',signature = 'MetaboliteDatabase',
           function(db){
-            db@descriptors[[1]]
+            db@descriptors
           }
 )
 
@@ -72,6 +89,12 @@ setMethod('getDescriptors',signature = 'MetaboliteDatabase',
 #' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 #' db <- filterMR(db,100,120)
 #' @export
+
+setGeneric("filterMR", function(db,lower,upper) {
+  standardGeneric("filterMR")
+})
+
+#' @rdname filterMR
 
 setMethod('filterMR',signature = 'MetaboliteDatabase',
           function(db,lower,upper){
@@ -96,6 +119,12 @@ setMethod('filterMR',signature = 'MetaboliteDatabase',
 #' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 #' db <- filterER(db,'S>0')
 #' @export
+
+setGeneric("filterER", function(db,rule) {
+  standardGeneric("filterER")
+})
+
+#' @rdname filterER
 
 setMethod('filterER',signature = 'MetaboliteDatabase',
           function(db,rule){
@@ -125,6 +154,12 @@ setMethod('filterER',signature = 'MetaboliteDatabase',
 #' db <- filterIP(db,rule)
 #' @export
 
+setGeneric("filterIP", function(db,rule) {
+  standardGeneric("filterIP")
+})
+
+#' @rdname filterIP
+
 setMethod('filterIP',signature = 'MetaboliteDatabase',
           function(db,rule){
             desc <- db@descriptors[[1]]
@@ -149,6 +184,12 @@ setMethod('filterIP',signature = 'MetaboliteDatabase',
 #' db <- filterACCESSIONS(db,c(1,2))
 #' @export
 
+setGeneric("filterACCESSIONS", function(db,ids) {
+  standardGeneric("filterACCESSIONS")
+})
+
+#' @rdname filterACCESSIONS
+
 setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
           function(db,ids){
             db@accessions[[1]] <- db %>%
@@ -170,6 +211,12 @@ setMethod('filterACCESSIONS',signature = 'MetaboliteDatabase',
 #' db <- metaboliteDB(amino_acids,descriptors(amino_acids$SMILES))
 #' db <- filterMF(db,c('C3H7NO2','C5H10N2O3'))
 #' @export
+
+setGeneric('filterMF', function(db,mf){
+  standardGeneric('filterMF')
+})
+
+#' @rdname filterMF
 
 setMethod('filterMF',signature = 'MetaboliteDatabase',
           function(db,mf){

@@ -3,15 +3,21 @@
 \name{entries}
 \alias{entries}
 \alias{entries,MetaboliteDatabase-method}
-\title{Retrieve entries}
+\alias{descriptors}
+\alias{descriptors,MetaboliteDatabase-method}
+\title{Retrieve database entries}
 \usage{
 entries(db)
 
 \S4method{entries}{MetaboliteDatabase}(db)
+
+descriptors(db)
+
+\S4method{descriptors}{MetaboliteDatabase}(db)
 }
 \arguments{
-\item{db}{MetaboliteDatabase}
+\item{db}{object of S4 class \code{MetaboliteDatabase}}
 }
 \description{
-return accession data table from MetaboliteDatabase object
+Get or set tables in a \code{MetaboliteDatabase} class object.
 }

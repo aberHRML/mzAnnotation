@@ -95,6 +95,7 @@ calcMZ <- function(M,
 #' @examples 
 #' calcAccurateMass('C4H5O5',charge = 0)
 #' @importFrom CHNOSZ count.elements
+#' @importFrom dplyr mutate select
 #' @export
 
 calcAccurateMass <- function(MF,charge = 0, elementTable = elements()) {

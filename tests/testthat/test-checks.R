@@ -14,7 +14,3 @@ test_that("error thrown if incorrect adduct table specified", {
 test_that('error thrown if incorrect transformation specified',{
   expect_error(checkTransformation('incorrect'))
 })
-
-test_that('error trhown if incorrect entries specified',{
-  expect_error(checkEntries(tibble()))
-})

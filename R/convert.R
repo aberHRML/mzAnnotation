@@ -17,5 +17,8 @@ convert <- function(input, inputType, outputType) {
       args = list(input = input,inputType = inputType,outputType = outputType),
       error = 'stack'
     )
+  
+  if (output == 'NA') output <- NA
+  
   return(output)
 }

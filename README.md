@@ -3,8 +3,9 @@
 
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![R-CMD-check](https://github.com/jasenfinch/mzAnnotation/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/mzAnnotation/actions)
+[![R-CMD-check](https://github.com/jasenfinch/mzAnnotation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jasenfinch/mzAnnotation/actions/workflows/R-CMD-check.yaml)
 [![Coverage Status](https://img.shields.io/codecov/c/github/jasenfinch/mzAnnotation/devel.svg)](https://codecov.io/github/jasenfinch/mzAnnotation?branch=devel)
+[![GitHub release](https://img.shields.io/github/release/jasenfinch/mzAnnotation.svg)](https://GitHub.com/jasenfinch/mzAnnotation/releases/)
 [![DOI](https://zenodo.org/badge/33083554.svg)](https://zenodo.org/badge/latestdoi/33083554)
 <!-- badges: end -->
 

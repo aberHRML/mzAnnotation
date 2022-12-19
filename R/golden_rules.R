@@ -142,8 +142,8 @@ senior <- function(element_frequencies,
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
 #'   elementRatios() %>% 
 #'   elementRatioCheck()
-#' @importFrom purrr flatten_chr
-#' @importFrom dplyr group_split
+#' @importFrom purrr flatten_chr map
+#' @importFrom dplyr group_split rowwise
 #' @importFrom rlang parse_expr eval_tidy
 #' @export
 
@@ -206,6 +206,7 @@ elementRatioCheck <- function(element_ratios,
 #'   elementCountCheck()
 #' @importFrom rlang .data
 #' @importFrom magrittr set_colnames
+#' @importFrom dplyr everything
 #' @export
 
 elementCountCheck <- function(element_frequencies){

@@ -6,32 +6,24 @@ Authors@R:
            family = "Finch",
            role = c("aut", "cre"),
            email = "jsf9@aber.ac.uk")
-Description: Tools for the putative annotation of high resolution metabolomics m/z.
-    data.
-biocViews: MassSpectrometry, Metabolomics
+Description: Tools for the putative annotation of high resolution ESI-MS untargeted metabolomics data.
 URL: https://jasenfinch.github.io/mzAnnotation/
 BugReports: https://github.com/jasenfinch/mzAnnotation/issues
 Depends: R (>= 3.5)
 Imports:
-    Rcpp,
     CHNOSZ,
     tibble,
     dplyr,
-    furrr,
     magrittr,
     purrr,
     rlang,
+    Rcpp,
     stringr,
-    tidyr,
-    methods,
-    callr
+    tidyr
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
-LazyData: true
-Suggests: testthat,
-    covr,
-    zlibbioc
-Remotes: bioc::zlibbioc
+RoxygenNote: 7.2.3
 LinkingTo: Rcpp
+Suggests: testthat,
+    covr

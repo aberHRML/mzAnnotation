@@ -1,4 +1,0 @@
-CXX_STD = CXX11
-
-PKG_CXXFLAGS =  -I/usr/include/openbabel-2.0 -I/usr/include/openbabel3
-PKG_LIBS = -lopenbabel

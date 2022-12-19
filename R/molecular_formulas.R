@@ -41,6 +41,7 @@ generateMF <- function(mass,
 #' @return A boolean vector specifying if the specified isotope is possible for the molecular formulas.
 #' @examples isotopePossible(c('C12H22O11','H2O'))
 #' @importFrom stringr str_remove_all
+#' @importFrom rlang :=
 #' @export
 
 isotopePossible <- function(MF,
@@ -92,7 +93,7 @@ isotopePossible <- function(MF,
 #' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @examples 
 #' ipMF(118.08626,adduct = '[M+H]1+')
-#' @importFrom dplyr arrange
+#' @importFrom dplyr arrange ungroup
 #' @export
 
 ipMF <- function(mz,

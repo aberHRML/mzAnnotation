@@ -333,8 +333,8 @@ elementCountCheck <- function(element_frequencies){
     summarise(result = all(.data$heuristic_check),.groups = 'drop') %>% 
     spread(name,result) %>% 
     select(-row) %>% 
-    bind_cols(select(element_frequencies,.data$MF)) %>% 
-    select(.data$MF,everything())
+    bind_cols(select(element_frequencies,MF)) %>% 
+    select(MF,everything())
   
   heuristic_names <- heuristics %>% 
     select(name,check) %>% 

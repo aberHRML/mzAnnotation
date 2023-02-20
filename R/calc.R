@@ -1,6 +1,6 @@
-#' Calculate the mass of an m/z
-#' @description calculate M for a given m/z, adduct, isotope and transformation
-#' @param mz m/z for which to calculate M
+#' Calculate the molecular mass of an m/z
+#' @description Calculate the molecular mass for a given mass to charge ratio, adduct, isotope and transformation.
+#' @param mz mass to charge ratio
 #' @param adduct adduct to apply
 #' @param isotope isotope to apply
 #' @param transformation transformation to apply
@@ -8,7 +8,12 @@
 #' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @param transformation_rules_table tibble containing available transformation rules. Defaults to `transformation_rules()`.
 #' @importFrom dplyr filter
-#' @examples calcM(118.08626,adduct = '[M+H]1+',isotope = '13C',transformation = 'M - [O] + NH2]')
+#' @examples 
+#' calcM(
+#'   mz = 118.08626,
+#'   adduct = '[M+H]1+',
+#'   isotope = '13C',
+#'   transformation = 'M - [O] + [NH2]')
 #' @export
 
 calcM <- function(mz, 
@@ -22,6 +27,21 @@ calcM <- function(mz,
   checkAdductTable(adduct_rules_table)
   checkIsotopeTable(isotope_rules_table)
   checkTransformationTable(transformation_rules_table)
+  
+  if (!adduct %in% adduct_rules_table$Name){
+    stop('The specified `adduct` is not found in the adduct rules table',
+         call. = FALSE)
+  }
+  
+  if (!is.na(isotope) & !isotope %in% isotope_rules_table$Isotope){
+    stop('The specified `isotope` is not found in the isotope rules table',
+         call. = FALSE)
+  }
+  
+  if (!is.na(transformation) & !transformation %in% transformation_rules_table$`MF Change`){
+    stop('The specified `transformation` is not found in the transformation rules table',
+         call. = FALSE)
+  }
   
   addRule <- filter(adduct_rules_table,Name == adduct)
   
@@ -42,8 +62,8 @@ calcM <- function(mz,
 }
 
 #' Calculate the m/z of a mass
-#' @description calculate an m/z for a given M, adduct, isotope and transformation
-#' @param M M for which to calculate an m/z
+#' @description Calculate the mass to charge ratio for a given molecular mass, adduct, isotope and transformation.
+#' @param M molecular mass
 #' @param adduct adduct to apply
 #' @param isotope isotope to apply
 #' @param transformation transformation to apply
@@ -51,7 +71,12 @@ calcM <- function(mz,
 #' @param isotope_rules_table isotope table containing available isotope rules. Defaults to \code{isotopes()}.
 #' @param transformation_rules_table transformations table containing available transformations rules. Defaults to \code{transformations()}.
 #' @importFrom dplyr filter
-#' @examples calcMZ(116.05182,adduct = '[M+H]1+',isotope = '13C',transformation = 'M - [O] + NH2]')
+#' @examples
+#' calcMZ(
+#'   M = 116.05182,
+#'   adduct = '[M+H]1+',
+#'   isotope = '13C',
+#'   transformation = 'M - [O] + [NH2]')
 #' @export
 
 calcMZ <- function(M, 
@@ -65,6 +90,21 @@ calcMZ <- function(M,
   checkAdductTable(adduct_rules_table)
   checkIsotopeTable(isotope_rules_table)
   checkTransformationTable(transformation_rules_table)
+  
+  if (!adduct %in% adduct_rules_table$Name){
+    stop('The specified `adduct` is not found in the adduct rules table',
+         call. = FALSE)
+  }
+  
+  if (!is.na(isotope) & !isotope %in% isotope_rules_table$Isotope){
+    stop('The specified `isotope` is not found in the isotope rules table',
+         call. = FALSE)
+  }
+  
+  if (!is.na(transformation) & !transformation %in% transformation_rules_table$`MF Change`){
+    stop('The specified `transformation` is not found in the transformation rules table',
+         call. = FALSE)
+  }
   
   addRule <- filter(adduct_rules_table,Name == adduct)
   
@@ -87,21 +127,21 @@ calcMZ <- function(M,
   return(round(mz,5))
 }
 
-#' Calculate molecular formula accurate mass
-#' @description calculate the accurate mass of a given molecular formula
-#' @param MF molecular formula for which to calculate the accrate mass
-#' @param charge charge of the given molecular formula
-#' @param elementTable element information table. Defaults to \code{\link{elements}()}.
+#' Calculate a molecular formula  accurate mass
+#' @description Calculate the accurate mass of a specified molecular formula.
+#' @param MF the molecular formula for which to calculate the accurate mass
+#' @param charge the total charge of the specified molecular formula
+#' @param element_table elemental mass information. Defaults to \code{\link{elements}()}.
 #' @examples 
 #' calcAccurateMass('C4H5O5',charge = 0)
 #' @importFrom CHNOSZ count.elements
 #' @importFrom dplyr mutate select
 #' @export
 
-calcAccurateMass <- function(MF,charge = 0, elementTable = elements()) {
-  e <- elementTable$AtomicMass[elementTable$Element == 'e']
+calcAccurateMass <- function(MF,charge = 0, element_table = elements()) {
+  e <- element_table$AtomicMass[element_table$Element == 'e']
   elementFreq <- tibble(Element = names(count.elements(MF)),Frequency = count.elements(MF))
-  elementMasses <- elementTable %>%
+  elementMasses <- element_table %>%
     filter(RelativeAbundance == 1) %>%
     select(Element,AtomicMass)
   

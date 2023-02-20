@@ -10,12 +10,13 @@ CHOproportion(element_frequencies)
 \item{element_frequencies}{a tibble containing element frequencies as returned by \code{elementFrequencies()}}
 }
 \value{
-A tibble contianing the
+A tibble containing the CHO proportions for the specified element frequencies.
 }
 \description{
-Calculate the proportion of C, H and O in molecular formulas.
+Calculate the proportion of C, H and O in specified molecular formulas.
 }
 \examples{
-elementFrequencies(c('H2O','C12H22O11')) \%>\% 
+c('H2O','C12H22O11') \%>\% 
+  elementFrequencies() \%>\% 
   CHOproportion()
 }

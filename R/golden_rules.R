@@ -350,11 +350,12 @@ elementCountCheck <- function(element_frequencies){
 }
 
 #' The proportion of C, H and O atoms in molecular formulas
-#' @description Calculate the proportion of C, H and O in molecular formulas.
+#' @description Calculate the proportion of C, H and O in specified molecular formulas.
 #' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
-#' @return A tibble contianing the 
+#' @return A tibble containing the CHO proportions for the specified element frequencies.
 #' @examples
-#' elementFrequencies(c('H2O','C12H22O11')) %>% 
+#' c('H2O','C12H22O11') %>% 
+#'   elementFrequencies() %>% 
 #'   CHOproportion()
 #' @export
 

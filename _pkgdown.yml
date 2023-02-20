@@ -3,7 +3,7 @@ template:
   bootstrap: 5
 
 reference:
-  - title: Molecular formulas
+  - title: Molecular formulas and golden rules
     contents:
     - generateMF
     - ipMF

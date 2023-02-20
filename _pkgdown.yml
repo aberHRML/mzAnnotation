@@ -1,1 +1,46 @@
-url: https://jasenfinch.github.io/mzAnnotation/
+url: http://aberhrml.github.io/mzAnnotation/
+template:
+  bootstrap: 5
+
+reference:
+  - title: Molecular formulas and golden rules
+    contents:
+    - generateMF
+    - ipMF
+    - suitableElementRanges
+    - calcAccurateMass
+    - elements
+    - elementFrequencies
+    - CHOproportion
+    - elementCountCheck
+    - elementRatios
+    - elementRatioCheck
+    - lewis
+    - rdbe
+    - goldenRules
+    - goldenRulesScore
+    
+  - title: Adducts
+    contents:
+    - adduct_rules
+    - adductTransformMF
+    
+  - title: Isotopes
+    contents:
+    - isotope_rules
+    - isotopeDistribution
+    - isotopePossible
+    
+  - title: Transformations
+    contents:
+    - transformation_rules
+    - transformMF
+    - transformationPossible
+    
+  - title: Other
+    contents:
+    - relationshipCalculator
+    - calcMZ
+    - calcM
+    - ppmError
+    - ppmRange

@@ -1,13 +1,14 @@
 #' @useDynLib mzAnnotation
 #' @importFrom Rcpp evalCpp
 
-globalVariables(c('Name','ID','MF','Accurate Mass','Smile 1','Adduct',
-                  'PPM Error','RelativeAbundance','Element','AtomicMass',
-                  'Frequency','Isotope','MF Change','Probability',
-                  'Relative Abundance','C','S','Elements','Error',
-                  'Theoretical m/z','True','desc','m/z','Adducts',
-                  'Negative_Charge','Positive_Charge','SMILES','Total_Charge',
-                  'NHH','COO','ACCESSION_ID','Accurate_Mass','Measured m/z',
-                  'HBA1','TPSA','.','Possible','Rule','x','Transformation','ID1',
-                  'ID2','M','M1','M2','m/z1','m/z2','fill'
-))
+globalVariables(c('element','count','MF','CHO','Name','.','RelativeAbundance','Element',
+                  'AtomicMass','Frequency','Isotope','MF Change','name','probability_check',
+                  'heuristic_check','result','check','label','ratio','operator','threshold',
+                  'Mass','PPM error','CHO proportion','rule','score','LEWIS and SENIOR',
+                  'Element ratios','Element counts','Plausibility (%)','Theoretical M',
+                  'Measured m/z','Theoretical m/z','isotope_possible','Adduct','Measured M',
+                  'Relative Abundance','m/z','possible','RDBE','remainder','valence','frequency',
+                  'value','Abundance','Transformation','Probability','ID1','ID2','ID','M','M1',
+                  'M2','Error','m/z1','m/z2','fill','Transformation1','Transformation2','total_valence',
+                  'sum_valence','odd_valence_total','twice_maximum_valence','twice_atoms_minus_1',
+                  'C','S'))

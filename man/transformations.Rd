@@ -26,3 +26,8 @@ transformation_names()
 \description{
 Transformation rules
 }
+\examples{
+transformation_names()
+
+transformation_rules()
+}

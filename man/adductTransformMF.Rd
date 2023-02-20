@@ -7,14 +7,17 @@
 adductTransformMF(MF, adduct, adduct_rules_table = adduct_rules())
 }
 \arguments{
-\item{MF}{molecular formula to transform.}
+\item{MF}{a molecular formula to transform}
 
-\item{adduct}{adduct to use for transformation.}
+\item{adduct}{a transformation adduct}
 
-\item{adduct_rules_table}{Adduct formation rules table to use. Defaults to \code{adduct_rules()}.}
+\item{adduct_rules_table}{adduct formation rules. Defaults to \code{adduct_rules()}.}
+}
+\value{
+A transformed molecular formula.
 }
 \description{
-adduct transform a molecular formula.
+Transform a molecular formula based on a specified adduct.
 }
 \examples{
 adductTransformMF('C6H12O6','[M+H]1+')

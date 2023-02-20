@@ -6,8 +6,8 @@ using namespace std;
 
 //' Calculate suitable elemental frequency ranges
 //' @description Calculate elemental frequency ranges for a given mass which are suitable for molecular formula generation.
-//' @param mass accurate mass
-//' @return named numeric vector of element frequencies
+//' @param mass molecular mass
+//' @return A list of minimum and maximum frequencies for each element. 
 //' @examples
 //' suitableElementRanges(342.11621)
 //' @export

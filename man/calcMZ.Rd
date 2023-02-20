@@ -15,7 +15,7 @@ calcMZ(
 )
 }
 \arguments{
-\item{M}{M for which to calculate an m/z}
+\item{M}{molecular mass}
 
 \item{adduct}{adduct to apply}
 
@@ -30,8 +30,12 @@ calcMZ(
 \item{transformation_rules_table}{transformations table containing available transformations rules. Defaults to \code{transformations()}.}
 }
 \description{
-calculate an m/z for a given M, adduct, isotope and transformation
+Calculate the mass to charge ratio for a given molecular mass, adduct, isotope and transformation.
 }
 \examples{
-calcMZ(116.05182,adduct = '[M+H]1+',isotope = '13C',transformation = 'M - [O] + NH2]')
+calcMZ(
+  M = 116.05182,
+  adduct = '[M+H]1+',
+  isotope = '13C',
+  transformation = 'M - [O] + [NH2]')
 }

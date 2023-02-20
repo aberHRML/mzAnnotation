@@ -17,11 +17,14 @@ transformMF(
 
 \item{transformation_rules_table}{transformations table containing available transformations rules. Defaults to \code{transformation_rules()}.}
 }
+\value{
+A transformed molecular formula.
+}
 \description{
-transform a molecular formula
+Transform a molecular formula
 }
 \details{
-\code{NA} will be returned if \code{MF} cannot be transformed.
+\code{NA} will be returned if the molecular formula cannot be transformed.
 }
 \examples{
 transformMF('C4H5O5')

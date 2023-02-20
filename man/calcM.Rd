@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc.R
 \name{calcM}
 \alias{calcM}
-\title{Calculate the mass of an m/z}
+\title{Calculate the molecular mass of an m/z}
 \usage{
 calcM(
   mz,
@@ -15,7 +15,7 @@ calcM(
 )
 }
 \arguments{
-\item{mz}{m/z for which to calculate M}
+\item{mz}{mass to charge ratio}
 
 \item{adduct}{adduct to apply}
 
@@ -30,8 +30,12 @@ calcM(
 \item{transformation_rules_table}{tibble containing available transformation rules. Defaults to \code{transformation_rules()}.}
 }
 \description{
-calculate M for a given m/z, adduct, isotope and transformation
+Calculate the molecular mass for a given mass to charge ratio, adduct, isotope and transformation.
 }
 \examples{
-calcM(118.08626,adduct = '[M+H]1+',isotope = '13C',transformation = 'M - [O] + NH2]')
+calcM(
+  mz = 118.08626,
+  adduct = '[M+H]1+',
+  isotope = '13C',
+  transformation = 'M - [O] + [NH2]')
 }

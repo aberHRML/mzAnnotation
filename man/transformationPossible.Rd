@@ -24,5 +24,12 @@ transformationPossible(
 TRUE/FALSE depending whether the transformation is possible
 }
 \description{
-Check if a transformation between two molecular formulas is possible
+Check if a transformation between two molecular formulas is possible.
+}
+\examples{
+transformationPossible(
+  'C12H22O11',
+  'C6H12O6',
+  'M + [H2]'
+  )
 }

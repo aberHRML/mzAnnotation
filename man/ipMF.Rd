@@ -14,20 +14,20 @@ ipMF(
 )
 }
 \arguments{
-\item{mz}{Accurate \emph{m/z}}
+\item{mz}{accurate \emph{m/z}}
 
 \item{adduct}{ionisation product adduct}
 
 \item{isotope}{ionisation product isotope}
 
-\item{ppm}{ppm error tolerance threshold}
+\item{ppm}{parts per million error tolerance threshold}
 
-\item{adduct_rules_table}{tibble containing available adduct formation rules. Defaults to \code{adduct_rules()}.}
+\item{adduct_rules_table}{a tibble containing available adduct formation rules. Defaults to \code{adduct_rules()}.}
 
-\item{isotope_rules_table}{tibble containing available isotopic rules. Defaults to \code{isotope_rules()}.}
+\item{isotope_rules_table}{a tibble containing available isotopic rules. Defaults to \code{isotope_rules()}.}
 }
 \description{
-Generate molecular formulas for a given ionisation product accurate \emph{m/z}.
+Generate molecular formulas for a specified ionisation product accurate \emph{m/z}.
 }
 \examples{
 ipMF(118.08626,adduct = '[M+H]1+')

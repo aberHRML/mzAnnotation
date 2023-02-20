@@ -134,14 +134,27 @@ senior <- function(element_frequencies,
 }
 
 #' Element ratio checks
-#' @description Element ratio checks based on rules #4 and #5 of the Seven Golden Rules by Kind et al 2007.
+#' @description Element ratio checks based on Rules 4 and 5 of the Seven Golden Rules by Kind et al 2007.
 #' @param element_ratios a tibble containing molecular formula elemental ratios
-#' @param range the ratio threshold ranges as defined by rules #5 and #5 of the Seven Golden Rules by Kind et al 2007
-#' @return A tibble containing results of the element ratio checks.
+#' @param range the ratio threshold ranges as defined by Rules 4 and 5 of the Seven Golden Rules by Kind et al 2007
+#' @return A tibble containing results of the element ratio checks. The column headers specify the check criteria. 
+#' `TRUE` is returned where relevant checks are passed and `FALSE` where not. `NA` is returned where the check is 
+#' not relevant.
+#' @references 
+#' Kind, T. and Fiehn, O., 2007. Seven Golden Rules for heuristic filtering of molecular formulas obtained by 
+#' accurate mass spectrometry. *BMC bioinformatics*, *8*(1), pp.1-20.
 #' @examples 
-#' elementFrequencies(c('H2O','C12H22O11')) %>% 
+#' ## Using the 'common' ratio ranges
+#' c('H2O','C12H22O11') %>% 
+#'   elementFrequencies() %>% 
 #'   elementRatios() %>% 
-#'   elementRatioCheck()
+#'   elementRatioCheck(range = 'common')
+#' 
+#' ## Using the 'extreme' ratio ranges
+#' c('H2O','C12H22O11') %>% 
+#'   elementFrequencies() %>% 
+#'   elementRatios() %>% 
+#'   elementRatioCheck(range = 'extreme')
 #' @importFrom purrr flatten_chr map
 #' @importFrom dplyr group_split rowwise
 #' @importFrom rlang parse_expr eval_tidy
@@ -198,9 +211,13 @@ elementRatioCheck <- function(element_ratios,
 }
 
 #' Element count checks
-#' @description Element count checks based on rule #6 of the Seven Golden Rules by Kind et al 2007.
+#' @description Element count checks based on Rule 6 of the Seven Golden Rules by Kind et al 2007.
 #' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
-#' @return A tibble containing results of the element count checks.
+#' @return A tibble containing results of the element count checks. The column headers specify the check criteria. `TRUE` is returned where relevant checks 
+#' are passed and `FALSE` where not. `NA` is returned where the check is not relevant.
+#' @references 
+#' Kind, T. and Fiehn, O., 2007. Seven Golden Rules for heuristic filtering of molecular formulas obtained by 
+#' accurate mass spectrometry. *BMC bioinformatics*, *8*(1), pp.1-20.
 #' @examples 
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
 #'   elementCountCheck()
@@ -352,7 +369,7 @@ elementCountCheck <- function(element_frequencies){
 #' The proportion of C, H and O atoms in molecular formulas
 #' @description Calculate the proportion of C, H and O in specified molecular formulas.
 #' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
-#' @return A tibble containing the CHO proportions for the specified element frequencies.
+#' @return A tibble containing the CHO proportions for the specified element frequencies. 
 #' @examples
 #' c('H2O','C12H22O11') %>% 
 #'   elementFrequencies() %>% 
@@ -389,10 +406,14 @@ CHOproportion <- function(element_frequencies){
     mutate(`CHO proportion` = CHO/.data$total_atoms)
 }
 
-#' Golden rule tests for molecular formlas
-#' @description Heuristic tests for moleucla formulas based on the golden rules 2, 4, 5 and 6 from Kind et al 2007.
+#' Golden rule tests for molecular formulas
+#' @description Heuristic tests for molecular formulas based on the Golden Rules 2, 4, 5 and 6 from Kind et al 2007.
 #' @param MF a vector of molecular formulas
-#' @return A tibble containing golden rule heuristic check results.
+#' @return A tibble containing golden rule heuristic check results. `TRUE` is returned where relevant the Golden Rule 
+#' is satisfied and `FALSE` where not. `NA` is returned where the rule is not relevant for a molecular formula.
+#' @references 
+#' Kind, T. and Fiehn, O., 2007. Seven Golden Rules for heuristic filtering of molecular formulas obtained by 
+#' accurate mass spectrometry. *BMC bioinformatics*, *8*(1), pp.1-20.
 #' @examples 
 #' goldenRules(c('H2O','C12H22O11'))
 #' @export
@@ -418,11 +439,15 @@ goldenRules <- function(MF){
 }
 
 #' Molecular formula plausibility scores
-#' @description Percentage plausibility scores based on rules 2, 4, 5 and 6 Kind et al 2007.
+#' @description Percentage scores for molecular formula plausibility based on Rules 2, 4, 5 and 6 of Kind et al 2007.
 #' @param golden_rules a tibble containing golden rule heuristic checks results as from `goldenRules()`
-#' @return A tibble containing golden rules plausibility scores.
+#' @return A tibble containing golden rules plausibility percentage scores.
+#' @references 
+#' Kind, T. and Fiehn, O., 2007. Seven Golden Rules for heuristic filtering of molecular formulas obtained by 
+#' accurate mass spectrometry. *BMC bioinformatics*, *8*(1), pp.1-20.
 #' @examples 
-#' goldenRules(c('H2O','C12H22O11')) %>% 
+#' c('H2O','C12H22O11') %>% 
+#'   goldenRules() %>% 
 #'   goldenRulesScore()
 #' @export
 

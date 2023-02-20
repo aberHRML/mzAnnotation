@@ -3,7 +3,8 @@
 
 #' Elemental information
 #' @description Elemental information
-#' @return A tibble containing 31 rows and 5 columns.
+#' @return A tibble containing elemental information.
+#' @examples elements()
 #' @export
 elements <- function() {
     .Call('_mzAnnotation_elements', PACKAGE = 'mzAnnotation')
@@ -11,8 +12,8 @@ elements <- function() {
 
 #' Calculate suitable elemental frequency ranges
 #' @description Calculate elemental frequency ranges for a given mass which are suitable for molecular formula generation.
-#' @param mass accurate mass
-#' @return named numeric vector of element frequencies
+#' @param mass molecular mass
+#' @return A list of minimum and maximum frequencies for each element. 
 #' @examples
 #' suitableElementRanges(342.11621)
 #' @export
@@ -24,10 +25,11 @@ generate <- function(measured_mass, ppm, charge, element_ranges) {
     .Call('_mzAnnotation_generate', PACKAGE = 'mzAnnotation', measured_mass, ppm, charge, element_ranges)
 }
 
-#' Calculate a PPM error range
-#' @description Calculate the upper and lower ppm boundaries for a given m/z
-#' @param mz the m/z for which to calculate the range
-#' @param ppm the ppm 
+#' Calculate a ppm error range
+#' @description Calculate the upper and lower parts per million error boundaries for a given *m/z*.
+#' @param mz the *m/z* for which to calculate the error range
+#' @param ppm the parts per million
+#' @return A list containing the lower and upper  error range limits.
 #' @examples ppmRange(118.08626,5)
 #' @export
 ppmRange <- function(mz, ppm) {

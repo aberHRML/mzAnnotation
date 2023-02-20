@@ -12,19 +12,19 @@ generateMF(
 )
 }
 \arguments{
-\item{mass}{accurate mass}
+\item{mass}{molecular mass}
 
-\item{ppm}{ppm tolerance}
+\item{ppm}{parts per million error tolerance}
 
-\item{charge}{charge}
+\item{charge}{total charge}
 
 \item{element_ranges}{named list of element ranges}
 }
 \value{
-A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
+A \code{tibble} containing the generated molecular formulas, their theoretical mass and their PPM error.
 }
 \description{
-Molecular formula generation
+Exhaustive molecular formula generation for a specified molecular mass.
 }
 \examples{
 generateMF(342.11621,

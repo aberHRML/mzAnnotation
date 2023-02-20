@@ -14,6 +14,10 @@
 #' \item{RemEx}{pseudo formula of the atoms to be removed to the final ionisation product molecular formula}
 #' \item{Rule}{Structural rule for formation}
 #' }
+#' @examples 
+#' adduct_names()
+#' 
+#' adduct_rules()
 #' @export
 
 adduct_rules <- function(){
@@ -36,6 +40,10 @@ adduct_names <- function(){
 #' \item{Mass Difference}{Isotopic mass difference}
 #' \item{Rule}{Elemental composition rules}
 #' }
+#' @examples 
+#' isotope_names()
+#' 
+#' isotope_rules()
 #' @export
 
 isotope_rules <- function(){
@@ -64,6 +72,10 @@ isotope_names <- function(){
 #' \item{P}{Change in phosphorus atoms}
 #' \item{S}{Change in sulphur atoms}
 #' }
+#' @examples 
+#' transformation_names()
+#' 
+#' transformation_rules()
 #' @export
 
 transformation_rules <- function(){

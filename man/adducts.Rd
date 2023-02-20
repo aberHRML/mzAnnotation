@@ -27,3 +27,8 @@ adduct_names()
 \description{
 Formation rules for electrospray ionisation adducts
 }
+\examples{
+adduct_names()
+
+adduct_rules()
+}

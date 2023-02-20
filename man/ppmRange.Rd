@@ -2,17 +2,20 @@
 % Please edit documentation in R/RcppExports.R
 \name{ppmRange}
 \alias{ppmRange}
-\title{Calculate a PPM error range}
+\title{Calculate a ppm error range}
 \usage{
 ppmRange(mz, ppm)
 }
 \arguments{
-\item{mz}{the m/z for which to calculate the range}
+\item{mz}{the \emph{m/z} for which to calculate the error range}
 
-\item{ppm}{the ppm}
+\item{ppm}{the parts per million}
+}
+\value{
+A list containing the lower and upper  error range limits.
 }
 \description{
-Calculate the upper and lower ppm boundaries for a given m/z
+Calculate the upper and lower parts per million error boundaries for a given \emph{m/z}.
 }
 \examples{
 ppmRange(118.08626,5)

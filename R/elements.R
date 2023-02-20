@@ -23,7 +23,8 @@ elementFrequencies <- function(MF){
 #' @description Calculate ratios between all element frequency combinations.
 #' @param element_frequencies a tibble containing element frequencies as returned by `elementFrequencies()`
 #' @param elements a character vector of elements for which to calculate ratios
-#' @return A tibble containing element frequency ratios.
+#' @return A tibble containing element frequency ratios for all element combinations. `NA` is returned where 
+#' the element ratios are not relevant for a given molecular formula.
 #' @examples 
 #' elementFrequencies(c('H2O','C12H22O11')) %>% 
 #'   elementRatios()

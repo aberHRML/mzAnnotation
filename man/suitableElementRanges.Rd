@@ -7,10 +7,10 @@
 suitableElementRanges(mass)
 }
 \arguments{
-\item{mass}{accurate mass}
+\item{mass}{molecular mass}
 }
 \value{
-named numeric vector of element frequencies
+A list of minimum and maximum frequencies for each element.
 }
 \description{
 Calculate elemental frequency ranges for a given mass which are suitable for molecular formula generation.

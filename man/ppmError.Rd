@@ -2,17 +2,20 @@
 % Please edit documentation in R/ppm.R
 \name{ppmError}
 \alias{ppmError}
-\title{Calculate PPM error}
+\title{Calculate ppm error}
 \usage{
 ppmError(measured, theoretical)
 }
 \arguments{
-\item{measured}{measured m/z}
+\item{measured}{measured mass to charge ratio}
 
-\item{theoretical}{theoretical m/z}
+\item{theoretical}{theoretical mass to charge ratio}
+}
+\value{
+The parts per million error.
 }
 \description{
-Calculate ppmError between a measured and theoretical m/z
+Calculate the parts per million error between a measured \emph{m/z} and a theoretical \emph{m/z}.
 }
 \examples{
 ppmError(118.08626,118.08647)

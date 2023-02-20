@@ -9,16 +9,30 @@ elementRatioCheck(element_ratios, range = c("common", "extended", "extreme"))
 \arguments{
 \item{element_ratios}{a tibble containing molecular formula elemental ratios}
 
-\item{range}{the ratio threshold ranges as defined by rules #5 and #5 of the Seven Golden Rules by Kind et al 2007}
+\item{range}{the ratio threshold ranges as defined by Rules 4 and 5 of the Seven Golden Rules by Kind et al 2007}
 }
 \value{
-A tibble containing results of the element ratio checks.
+A tibble containing results of the element ratio checks. The column headers specify the check criteria.
+\code{TRUE} is returned where relevant checks are passed and \code{FALSE} where not. \code{NA} is returned where the check is
+not relevant.
 }
 \description{
-Element ratio checks based on rules #4 and #5 of the Seven Golden Rules by Kind et al 2007.
+Element ratio checks based on Rules 4 and 5 of the Seven Golden Rules by Kind et al 2007.
 }
 \examples{
-elementFrequencies(c('H2O','C12H22O11')) \%>\% 
+## Using the 'common' ratio ranges
+c('H2O','C12H22O11') \%>\% 
+  elementFrequencies() \%>\% 
   elementRatios() \%>\% 
-  elementRatioCheck()
+  elementRatioCheck(range = 'common')
+
+## Using the 'extreme' ratio ranges
+c('H2O','C12H22O11') \%>\% 
+  elementFrequencies() \%>\% 
+  elementRatios() \%>\% 
+  elementRatioCheck(range = 'extreme')
+}
+\references{
+Kind, T. and Fiehn, O., 2007. Seven Golden Rules for heuristic filtering of molecular formulas obtained by
+accurate mass spectrometry. \emph{BMC bioinformatics}, \emph{8}(1), pp.1-20.
 }

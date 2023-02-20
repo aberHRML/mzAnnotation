@@ -20,3 +20,8 @@ isotope_names()
 \description{
 Isotope rules
 }
+\examples{
+isotope_names()
+
+isotope_rules()
+}

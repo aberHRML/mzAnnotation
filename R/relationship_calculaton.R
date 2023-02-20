@@ -1,16 +1,16 @@
 #' m/z relationship calculation
-#' @description adduct, isotope and biotransfromation calculation.
-#' @param mz numeric \code{vector} of accurate m/z
-#' @param limit limit of deviation for thresholding associations. Defaults to 0.001
-#' @param adducts character vector of adducts names to use
-#' @param isotopes character vector of isotopes to use.
-#' @param transformations character vector of transformations to use
+#' @description Calculate possible adduct, isotope and transformation relationships between *m/z*.
+#' @param mz a vector of mass to charge ratios
+#' @param limit the limit of mass deviation for associations. Defaults to 0.001
+#' @param adducts character vector of possible adducts names to test
+#' @param isotopes character vector of possible isotopes to test
+#' @param transformations character vector of possible transformations to test
 #' @param adduct_rules_table table containing adduct formation rules. Defaults to `adduct_rules()`.
 #' @param isotope_rules_table table containing isotope rules. Defaults to `isotope_rules()`.
 #' @param transformation_rules_table table containing transformation rules. Defaults to `transformation_rules()`.
+#' @return A tibble of possible adduct, isotope and transformation relationships between the specified *m/z*.
 #' @examples 
 #' relationshipCalculator(c(132.03023,168.00691))
-#' @author Jasen Finch
 #' @export
 #' @importFrom utils combn
 #' @importFrom dplyr left_join contains inner_join

@@ -12,7 +12,8 @@ elementRatios(element_frequencies, elements = c("C", "H", "N", "O", "P", "S"))
 \item{elements}{a character vector of elements for which to calculate ratios}
 }
 \value{
-A tibble containing element frequency ratios.
+A tibble containing element frequency ratios for all element combinations. \code{NA} is returned where
+the element ratios are not relevant for a given molecular formula.
 }
 \description{
 Calculate ratios between all element frequency combinations.

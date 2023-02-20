@@ -7,8 +7,11 @@
 elements()
 }
 \value{
-A tibble containing 31 rows and 5 columns.
+A tibble containing elemental information.
 }
 \description{
 Elemental information
+}
+\examples{
+elements()
 }

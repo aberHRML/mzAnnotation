@@ -16,15 +16,15 @@ relationshipCalculator(
 )
 }
 \arguments{
-\item{mz}{numeric \code{vector} of accurate m/z}
+\item{mz}{a vector of mass to charge ratios}
 
-\item{limit}{limit of deviation for thresholding associations. Defaults to 0.001}
+\item{limit}{the limit of mass deviation for associations. Defaults to 0.001}
 
-\item{adducts}{character vector of adducts names to use}
+\item{adducts}{character vector of possible adducts names to test}
 
-\item{isotopes}{character vector of isotopes to use.}
+\item{isotopes}{character vector of possible isotopes to test}
 
-\item{transformations}{character vector of transformations to use}
+\item{transformations}{character vector of possible transformations to test}
 
 \item{adduct_rules_table}{table containing adduct formation rules. Defaults to \code{adduct_rules()}.}
 
@@ -32,12 +32,12 @@ relationshipCalculator(
 
 \item{transformation_rules_table}{table containing transformation rules. Defaults to \code{transformation_rules()}.}
 }
+\value{
+A tibble of possible adduct, isotope and transformation relationships between the specified \emph{m/z}.
+}
 \description{
-adduct, isotope and biotransfromation calculation.
+Calculate possible adduct, isotope and transformation relationships between \emph{m/z}.
 }
 \examples{
 relationshipCalculator(c(132.03023,168.00691))
-}
-\author{
-Jasen Finch
 }

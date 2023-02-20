@@ -1,10 +1,11 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' Calculate a PPM error range
-//' @description Calculate the upper and lower ppm boundaries for a given m/z
-//' @param mz the m/z for which to calculate the range
-//' @param ppm the ppm 
+//' Calculate a ppm error range
+//' @description Calculate the upper and lower parts per million error boundaries for a given *m/z*.
+//' @param mz the *m/z* for which to calculate the error range
+//' @param ppm the parts per million
+//' @return A list containing the lower and upper  error range limits.
 //' @examples ppmRange(118.08626,5)
 //' @export
 // [[Rcpp::export]]

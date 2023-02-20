@@ -4,23 +4,25 @@
 \alias{isotopeDistribution}
 \title{Isotopic distribution calculator}
 \usage{
-isotopeDistribution(MF, charge, limit = 9e-05, elementTable = elements())
+isotopeDistribution(MF, charge, limit = 9e-05, element_table = elements())
 }
 \arguments{
-\item{MF}{the molecular formular to generate the isotope distribution}
+\item{MF}{a molecular formula}
 
-\item{charge}{the charge of the molecular formula}
+\item{charge}{total charge}
 
-\item{limit}{the relative abundance threshold}
+\item{limit}{the minimum relative abundance threshold}
 
-\item{elementTable}{the table containing elemental information. Defaults to \code{Elements}.}
+\item{element_table}{a table containing the elemental information. Defaults to \code{elements()}.}
+}
+\value{
+A tibble containing the isotope distribution for the molecular formula.
 }
 \description{
 Isotopic distribution calculator
 }
 \examples{
-res <- isotopeDistribution('C4H5O5',charge = -1)
-}
-\author{
-Jasen Finch
+isotopeDistribution(
+  'C4H5O5',
+  charge = -1)
 }

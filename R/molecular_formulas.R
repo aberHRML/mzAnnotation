@@ -1,10 +1,10 @@
 #' Molecular formula generation
-#' @description Molecular formula generation
-#' @param mass accurate mass
-#' @param ppm ppm tolerance
-#' @param charge charge
+#' @description Exhaustive molecular formula generation for a specified molecular mass.
+#' @param mass molecular mass
+#' @param ppm parts per million error tolerance
+#' @param charge total charge
 #' @param element_ranges named list of element ranges
-#' @return A \code{tibble} containing the generated MFs, their theoretical mass and their PPM error.
+#' @return A \code{tibble} containing the generated molecular formulas, their theoretical mass and their PPM error.
 #' @examples
 #' generateMF(342.11621,
 #'            element_ranges = list(C = c(0,12),
@@ -84,13 +84,13 @@ isotopePossible <- function(MF,
 }
 
 #' Ionisation product molecular formula generation
-#' @description Generate molecular formulas for a given ionisation product accurate *m/z*.
-#' @param mz Accurate *m/z*
+#' @description Generate molecular formulas for a specified ionisation product accurate *m/z*.
+#' @param mz accurate *m/z*
 #' @param adduct ionisation product adduct
 #' @param isotope ionisation product isotope
-#' @param ppm ppm error tolerance threshold
-#' @param adduct_rules_table tibble containing available adduct formation rules. Defaults to `adduct_rules()`.
-#' @param isotope_rules_table tibble containing available isotopic rules. Defaults to `isotope_rules()`.
+#' @param ppm parts per million error tolerance threshold
+#' @param adduct_rules_table a tibble containing available adduct formation rules. Defaults to `adduct_rules()`.
+#' @param isotope_rules_table a tibble containing available isotopic rules. Defaults to `isotope_rules()`.
 #' @examples 
 #' ipMF(118.08626,adduct = '[M+H]1+')
 #' @importFrom dplyr arrange ungroup
@@ -179,10 +179,11 @@ ipMF <- function(mz,
 }
 
 #' Molecular formula adduct transformation
-#' @description adduct transform a molecular formula.
-#' @param MF molecular formula to transform.
-#' @param adduct adduct to use for transformation.
-#' @param adduct_rules_table Adduct formation rules table to use. Defaults to `adduct_rules()`.
+#' @description Transform a molecular formula based on a specified adduct.
+#' @param MF a molecular formula to transform
+#' @param adduct a transformation adduct
+#' @param adduct_rules_table adduct formation rules. Defaults to `adduct_rules()`.
+#' @return A transformed molecular formula.
 #' @examples 
 #' adductTransformMF('C6H12O6','[M+H]1+')
 #' @importFrom CHNOSZ count.elements
@@ -239,11 +240,12 @@ adductTransformMF <- function(MF,adduct,adduct_rules_table = adduct_rules()){
 }
 
 #' Transform a molecular formula
-#' @description transform a molecular formula
+#' @description Transform a molecular formula
 #' @param MF molecular formula to transform
 #' @param transformation transformation to apply
 #' @param transformation_rules_table transformations table containing available transformations rules. Defaults to `transformation_rules()`.
-#' @details \code{NA} will be returned if \code{MF} cannot be transformed.
+#' @details \code{NA} will be returned if the molecular formula cannot be transformed.
+#' @return A transformed molecular formula.
 #' @examples 
 #' transformMF('C4H5O5')
 #' transformMF('C4H5N',transformation = 'M - [OH] + [NH2]')
@@ -291,12 +293,18 @@ transformMF <- function(MF,
 }
 
 #' Transformation check
-#' @description Check if a transformation between two molecular formulas is possible
+#' @description Check if a transformation between two molecular formulas is possible.
 #' @param from molecular formula to be transformed
 #' @param to molecular formula product of the transformation
 #' @param transformation transformation to apply. As found in column `MF Change` of the table supplied to the arguement `transformation_rules_table`.
 #' @param transformation_rules_table the transformation rules table. Defaults to the returned value of `transformation_rules()`. Alternative tables should be supplied in the same format.
 #' @return TRUE/FALSE depending whether the transformation is possible
+#' @examples 
+#' transformationPossible(
+#'   'C12H22O11',
+#'   'C6H12O6',
+#'   'M + [H2]'
+#'   )
 #' @export
 
 transformationPossible <- function(from,

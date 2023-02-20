@@ -7,8 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jsf9@aber.ac.uk")
 Description: Tools for the putative annotation of high resolution ESI-MS untargeted metabolomics data.
-URL: https://jasenfinch.github.io/mzAnnotation/
-BugReports: https://github.com/jasenfinch/mzAnnotation/issues
+URL: http://aberhrml.github.io/mzAnnotation/
+BugReports: https://github.com/aberHRML/mzAnnotation/issues
 Depends: R (>= 3.5)
 Imports:
     CHNOSZ,

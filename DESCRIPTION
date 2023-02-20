@@ -6,8 +6,7 @@ Authors@R:
            family = "Finch",
            role = c("aut", "cre"),
            email = "jsf9@aber.ac.uk")
-Description: Tools to aid the putative annotation of electrospray ionisation high resolution mass spectrometry data.
-These include molecular formula generation, relationship calculation and isotopic distribution calculation.
+Description: Tools to aid the putative annotation of electrospray ionisation high resolution mass spectrometry data. These include molecular formula generation, relationship calculation and isotopic distribution calculation.
 URL: http://aberhrml.github.io/mzAnnotation/
 BugReports: https://github.com/aberHRML/mzAnnotation/issues
 Depends: R (>= 3.5)

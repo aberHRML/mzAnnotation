@@ -4,9 +4,10 @@
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/aberHRML/mzAnnotation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/aberHRML/mzAnnotation/actions/workflows/R-CMD-check.yaml)
-[![Coverage Status](https://img.shields.io/codecov/c/github/aberHRML/mzAnnotation/master.svg)](https://codecov.io/github/aberHRML/mzAnnotation?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/aberHRML/mzAnnotation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/aberHRML/mzAnnotation?branch=master)
 [![GitHub release](https://img.shields.io/github/release/aberHRML/mzAnnotation.svg)](https://GitHub.com/aberHRML/mzAnnotation/releases/)
 [![DOI](https://zenodo.org/badge/33083554.svg)](https://zenodo.org/badge/latestdoi/33083554)
+[![Codecov test coverage](https://codecov.io/gh/aberHRML/mzAnnotation/branch/master/graph/badge.svg)](https://app.codecov.io/gh/aberHRML/mzAnnotation?branch=master)
 <!-- badges: end -->
 
 > Tools to aid the putative annotation of accurate m/z from high resolution electrospray ionisation mass spectrometry (ESI-MS) data.
